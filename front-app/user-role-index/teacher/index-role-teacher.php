@@ -12,7 +12,7 @@
         <div class="header-container">
             
                 <div class="logo-container">
-                    <a href="index.html">
+                    <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php">
                         <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
                     </a>
                 </div>
@@ -25,10 +25,19 @@
         <ul>
             <div class="profile">
                 <div class="profile-info">
+                <?php
+                $con = new mysqli("localhost", "root", "", "public_teacher");
+                session_start();
+                $username = $_SESSION["username"];
+                $password = $_SESSION["password"];
+                $sql_user = "SELECT u.fname , u.lname , a.type_name , u.major FROM user u , user_acc ua , account_type a WHERE ua.user_id = u.user_id AND ua.type_id = a.type_id AND ua.username = '$username' AND ua.password = '$password'";
+                $result_user = mysqli_query($con , $sql_user);
+                $row_user = mysqli_fetch_assoc($result_user);
+                ?>
                     <h3>ชื่อ-นามสกุล</h3>
-                    <p>นาย พงศกร จรัญรักษ์</p>
-                    <p>ตำแหน่ง: อาจารย์</p>
-                    <p>สาขา: วิทยาการคอมพิวเตอร์</p>
+                    <p><?php echo $row_user["fname"]?> <?php echo $row_user["lname"]?></p>
+                    <p>ตำแหน่ง: <?php echo $row_user["type_name"]?></p>
+                    <p>สาขา: <?php echo $row_user["major"]?></p>
                 </div>
             </div>
             <div class="line"></div>

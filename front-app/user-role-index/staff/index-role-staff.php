@@ -12,8 +12,8 @@
         <div class="header-container">
             
                 <div class="logo-container">
-                    <a href="index.html">
-                        <img src="/front-app/pic/logo1.png" alt="logo">
+                    <a href="/pub_teacher/front-app/user-role-index/staff/index-role-staff.php">
+                        <img src="/pub_teacher/front-app/pic/logo1.png" alt="logo">
                     </a>
                 </div>
             <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
@@ -25,10 +25,19 @@
         <ul>
             <div class="profile">
                 <div class="profile-info">
+                <?php
+                $con = new mysqli("localhost", "root", "", "public_teacher");
+                session_start();
+                $username = $_SESSION["username"];
+                $password = $_SESSION["password"];
+                $sql_user = "SELECT u.fname , u.lname , a.type_name , u.major FROM user u , user_acc ua , account_type a WHERE ua.user_id = u.user_id AND ua.type_id = a.type_id AND ua.username = '$username' AND ua.password = '$password'";
+                $result_user = mysqli_query($con , $sql_user);
+                $row_user = mysqli_fetch_assoc($result_user);
+                ?>
                     <h3>ชื่อ-นามสกุล</h3>
-                    <p>นาย พงศกร ปูนถาวาน</p>
-                    <p>ตำแหน่ง: เจ้าหน้าที่</p>
-                    <p>สาขา: วิทยาการคอมพิวเตอร์</p>
+                    <p><?php echo $row_user["fname"]?> <?php echo $row_user["lname"]?></p>
+                    <p>ตำแหน่ง: <?php echo $row_user["type_name"]?></p>
+                    <br></br>
                 </div>
             </div>
             <div class="line"></div>
@@ -40,7 +49,7 @@
                 </a>
             </li>
                 <p></p>
-            <li><a href="/front-app/function/login/login.html"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
+            <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
             
         </ul>
    </nav>
