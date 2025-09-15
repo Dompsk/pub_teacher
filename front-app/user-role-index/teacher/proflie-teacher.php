@@ -74,7 +74,7 @@
         <div>สาขาวิชา</div>
     <div>
 
-    <div class="edit">แก้ไขข้อมูลส่วนตัว</div>
+    <a href="\pub_teacher\front-app\user-role-index\teacher\edit-profile.php" class="edit">แก้ไขข้อมูลส่วนตัว</a>
 
     </main>
 

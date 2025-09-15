@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
-    <link rel="stylesheet" href="index-role-teacher.css">
+    <link rel="stylesheet" href="edit-profile.css">
 </head>
 <body>
     <header>
@@ -13,10 +13,10 @@
             
                 <div class="logo-container">
                     <a href="index.html">
-                        <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
+                        <img src="/pro_teacher/front-app/Pic/logo1.png" alt="logo">
                     </a>
                 </div>
-            <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
+            <h1 >ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
         </div>
 
     </header>
@@ -33,45 +33,49 @@
             </div>
             <div class="line"></div>
             <li><a href="index.html"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-            <li><a href="\pub_teacher\front-app\user-role-index\teacher\proflie-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
+            <li><a href="/front-app/function/ManageProfile.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
             <li>
                 <a href="#" onclick="openModal()">
                     <i class="bi bi-gear icon-large"></i> คู่มือการใช้งาน
                 </a>
             </li>
                 <p></p>
-            <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
+            <li><a href="/pro_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
             
         </ul>
    </nav>
 
     <main>
-        <div class="main-wrapper">
-                <div class="search-bar">
-                    <form action="#" method="GET" class="search-form">
-                        <input type="text" name="q" placeholder="ค้นหาบทความ..." aria-label="Search">
-                        <button type="submit"><i class="bi bi-search"></i></button>
-                    </form>
-                </div>
+        
+    <h1 class="text" style="color: #004085";>แก้ไขข้อมูลส่วนตัว</h1>
 
-                <div class="bar">
-                    <ul>
-                        <li><a href="index.html"><i class="bi bi-journal-text icon-large"></i> จัดการบทความ</a></li>
-                        <li><a href="index.html"><i class="bi-file-earmark-text icon-large"></i> จัดทำรายงานสรุป </a></li>
-                        <li><a href="index.html"><i class="bi bi-pencil-square icon-large"></i> แก้ไขอัพเดตบทความ</a></li>
-                        <li><a href="index.html"><i class="bi bi-bar-chart-line icon-large"></i> สถานะการอัพผลงานการตีพิมพ์</a></li>
-                    </ul>           
-                </div>
+<div class="box">
+    <div>ชื่อ-นามสกุล</div>
+    <input type="text">
 
-                <div class="content-container">
-                    <h2>บทความตีพิมพ์ล่าสุด</h2>
-                    
-                    <div class="article-list">
-                    
-                    </div>
+    <div>FIRSTNAME</div>
+    <input type="text">
+    
+    <div>LASTNAME</div>
+    <input type="text">
+    
+    <div>รหัสประจำตัว</div>
+    <input type="text">
+    
+    <div>วิทยาเขต</div>
+    <input type="text">
+    
+    <div>คณะ</div>
+    <input type="text">
+    
+    <div>ภาควิชา</div>
+    <input type="text">
+    
+    <div>สาขาวิชา</div>
+    <input type="text">
 
-                </div>
-        </div>
+    <button class="btn btn-cancel">ยกเลิกการแก้ไข</button>
+    <button class="btn btn-save">บันทึกข้อมูล</button>
     </main>
 
     <footer>
