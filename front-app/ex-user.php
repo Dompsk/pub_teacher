@@ -17,7 +17,7 @@ include("../back-app/condb.php");
             
                 <div class="logo-container">
                     <a href="ex-user.html">
-                        <img src="/pro_teacher/front-app/pic/logo1.png" alt="logo">
+                        <img src="/pub_teacher/front-app/pic/logo1.png" alt="logo">
                     </a>
                 </div>
             <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
@@ -30,7 +30,7 @@ include("../back-app/condb.php");
             <div class="user-login-container">
                 <div class="login-info">
                    <h3>สำหรับบุคลากร</h3>
-                        <form action="/pro_teacher/back-app/login-exit/login.php" method="post">
+                        <form action="/pub_teacher/back-app/login-exit/login.php" method="post">
                             <div class="input-box">
                                 <input type="text" name="username" placeholder="ชื่อผู้ใช้" required>
                             </div>
