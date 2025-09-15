@@ -42,7 +42,7 @@
             </div>
             <div class="line"></div>
             <li><a href="index.html"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-            <li><a href="/front-app/function/ManageProfile.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
+            <li><a href="\pub_teacher\front-app\user-role-index\teacher\proflie-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
             <li>
                 <a href="#" onclick="openModal()">
                     <i class="bi bi-gear icon-large"></i> คู่มือการใช้งาน
