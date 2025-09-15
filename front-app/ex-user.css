@@ -1,6 +1,7 @@
 @font-face {
     font-family:Fontstyle;
-    src: url(/front-app/NotoSansThai-VariableFont_wdth\,wght.ttf);
+    src: url('NotoSansThai-VariableFont_wdth,wght.ttf') format('truetype');
+
 }
 
 body {
@@ -23,6 +24,7 @@ header h1{
     font-size: 40px;
     display: flex;
     margin-right: 750px;
+    font-family: Fontstyle;
 }
 
 .header-container {
@@ -85,6 +87,7 @@ header h1{
     color: #333;
     font-weight: 600;
     font-size: 18px;
+    font-family: Fontstyle;
     padding: 10px 15px;
     border-radius: 4px;
     display: block;        /* ให้กินพื้นที่เต็มของ li */
@@ -169,37 +172,52 @@ header h1{
     
 }
 
+.top-left-articles h1 ,.top-right-articles h1 {
+    position: relative;
+    top: -5px;  /* เลื่อนขึ้น 30px */
+}
+
 .top-left-articles,
 .top-right-articles {
     flex: 1;             /* ให้ section ซ้าย-ขวาขยายเต็ม container */
     display: flex;
     flex-direction: column;
     background-color: #fff;
-    padding: 10px;
+    padding: 15px;
     gap: 0px;
     min-width: 0;       
     border-radius: 20px; 
     box-shadow: 4px 0 10px rgba(0,0,0,0.1); /* เงาด้านขวา */
+    margin-bottom: -20px;
+
 }
 
 .article-content {
     display: flex;          /* จัดรูป-ข้อความแนวนอน */
-    gap: 20px;                 /* ช่องว่างระหว่างรูปกับข้อความ */
+    gap: 10px;                 /* ช่องว่างระหว่างรูปกับข้อความ */
     align-items: flex-start;
+    
 }
 
 .lef-pic img,
 .right-pic img {
-    width: 220px;
-    height: 170px;
+    width: 170px;
+    height: 120px;
     object-fit: cover;
     flex-shrink: 0;
 }
 
 .left-text, .right-text {
-    flex: 1; /* ให้ข้อความขยายเต็มที่ด้านขวา */
-    transform: translateY(-10%);   
-    gap: 10px;   
+    flex: 1;
+    transform: translateY(-10%);
+    gap: 5px;
+}
+
+.right-text h2,
+.right-text p,
+.right-text a {
+    margin: 20px 0;
+    line-height: 1.2;
 }
 
 
@@ -229,6 +247,7 @@ main {
     margin-right: 0px; /* <-- เลื่อนลงจากด้านบน */
 }
 
+/* content-container */
 .content-container {
     background-color: white;
     border-radius: 12px;
@@ -236,7 +255,57 @@ main {
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    display: grid;                        
+    grid-template-columns: repeat(4, 1fr); /* 4 คอลัมน์ */
+    grid-auto-rows: 200px;                 /* ความสูงเท่ากันทุกกล่อง */
+    gap: 50px;                             /* ระยะห่างเท่ากันทั้งแนวตั้ง-แนวนอน */
 }
+
+
+.articles-list p {
+    margin: 5px 0;
+    overflow: hidden;        /* ซ่อนส่วนที่เกิน */
+    text-overflow: ellipsis; /* แสดง ... ถ้ายาวเกิน */
+    white-space: nowrap;     /* แสดงเป็นบรรทัดเดียว */
+    width: 100%;             /* ครอบคลุมความกว้างกล่อง */
+    box-sizing: border-box;
+}
+
+.articles-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 200px;
+    height: 200px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    margin-left: 25px;
+    cursor: pointer;
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* ทำ transition */
+}
+
+.articles-list:hover {
+    transform: translateY(-10px);           /* เด้งขึ้น 10px */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* เงาเข้มขึ้น */
+}
+
+.pic-articles img {
+    width: 100px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+}
+
 
 
 /* footer */
