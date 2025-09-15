@@ -17,6 +17,6 @@ session_unset();
 session_destroy();
 
 // redirect กลับ login
-header("Location: /pro_teacher/front-app/ex-user.php");
+header("Location: /pub_teacher/front-app/ex-user.php");
 exit();
 ?>

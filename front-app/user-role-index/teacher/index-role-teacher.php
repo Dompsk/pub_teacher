@@ -13,7 +13,7 @@
             
                 <div class="logo-container">
                     <a href="index.html">
-                        <img src="/pro_teacher/front-app/Pic/logo1.png" alt="logo">
+                        <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
                     </a>
                 </div>
             <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
@@ -40,7 +40,7 @@
                 </a>
             </li>
                 <p></p>
-            <li><a href="/pro_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
+            <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
             
         </ul>
    </nav>

@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION["log_id"] = $stmt2->insert_id;
 
         // redirect ไปหน้า user
-        header("Location: /pro_teacher/front-app/user-role-index/teacher/index-role-teacher.php");
+        header("Location: /pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php");
         exit();
     } else {
         // login ผิด → redirect หน้า error
