@@ -58,45 +58,129 @@ include("../back-app/condb.php");
                 <div class="lef-pic">
                     <img src="/front-app/Pic/logo1.png" alt="">
                 </div>
-                <div class="left-text">
-                    <h2>เรื่อง ... </h2>
-                    <p>ชื่อผู้แต่ง</p>
-                    <p>เกี่ยวกับ : </p>
-                    <a href="#">อ่านเพิ่มเติม...</a>
-                </div>
+            <?php
+                // เชื่อมต่อฐานข้อมูล
+                $conn = new mysqli("localhost", "root", "", "public_teacher");
+            
+                // ดึงบทความล่าสุด 1 อัน
+                $sql = "
+                    SELECT p.pub_id, p.pub_name, p.upload_date, c.cname ,u.fname, u.lname
+                    FROM publication p , user_acc ua , user u , category c
+                    where p.acc_id = ua.acc_id and ua.user_id = u.user_id and p.c_id = c.c_id
+                    ORDER BY p.upload_date DESC
+                    LIMIT 1;
+                ";
+                $result = $conn->query($sql);
+
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    ?>
+                    <div class="left-text">
+                        <h2>เรื่อง <?php echo htmlspecialchars($row['pub_name']); ?></h2>
+                        <p>ชื่อผู้แต่ง: <?php echo htmlspecialchars($row['fname'] . " " . $row['lname']); ?></p>
+                        <p>เกี่ยวกับ : <?php echo htmlspecialchars($row['cname']); ?></p>
+                        <a href="detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
+                    </div>
+                    <?php
+                } else {
+                    echo "<p>ยังไม่มีบทความ</p>";
+                }
+
+                $conn->close();
+            ?>
         </div>
     </section>
 
-    <section class="top-right-articles">
-        <h1>บทความที่น่าสนใจ</h1>
-            <div class="article-content">
-                <div class="right-pic">
-                    <img src="/front-app/Pic/logo1.png" alt="">
-                </div>
-                <div class="right-text">
-                    <h2>เรื่อง ... </h2>
-                    <p>ชื่อผู้แต่ง</p>
-                    <p>เกี่ยวกับ :</p>
-                    <a href="#">อ่านเพิ่มเติม...</a>
-                </div>
-            </div>
+                <?php
+                    // เชื่อมต่อฐานข้อมูล
+                    $conn = new mysqli("localhost", "root", "", "public_teacher");
+
+
+                    $sql = "
+                    SELECT p.pub_id, p.pub_name, p.upload_date, c.cname ,u.fname, u.lname
+                    FROM publication p , user_acc ua , user u , category c
+                    where p.acc_id = ua.acc_id and ua.user_id = u.user_id and p.c_id = c.c_id
+                    ORDER BY RAND()
+                    LIMIT 1;
+                    ";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        ?>
+                        <section class="top-right-articles">
+                            <h1>บทความที่น่าสนใจ</h1>
+                            <div class="article-content">
+                                <div class="right-pic">
+                                    <img src="/front-app/Pic/logo1.png" alt="">
+                                </div>
+                                <div class="right-text">
+                                    <h2>เรื่อง <?php echo htmlspecialchars($row['pub_name']); ?></h2>
+                                    <p>ชื่อผู้แต่ง: <?php echo htmlspecialchars($row['fname'] . " " . $row['lname']); ?></p>
+                                    <p>เกี่ยวกับ: <?php echo htmlspecialchars($row['cname']); ?></p>
+                                    <a href="detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
+                                </div>
+                            </div>
+                        </section>
+                        <?php
+                    } else {
+                        echo "<p>ยังไม่มีบทความ</p>";
+                    }
+
+                    $conn->close();
+                ?>
     </section>
 </div>
 
     <main>
         <div class="main-wrapper">
-                <div class="content-container">
-                        <h2>บทความตีพิมพ์ล่าสุด</h2>
-                        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                        
-                    
-                    
-                    
-                    </div>
+            <h2>บทความตีพิมพ์ล่าสุด</h2>
+            <div class="content-container">
 
-                </div>
+            <?php
+            // เชื่อมต่อฐานข้อมูล
+            $conn = new mysqli("localhost", "root", "", "public_teacher");
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            // ดึง 16 บทความล่าสุด พร้อมชื่อผู้แต่ง
+            $sql = "
+                SELECT p.pub_id, p.pub_name, p.upload_date, c.cname ,u.fname, u.lname
+                    FROM publication p , user_acc ua , user u , category c
+                    where p.acc_id = ua.acc_id and ua.user_id = u.user_id and p.c_id = c.c_id
+                    ORDER BY p.upload_date DESC
+                    LIMIT 8;
+            ";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    // สมมติว่ารูปเก็บ path ไว้ใน c_id หรือมี column image_path ใช้ detail.php?pub_id= ในการคลิกไปดูรายละเอียดผลความตีพิม!!!!
+                    $img = !empty($row['c_id']) ? $row['c_id'] : '/pub_teacher/front-app/Pic/bk1.jpg';
+                    ?>  
+                         
+                        <div class="articles-list" onclick="location.href='detail.php?pub_id=<?php echo $row['pub_id']; ?>'">
+                        <div class="pic-articles">
+                            <img src="<?php echo htmlspecialchars($img); ?>" alt="ภาพบทความ">
+                        </div>
+                        <p><?php echo htmlspecialchars($row['pub_name']); ?></p>
+                        <p>โดย: <?php echo htmlspecialchars($row['fname'] . " " . $row['lname']); ?></p>
+                        </div>
+                    <?php
+                }
+            } else {
+                echo "<p>ยังไม่มีบทความ</p>";
+            }
+
+            $conn->close();
+            ?>
+
+            </div>
         </div>
     </main>
+
+
 
 
     <footer>
