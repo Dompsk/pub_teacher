@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
-    <link rel="stylesheet" href="profile-teacher.css">
+    <link rel="stylesheet" href="edit-profile.css">
 </head>
 <body>
     <header>
@@ -47,35 +47,35 @@
 
     <main>
         
-    <h1 style="
-    color: #004085;
-    position: absolute;
-    top: 180px;
-    left: 700px;">โปรไฟล์ของฉัน</h1>
+    <h1 class="text" style="color: #004085";>แก้ไขข้อมูลส่วนตัว</h1>
 
-    <div class="card">
-      <div class="title">Virtual Teacher Card</div>
-    <div class="card-info">
-      <div class="card-title">พงศกร ปานถาวร</div>
-      <div class="card-title">PONGSAKORN PANTHAWORN</div>
-      <div class="card-title">6610210252</div>
-    </div>
-    <div class="text">คณะวิทยาศาสตร์</div>
-    <img class="img" src="" alt="">
-    <div class="boximg">
-       <img class="img1" src="\pub_teacher\front-app\Pic\logo1.png">
-    </div>
-    </div>
+<div class="box">
+    <div>ชื่อ-นามสกุล</div>
+    <input type="text">
 
-    <div class="x">
-        <div>วิทยาเขต</div>
-        <div>คณะ</div>
-        <div>ภาควิชา</div>
-        <div>สาขาวิชา</div>
-    <div>
+    <div>FIRSTNAME</div>
+    <input type="text">
+    
+    <div>LASTNAME</div>
+    <input type="text">
+    
+    <div>รหัสประจำตัว</div>
+    <input type="text">
+    
+    <div>วิทยาเขต</div>
+    <input type="text">
+    
+    <div>คณะ</div>
+    <input type="text">
+    
+    <div>ภาควิชา</div>
+    <input type="text">
+    
+    <div>สาขาวิชา</div>
+    <input type="text">
 
-    <a href="\pub_teacher\front-app\user-role-index\teacher\edit-profile.php" class="edit">แก้ไขข้อมูลส่วนตัว</a>
-
+    <button class="btn btn-cancel">ยกเลิกการแก้ไข</button>
+    <button class="btn btn-save">บันทึกข้อมูล</button>
     </main>
 
     <footer>
