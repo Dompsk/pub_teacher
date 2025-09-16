@@ -3,6 +3,12 @@
     src: url(/front-app/NotoSansThai-VariableFont_wdth\,wght.ttf);
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* ป้องกัน scroll แนวนอน */
+}
+
 body {
     font-family: Fontstyle;
     margin: 0;
@@ -252,16 +258,103 @@ main {
     box-sizing: border-box;
 }
 
+.content-container h2 {
+    background-color: #cce5ff;
+    padding: 10px 15px;
+    border-radius: 8px 8px 0 0; /* มุมบนซ้าย-ขวาโค้ง */
+    display: inline-block;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    color: #000;
+    margin-bottom: 15px;
+    transform: translateY(-40%);
+}
+
+.articles-list-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.articles-list {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    transform: translateY(-5%);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.articles-list:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.article-pic {
+    width: 120px;
+    height: 170px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin-bottom: 15px;
+}
+
+.article-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.article-text {
+    text-align: center;
+}
+
+.article-text h3 {
+    font-size: 1.1rem;
+    margin: 5px 0;
+}
+
+.article-text p {
+    margin: 3px 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.article-text a {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.article-text a:hover {
+    transform: translateY(-3px);
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+
 
 /* footer */
+
 footer {
     background-color: #004085;
+    padding: 5px 0;        /* เว้นระยะบน-ล่าง */
+    width: 100vw;          /* 100% ของ viewport width */
+    box-sizing: border-box; /* รวม padding กับ border ใน width */
+    margin: 0;             /* ลบ margin ภายนอก */
+    overflow-x: hidden;    /* ป้องกัน Scroll แนวนอน */
+    text-align: center;    /* จัดข้อความตรงกลาง */
     color: white;
-    text-align: center;
-    padding: 10px;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
 }
 
 
