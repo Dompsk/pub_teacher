@@ -294,14 +294,15 @@ main {
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     width: 100%;
-    padding: 20px;
+    height: auto;
+    padding: 20px 20px 20px 20px   ;
     box-sizing: border-box;
     align-items: center;
     justify-content: center;
     display: grid;                        
     grid-template-columns: repeat(4, 1fr); /* 4 คอลัมน์ */
     grid-auto-rows: 200px;                 /* ความสูงเท่ากันทุกกล่อง */
-    gap: 50px;                             /* ระยะห่างเท่ากันทั้งแนวตั้ง-แนวนอน */
+    gap: 40px;                             /* ระยะห่างเท่ากันทั้งแนวตั้ง-แนวนอน */
 }
 
 
@@ -329,7 +330,7 @@ main {
     text-align: center;
     margin-left: 25px;
     cursor: pointer;
-    transform: translateY(5%);
+    transform: translateY(-1%);
 
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* ทำ transition */
 }
@@ -369,8 +370,9 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
-    position: fixed;
+    position: flex;
     width: 100%;
     bottom: 0;
+    
 }
 
