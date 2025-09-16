@@ -4,6 +4,12 @@
 
 }
 
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* ป้องกัน scroll แนวนอน */
+}
+
 body {
     font-family: Fontstyle;
     margin: 0;
@@ -14,8 +20,11 @@ body {
 /* header */
 header {
     background-color: #004085;
-    padding: 5px;
-    
+    padding: 5px 0;        /* เว้นระยะบน-ล่าง */
+    width: 100vw;          /* 100% ของ viewport width */
+    box-sizing: border-box; /* รวม padding กับ border ใน width */
+    margin: 0;             /* ลบ margin ภายนอก */
+    overflow-x: hidden;    /* ป้องกัน Scroll แนวนอน */
 }
 
 header h1{
@@ -367,12 +376,13 @@ main {
 /* footer */
 footer {
     background-color: #004085;
+    padding: 5px 0;        /* เว้นระยะบน-ล่าง */
+    width: 100vw;          /* 100% ของ viewport width */
+    box-sizing: border-box; /* รวม padding กับ border ใน width */
+    margin: 0;             /* ลบ margin ภายนอก */
+    overflow-x: hidden;    /* ป้องกัน Scroll แนวนอน */
+    text-align: center;    /* จัดข้อความตรงกลาง */
     color: white;
-    text-align: center;
-    padding: 10px;
-    position: flex;
-    width: 100%;
-    bottom: 0;
-    
 }
+
 
