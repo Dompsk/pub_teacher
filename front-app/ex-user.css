@@ -168,56 +168,86 @@ header h1{
     padding: 10px;
     width: 1250px;            
     margin: 20px auto; 
-    height: 280px; 
-    
+    height: 310px; 
 }
+
+.top-left-articles h1, .top-right-articles h1 {
+    background-color: #004085;  /* สีฟ้าอ่อน */
+    padding: 10px 15px;          /* เว้นระยะด้านใน */
+    border-radius: 8px 8px 0px 0px ;          /* มุมโค้ง */
+    display: inline-block;       /* ให้กรอบพอดีกับข้อความ */
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* เงาเล็กน้อย */
+    color: #ffffff;     
+    transform: translateY(-35px)translateX(-15px);         /* สีตัวอักษรเข้ม */
+    width: 575px;
+}
+
 
 .top-left-articles h1 ,.top-right-articles h1 {
     position: relative;
-    top: -5px;  /* เลื่อนขึ้น 30px */
+    top: -3px;  /* เลื่อนขึ้น 30px */
 }
 
 .top-left-articles,
 .top-right-articles {
-    flex: 1;             /* ให้ section ซ้าย-ขวาขยายเต็ม container */
+    flex: 1.6;       /* ขยายสัดส่วนมากขึ้น */
+    min-width: 0;
     display: flex;
     flex-direction: column;
     background-color: #fff;
     padding: 15px;
-    gap: 0px;
-    min-width: 0;       
-    border-radius: 20px; 
-    box-shadow: 4px 0 10px rgba(0,0,0,0.1); /* เงาด้านขวา */
-    margin-bottom: -20px;
-
+    gap: 10px;
+    border-radius: 20px;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.1);
 }
 
 .article-content {
-    display: flex;          /* จัดรูป-ข้อความแนวนอน */
-    gap: 10px;                 /* ช่องว่างระหว่างรูปกับข้อความ */
+    display: flex;          
+    gap: 20px;                 
     align-items: flex-start;
-    
+}
+
+.lef-pic,
+.right-pic {
+    width: 120px;
+    height: 170px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* เงา */
+    transform: translateY(-50px); /* เลื่อนขึ้น 50px */
+    margin-bottom: 10px; /* ปรับระยะห่างกับข้อความด้านล่าง */
 }
 
 .lef-pic img,
 .right-pic img {
-    width: 170px;
-    height: 120px;
-    object-fit: cover;
-    flex-shrink: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ให้ภาพเต็มกรอบโดยไม่บิดเบี้ยว */
+    display: block;
 }
 
 .left-text, .right-text {
     flex: 1;
-    transform: translateY(-10%);
+    transform: translateY(-30%);
     gap: 5px;
 }
 
-.right-text h2,
-.right-text p,
-.right-text a {
-    margin: 20px 0;
-    line-height: 1.2;
+.left-text a , .right-text a {
+    display: inline-block;           /* ทำให้สามารถกำหนด padding, border ได้ */
+    padding: 8px 16px;               /* ระยะภายในปุ่ม */
+    background-color: #007bff;       /* สีพื้นหลัง */
+    color: #fff;                     /* สีตัวอักษร */
+    text-decoration: none;           /* ลบขีดเส้นใต้ */
+    border-radius: 8px;              /* มุมโค้ง */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* เงา */
+    transition: all 0.3s ease;       /* ทำให้ขยับแบบ smooth */
+    font-weight: bold;
+}
+
+.left-text a:hover ,    .right-text a:hover {
+    transform: translateY(-5px);     /* ขยับขึ้นเมื่อ hover */
+    background-color: #0056b3;       /* สีเข้มขึ้นเมื่อ hover */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3); /* เงาเข้มขึ้น */
 }
 
 
@@ -243,8 +273,19 @@ main {
     flex-direction: column;
     gap: 10px;
     width: 1250px; /* ความกว้างคงที่ */
-    margin-top: -30px; /* <-- เลื่อนลงจากด้านบน */
+    margin-top: -60px; /* <-- เลื่อนลงจากด้านบน */
     margin-right: 0px; /* <-- เลื่อนลงจากด้านบน */
+}
+
+.main-wrapper   h2{
+    font-size: 32px;
+    transform: translateY(40%);
+    display: inline-block;           /* ทำให้สามารถกำหนด padding, border ได้ */
+    padding: 8px 16px;               /* ระยะภายในปุ่ม */
+    background-color: #0056b3;       /* สีพื้นหลัง */
+    color: #ffffff;                     /* สีตัวอักษร */
+    border-radius: 8px;              /* มุมโค้ง */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* เงา */
 }
 
 /* content-container */
@@ -288,24 +329,38 @@ main {
     text-align: center;
     margin-left: 25px;
     cursor: pointer;
+    transform: translateY(5%);
 
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* ทำ transition */
 }
 
 .articles-list:hover {
-    transform: translateY(-10px);           /* เด้งขึ้น 10px */
+    transform: translateY(-5px);           /* เด้งขึ้น 10px */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* เงาเข้มขึ้น */
 }
 
-.pic-articles img {
+.pic-articles {
     width: 100px;
     height: 140px;
-    object-fit: cover;
-    border-radius: 5px;
-    display: block;
     margin: 0 auto;
+    border-radius: 5px;
+    overflow: hidden; /* ตัดส่วนที่เกินออก ป้องกันเงาล้น */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35); /* เงาที่กรอบรูป */
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
+.pic-articles:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* เงาเข้มขึ้นเมื่อ hover */
+    transform: scale(1.05);
+}
+
+.pic-articles img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ทำให้ภาพพอดีกับกรอบ */
+    border-radius: 5px;
+    display: block;
+}
 
 
 /* footer */
