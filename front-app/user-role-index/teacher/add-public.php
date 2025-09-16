@@ -13,8 +13,8 @@
         <div class="header-container">
             
                 <div class="logo-container">
-                    <a href="index.html">
-                        <img src="/pro_teacher/front-app/Pic/logo1.png" alt="logo">
+                    <a href="\pub_teacher\front-app\user-role-index\teacher\index-role-teacher.php">
+                        <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
                     </a>
                 </div>
             <h1 >เพิ่มบทความ</h1> 
@@ -23,20 +23,25 @@
     </header>
 
     <main>
-      
+    
+    <?php
+
+    ?>
+
     <div class="box">
       <div>ชื่อบทความ :</div>
-      <input type="text">
+      <input type="text" name="pub_name" placeholder="กรอกชื่อบทความ" required>
 
       <br>
 
       <div>ประเภทบทความ :</div>
       <select>
-        <option value="">-- ผลงานตีพิมพ์ในที่ประชุมวิชาการระดับชาติ --</option>
-        <option value="news">ผลงานตีพิมพ์ในที่ประชุมวิชาการระดับนานาชาติ</option>
-        <option value="review">วารสาร</option>
-        <option value="tutorial">ตำรา</option>
-        <option value="opinion">อื่นๆ</option>
+        <option value="" hidden>-- เลือกประเภทบทความ --</option>
+        <option value="1">ผลงานตีพิมพ์ในที่ประชุมวิชาการระดับชาติ</option>
+        <option value="2">ผลงานตีพิมพ์ในที่ประชุมวิชาการระดับนานาชาติ</option>
+        <option value="3">วารสาร</option>
+        <option value="4">ตำรา</option>
+        <option value="5">อื่นๆ</option>
       </select>
 
       <br>

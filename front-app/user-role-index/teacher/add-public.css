@@ -146,7 +146,7 @@ select {
       left: 1200px;
     }
     .btn-cancel:hover {
-      background: #ffecec;
+      background: #c4b6b6;
     }
 
     /* ปุ่มบันทึก */
@@ -163,3 +163,9 @@ select {
     .btn-save:hover {
       background: #60ff2f;
     }
+
+    input::placeholder {
+    font-size: 20px;      /* ขนาดตัวอักษร */
+    color: #888888;       /* สีตัวอักษร */
+    font-weight: 500;     /* น้ำหนักตัวอักษร */
+}
