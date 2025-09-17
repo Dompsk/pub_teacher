@@ -3,6 +3,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
     <link rel="stylesheet" href="index-role-staff.css">
 </head>
@@ -65,10 +67,10 @@
 
                 <div class="bar">
                     <ul>
-                        <li><a href="index.html"><i class="bi bi-journal-text icon-large"></i> จัดการบทความ</a></li>
-                        <li><a href="index.html"><i class="bi-file-earmark-text icon-large"></i> จัดทำรายงานสรุป </a></li>
-                        <li><a href="index.html"><i class="bi bi-pencil-square icon-large"></i> แก้ไขอัพเดตบทความ</a></li>
-                        <li><a href="index.html"><i class="bi bi-bar-chart-line icon-large"></i> สถานะการอัพผลงานการตีพิมพ์</a></li>
+                        <li><a href="index.html"><i class="bi bi-journal-check icon-large"></i> จัดทำรายงานสรุป</a></li>
+                        <li><a href="index.html"><i class="bi bi-search icon-large"></i> ตรวจสอบผลงานตีพิมพ์ </a></li>
+                        <li><a href="index.html"><i class="bi bi-folder-check icon-large"></i> ประวัติจัดการผลงานตีพิมพ์</a></li>
+                        
                     </ul>           
                 </div>
 
@@ -137,7 +139,7 @@
     </div>
     <div class="modal-body">
       <!-- แทนที่ form ด้วย iframe สำหรับ PDF -->
-      <iframe src="/front-app/UserGuide/finalReq-Publication-group9.pdf" width="100%" height="800px" style="border:none;"></iframe>
+      <iframe src="/pub_teacher/front-app/UserGuide/guide.pdf" width="100%" height="800px" style="border:none;"></iframe>
     </div>
     <div class="modal-footer">
       <button class="btn cancel" onclick="closeModal()">ปิด</button>

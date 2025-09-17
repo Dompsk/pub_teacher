@@ -68,8 +68,6 @@
                     <ul>
                         <li><a href="index.html"><i class="bi bi-journal-text icon-large"></i> จัดการบทความ</a></li>
                         <li><a href="index.html"><i class="bi-file-earmark-text icon-large"></i> จัดทำรายงานสรุป </a></li>
-                        <li><a href="index.html"><i class="bi bi-pencil-square icon-large"></i> แก้ไขอัพเดตบทความ</a></li>
-                        <li><a href="index.html"><i class="bi bi-bar-chart-line icon-large"></i> สถานะการอัพผลงานการตีพิมพ์</a></li>
                     </ul>           
                 </div>
 
@@ -139,7 +137,7 @@
     </div>
     <div class="modal-body">
       <!-- แทนที่ form ด้วย iframe สำหรับ PDF -->
-      <iframe src="/front-app/UserGuide/finalReq-Publication-group9.pdf" width="100%" height="800px" style="border:none;"></iframe>
+      <iframe src="/pub_teacher/front-app/UserGuide/guide.pdf" width="100%" height="800px" style="border:none;"></iframe>
     </div>
     <div class="modal-footer">
       <button class="btn cancel" onclick="closeModal()">ปิด</button>
