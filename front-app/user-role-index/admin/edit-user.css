@@ -1,0 +1,161 @@
+@font-face {
+    font-family:Fontstyle;
+    src: url(/front-app/NotoSansThai-VariableFont_wdth\,wght.ttf);
+}
+
+body {
+    font-family: Fontstyle;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+/* header */
+header {
+    background-color: #004085;
+    padding: 5px;
+    
+}
+
+header h1{
+    color: white;
+    justify-content: left;
+    font-size: 40px;
+    display: flex;
+    margin-right: 750px;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* logo */
+.logo-container{
+   background-color: white;
+    padding: 15px;
+    border-radius: 15px;  
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateX(80%) translateY(-50%);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+}
+
+.logo-container img {
+    height: 50px;
+    width: auto;
+    display: block;
+}
+
+
+
+
+/* footer */
+.content-container {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+/* footer */
+footer {
+    background-color: #004085;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.box {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px 20px;
+      max-width: 600px;
+      margin: 30px auto;
+      align-items: center;
+      position: absolute;
+      top: 150px;   
+      left: 700px;
+      font-size: 24px;
+      line-height: 1;
+    }
+    .box div {
+      font-weight: bold;
+    }
+    .box input {
+      width: 900px;
+      height: 70px;
+      padding: 10px ;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+.text {
+    position: absolute;
+      top: 180px;   
+      left: 700px;
+}
+
+select {
+  padding: 8px 12px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 900px;
+  height: 70px;
+}
+
+.btn {
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      border: 2px solid transparent;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    /* ปุ่มยกเลิก */
+    .btn-cancel {
+      color: rgb(255, 255, 255);
+      background: rgb(124, 124, 124);
+      width: 180px;
+      height: 60px;
+      position: absolute;
+      top: 920px;   
+      left: 1200px;
+    }
+    .btn-cancel:hover {
+      background: #c4b6b6;
+    }
+
+    /* ปุ่มบันทึก */
+    .btn-save {
+      background: #003E87;
+      color: white;
+      border: none;
+      width: 180px;
+      height: 60px;
+      position: absolute;
+      top: 920px;   
+      left: 1410px;
+    }
+    .btn-save:hover {
+      background: #0568d8;
+    }
+
+    input::placeholder {
+    font-size: 20px;      /* ขนาดตัวอักษร */
+    color: #888888;       /* สีตัวอักษร */
+    font-weight: 500;     /* น้ำหนักตัวอักษร */
+}
