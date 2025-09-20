@@ -1,6 +1,6 @@
 @font-face {
     font-family:Fontstyle;
-    src: url(/front-app/NotoSansThai-VariableFont_wdth\,wght.ttf);
+    src: url(/pub_teacher/front-app/NotoSansThai-VariableFont_wdth\,wght.ttf);
 }
 
 body {
@@ -23,6 +23,7 @@ header h1{
     font-size: 40px;
     display: flex;
     margin-right: 750px;
+    
 }
 
 .header-container {
@@ -334,6 +335,8 @@ footer {
 .btn.cancel { padding:10px 20px; border-radius:8px; border:none; background:#f0f0f0; color:#333; cursor:pointer; }
 .btn.cancel:hover { background:#e0e0e0; }
 
+
+/* card setting */
    .card {
     position: absolute;
     top: 300px;   
@@ -360,26 +363,23 @@ footer {
       box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     }
 
-    .boximg {
-      width: 100px;
-      position: absolute;
-      top: 330px;   
-      left: 30px; 
-      height: 120px;
-      border-radius: 8px;
-      background: white;
-      border: 2px solid white;
-      width: 250px;  
-      height: 80px; 
+    .box_img {
+    background-color: white;
+    padding: 15px;
+    border-radius: 15px;  
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateX(5px) translateY(120px);
+    box-shadow: 0 5 5px rgba(0, 3, 5, 0.2); 
     }
 
     .img1 {
-      position: absolute;
-      width: 200px;  
-      height: 60px; 
-      top: 10px;   
-      left: 20px; 
+    height: 50px;
+    width: auto;
+    display: block;
     }
+    
 
     .card-info {
       position: absolute;
@@ -421,12 +421,17 @@ footer {
       color: #004085;
     }
 
-.x {
+.footer-card {
     position: absolute;
-    top: 800px;   
+    top: 725px;   
     left: 700px; 
     font-size: 24px;
     line-height: 2.5;
+}
+
+.footer-card h3{
+    transform: translateY(-50px);
+    font-weight: 600;
 }
 
 .text {
@@ -436,27 +441,89 @@ footer {
     font-size: 24px;
 }
 
+
+
 .card {
     position: absolute;
-    top: 300px;   
-    left: 700px;  
+    margin-top: -150px;
+    left: -100px;
     background: linear-gradient(to bottom, #4a90e2 20%, #357abd 0%);
     color: white;
-    border-radius: 12px;
+    border-radius: 40px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.15);
     width: 800px;  
     height: 400px;  
+    transition: all 0.3s ease;  
+    overflow: hidden; /* ป้องกันลายน้ำล้นออก */
+    position: relative; 
     }
 
-    .edit {
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+    transform: translateY(-5px);
+}
+
+.watermark {
     position: absolute;
-    top: -500px;   
-    left: 1000px;  
-    background-color: rgb(183, 215, 241);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    width: 200px;  
-    height: 30px; 
-    }
+    top: 50%;
+    left:   50%;
+    width: 100%;
+    height: 100%;
+    color: rgba(255,255,255,0.05);  /* โปร่งใสเหมือนลายน้ำ */
+    font-size: 60px;
+    transform: translate(-50%, -50%) rotate(-30deg); /* วางกลางและหมุน */
+    font-weight: bold;
+    line-height: 80px;               /* เว้นระยะระหว่างบรรทัด */
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    pointer-events: none;            /* คลิกทะลุปุ่มได้ */
+    z-index: 0;
+    white-space: pre-wrap;           /* ให้ข้อความ wrap ตาม line */
+}
+
+.watermark * {
+    position: relative;
+    z-index: 1; /* เนื้อหาอยู่เหนือ watermark */
+}
+
+.title {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: rgb(255, 255, 255);
+  
+}
+
+.card-title {
+  font-size: 29px;
+  font-weight: 550;
+  margin-left: 100px;
+}
+
+  .edit {
+      display: inline-block;              /* ให้เหมือนปุ่ม */
+      background-color: #dcf1f1;         /* สีน้ำเงินทันสมัย */
+      color: rgb(0, 0, 0);                      /* ตัวอักษรสีขาว */
+      font-weight: 400;                  /* ตัวหนาเล็กน้อย */
+      border-radius: 12px;               /* มุมโค้ง */
+      width: 200px; 
+      height: 50px;
+      text-decoration: none;             /* เอาเส้นใต้ */
+      box-shadow: 0 4px 24px rgba(0,0,0,0.15); /* เงา */
+      transition: all 0.3s ease;        /* เพิ่ม transition */
+      font-size: 20px;                   /* ขนาดตัวอักษร */
+      cursor: pointer;                   /* เคอร์เซอร์ pointer */
+      border: none;      
+      position: absolute;                /* ลบเส้นขอบ */
+      top: -425px; 
+      left: 950px;
+      text-align: center;                /* จัดข้อความตรงกลาง */
+  }
+
+  .edit:hover {
+      background-color: #ffffff;        /* สีเข้มเมื่อ hover */
+      box-shadow: 0 6px 32  px rgba(0,0,0,0.25); /* เงาชัดขึ้น */
+      transform: translateY(-2px);      /* ยกขึ้นเล็กน้อย */
+  }
