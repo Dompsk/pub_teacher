@@ -1,6 +1,6 @@
 @font-face {
     font-family:Fontstyle;
-    src: url(/front-app/NotoSansThai-VariableFont_wdth\,wght.ttf);
+    src: url(/pub_teacher/front-app/NotoSansThai-VariableFont_wdth\,wght.ttf);
 }
 
 body {
@@ -364,6 +364,7 @@ footer {
       left: 700px;
 }
 
+  /* ปุ่ม */
 .btn {
       display: inline-flex;
       align-items: center;
@@ -376,34 +377,94 @@ footer {
       border: 2px solid transparent;
       text-decoration: none;
       transition: 0.3s;
+      margin-top: -250px;
     }
 
     /* ปุ่มยกเลิก */
     .btn-cancel {
-      border: 1.5px solid red;
-      color: red;
-      background: white;
-      width: 180px;
-      height: 60px;
-      position: absolute;
-      top: 600px;   
-      left: 200px;
+        padding: 10px 30px; 
+        border-radius: 8px; 
+        border: 4px solid #ffbdbd;   /* กรอบสีแดงอ่อน */
+        background: #ffbdbd; 
+        color: #333; 
+        cursor: pointer; 
+        transition: all 0.3s ease;
+        font-size: 16px;
+        position: absolute;
+        top: 600px;   
+        left: 200px;
+        font-weight: 600;
     }
+
     .btn-cancel:hover {
-      background: #ffecec;
+        background: #ff6b6b;   /* เปลี่ยนพื้นหลังตอน hover */
+        color: #fff;           /* ตัวหนังสือเป็นสีขาว */
+        border-color: #ff6b6b; /* กรอบเข้มขึ้น */
+        box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3); /* ใส่เงาเบาๆ */
+        transform: translateY(-2px); /* ยกขึ้นเล็กน้อย */
     }
 
     /* ปุ่มบันทึก */
-    .btn-save {
-      background: #66aafc;
-      color: white;
-      border: none;
-      width: 180px;
-      height: 60px;
-      position: absolute;
-      top: 600px;   
-      left: 400px;
-    }
-    .btn-save:hover {
-      background: #4a90e2;
-    }
+.btn-save {
+    background: #aaccf6; 
+    color: #000000;
+    border: 2px solid #b3d2f8;  /* กรอบน้ำเงิน */
+    border-radius: 8px;         /* มุมโค้ง */
+    width: 180px;
+    height: 48px;
+    position: absolute;
+    top: 600px;   
+    left: 400px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(74, 144, 226, 0.2);
+}
+
+.btn-save:hover {
+    background: #4a90e2;       /* น้ำเงินเข้ม */
+    border-color: #4a90e2;     /* กรอบเข้มขึ้น */
+    box-shadow: 0 6px 14px rgba(53, 122, 189, 0.35);
+    color: #fff;
+    transform: translateY(-2px); /* ยกขึ้นเล็กน้อย */
+}
+
+
+    /* h1 */
+.text {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #000000;
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: 1px;                /* เพิ่มช่องไฟระหว่างตัวอักษร */
+    text-transform: uppercase;          /* แปลงเป็นตัวพิมพ์ใหญ่ทั้งหมด (เลือกใช้) */
+   
+}
+
+.input {
+    font-size: 24px;                /* ขนาดตัวอักษรพอดี */
+    font-weight: 300;              /* หนาขึ้นเล็กน้อยให้อ่านง่าย */
+    color: #333;                   /* สีเทาเข้ม อ่านสบายตา */
+    margin-bottom: 6px;            /* เว้นระยะด้านล่างก่อน input */
+    display: block;                /* บังคับให้ขึ้นบรรทัดใหม่ */
+    letter-spacing: 0.5px;         /* เพิ่มระยะห่างตัวอักษรเล็กน้อย */
+    
+}
+
+.box input[type="text"] {
+    width: 100%;
+    padding: 10px 84px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.box input[type="text"]:focus {
+    border-color: #4a90e2;                   /* เปลี่ยนสี border ตอน focus */
+    box-shadow: 0 0 6px rgba(74,144,226,0.3); /* ใส่เงานุ่มๆ ตอน focus */
+}
+
