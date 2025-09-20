@@ -1,0 +1,358 @@
+@font-face {
+    font-family:Fontstyle;
+    src: url('NotoSansThai-VariableFont_wdth,wght.ttf') format('truetype');
+
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* ป้องกัน scroll แนวนอน */
+    height: 100%;     
+}
+
+body {
+    font-family: Fontstyle;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+/* header */
+header {
+    background-color: #004085;
+    padding: 5px 0;        /* เว้นระยะบน-ล่าง */
+    width: 100vw;          /* 100% ของ viewport width */
+    box-sizing: border-box; /* รวม padding กับ border ใน width */
+    margin: 0;             /* ลบ margin ภายนอก */
+    overflow-x: hidden;    /* ป้องกัน Scroll แนวนอน */
+}
+
+header h1{
+    color: white;
+    justify-content: left;
+    font-size: 40px;
+    display: flex;
+    margin-right: 750px;
+    font-family: Fontstyle;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* logo */
+.logo-container{
+   background-color: white;
+    padding: 15px;
+    border-radius: 15px;  
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateX(80%) translateY(-50%);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+}
+
+.logo-container img {
+    height: 50px;
+    width: auto;
+    display: block;
+}
+
+
+/* nav */
+
+.nav {
+    background-color: #ffffff;
+    width: 250px; /* กำหนดความกว้างของ Sidebar */
+    height: 600px; /* เต็มความสูงของหน้าจอ */
+    display: flex;
+    flex-direction: column; /* แนวตั้ง */
+    align-items: flex-start;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* เงาด้านขวา */
+    position: absolute; /* ให้ยึดกับด้านซ้ายของหน้าจอ */
+    top: 0;
+    left: 0;
+    border-radius: 8px;
+    margin-top: 150px;
+    margin-left: 200px;
+}
+
+.nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;                  
+}
+
+.nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    font-size: 18px;
+    font-family: Fontstyle;
+    padding: 10px 15px;
+    border-radius: 4px;
+    display: block;        /* ให้กินพื้นที่เต็มของ li */
+    width: 100%;           
+    box-sizing: border-box;/* รวม padding อยู่ใน width */
+    transition: background-color 0.3s ease, color 0.3s ease;    
+}
+
+.nav ul li a:hover {
+    background-color: #b7dde7;
+    color: #000;
+    cursor: pointer;
+}
+
+.nav .line{
+  height: 2px;             /* ความหนาเส้น */
+  border-top: 1px solid rgba(0,0,0,0.2);
+  width: 100%;             /* ความยาวเส้น */
+  margin: 10px 0;   
+}
+
+.icon-large {
+    font-size: 32px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+/* กรอบของกล่อง login */
+.user-login-container {
+  width: 90%;
+  padding: 10px;
+  border-radius: 8px;           /* มุมโค้ง */
+  margin-bottom: 20px;          /* เว้นด้านล่าง */
+}
+
+.user-login-container h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+  text-align: center;
+}
+
+.user-login-container .input-box {
+  margin-bottom: 12px;
+}
+
+.user-login-container .input-box input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.user-login-container .btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #2a8fbf;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  justify-content: end;
+}
+
+.user-login-container .btn:hover {
+  background-color: #1f6c8c;
+}
+
+
+/* footer */
+.content-container {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    transform: translateY(-70px);
+}
+
+/* main */
+main {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+    flex: 1;            
+}
+
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 1250px; /* ความกว้างคงที่ */
+    margin-top: -60px; /* <-- เลื่อนลงจากด้านบน */
+    margin-right: 0px; /* <-- เลื่อนลงจากด้านบน */
+    margin: 0 auto;
+    transform: translateY(-60px);
+}
+
+.main-wrapper   h2{
+    font-size: 32px;
+    transform: translateY(40%);
+    display: inline-block;           /* ทำให้สามารถกำหนด padding, border ได้ */
+    padding: 8px 16px;               /* ระยะภายในปุ่ม */
+    background-color: #0056b3;       /* สีพื้นหลัง */
+    color: #ffffff;                     /* สีตัวอักษร */
+    border-radius: 8px;              /* มุมโค้ง */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* เงา */
+}
+
+/* category-nav */
+
+.nav-category {
+    display: flex;
+    flex-wrap: nowrap;           /* ไม่ขึ้นบรรทัดใหม่ */
+    overflow-x: auto;            /* เลื่อนซ้าย-ขวา ถ้ามากเกิน */
+    gap: 10px;                   /* ช่องว่างระหว่างปุ่ม */
+    padding: 10px 0;
+    margin-bottom: 20px;
+    scrollbar-width: thin;       /* Firefox scrollbar เล็ก */
+    justify-content: center;
+    border-radius: 70px;
+    width: 800px;
+    align-items: center;
+    margin-left: 200px;
+    transform: translateX( 400px) translateY( -68px);
+}
+
+.nav-category::-webkit-scrollbar {
+    height: 6px;                 /* ขนาด scrollbar ใน Chrome */
+}
+
+.nav-category::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 3px;
+}
+
+.category-button {
+    flex: 0 0 auto;              /* ขนาดปุ่มไม่ยืดตาม container */
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;         /* ป้องกันข้อความตัดบรรทัด */
+}
+
+.category-button:hover {
+    background-color: #4a90e2;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.category-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+
+/* content-container */
+.content-container {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: auto;
+    padding: 20px 20px 20px 20px   ;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    display: grid;                        
+    grid-template-columns: repeat(4, 1fr); /* 4 คอลัมน์ */
+    grid-auto-rows: 200px;                 /* ความสูงเท่ากันทุกกล่อง */
+    gap: 40px;                             /* ระยะห่างเท่ากันทั้งแนวตั้ง-แนวนอน */
+}
+
+
+.articles-list p {
+    margin: 5px 0;
+    overflow: hidden;        /* ซ่อนส่วนที่เกิน */
+    text-overflow: ellipsis; /* แสดง ... ถ้ายาวเกิน */
+    white-space: nowrap;     /* แสดงเป็นบรรทัดเดียว */
+    width: 100%;             /* ครอบคลุมความกว้างกล่อง */
+    box-sizing: border-box;
+}
+
+.articles-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 200px;
+    height: 200px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    margin-left: 25px;
+    cursor: pointer;
+    transform: translateY(-1%);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* ทำ transition */
+}
+
+.articles-list:hover {
+    transform: translateY(-5px);           /* เด้งขึ้น 10px */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* เงาเข้มขึ้น */
+}
+
+.pic-articles {
+    width: 100px;
+    height: 140px;
+    margin: 0 auto;
+    border-radius: 5px;
+    overflow: hidden; /* ตัดส่วนที่เกินออก ป้องกันเงาล้น */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35); /* เงาที่กรอบรูป */
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.pic-articles:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* เงาเข้มขึ้นเมื่อ hover */
+    transform: scale(1.05);
+}
+
+.pic-articles img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ทำให้ภาพพอดีกับกรอบ */
+    border-radius: 5px;
+    display: block;
+}
+
+
+/* footer */
+footer {
+    background-color: #004085;
+    padding: 5px 0;        /* เว้นระยะบน-ล่าง */
+    width: 100vw;          /* 100% ของ viewport width */
+    box-sizing: border-box; /* รวม padding กับ border ใน width */
+    margin: 0;             /* ลบ margin ภายนอก */
+    overflow-x: hidden;    /* ป้องกัน Scroll แนวนอน */
+    text-align: center;    /* จัดข้อความตรงกลาง */
+    color: white;
+    position: fixed;
+    bottom: 0;
+}
+
+
