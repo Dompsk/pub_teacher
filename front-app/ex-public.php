@@ -110,7 +110,7 @@
 
             <?php
                 // ดึง 8 บทความล่าสุด (จากที่เรียงไว้แล้ว)
-                $recent_articles = array_slice($approved_publications, 0, 8);
+                $recent_articles = $approved_publications;
 
                 if (!empty($recent_articles)) {
                     foreach ($recent_articles as $row) {
