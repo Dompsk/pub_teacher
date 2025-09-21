@@ -383,6 +383,9 @@ footer {
     overflow-x: hidden;    /* ป้องกัน Scroll แนวนอน */
     text-align: center;    /* จัดข้อความตรงกลาง */
     color: white;
+    position: fixed;
+    bottom: 0;
+
 }
 
 
