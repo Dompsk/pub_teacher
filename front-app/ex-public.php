@@ -47,7 +47,7 @@ include("../back-app/condb.php");
             <div class="line"></div>
             <li><a href="/pub_teacher/front-app/ex-user.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
             <li><a href="/pub_teacher/front-app/ex-public.php"><i class="bi bi-journal-text icon-large"></i> บทความตีพิมพ์</a></li>
-            <li><a href="/front-app/function/ManageProfile.php"><i class="bi bi-envelope icon-large"></i> ติดต่อ</a></li>
+            <li><a href="/pub_teacher/front-app/contact.php"><i class="bi bi-envelope icon-large"></i> ติดต่อ</a></li>
             <li><a href="/front-app/function/ManageProfile.php"><i class="bi bi-info-circle icon-large"></i> เกี่ยวกับ</a></li>
            
         </ul>
