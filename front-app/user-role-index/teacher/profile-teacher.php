@@ -3,8 +3,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
     <link rel="stylesheet" href="profile-teacher.css">
+    <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
+
 </head>
 <body>
     <header>
@@ -25,14 +28,23 @@
         <ul>
             <div class="profile">
                 <div class="profile-info">
+                <?php
+                $con = new mysqli("localhost", "root", "", "public_teacher");
+                session_start();
+                $username = $_SESSION["username"];
+                $password = $_SESSION["password"];
+                $sql_user = "SELECT u.fname , u.lname , a.type_name , u.major FROM user u , user_acc ua , account_type a WHERE ua.user_id = u.user_id AND ua.type_id = a.type_id AND ua.username = '$username' AND ua.password = '$password'";
+                $result_user = mysqli_query($con , $sql_user);
+                $row_user = mysqli_fetch_assoc($result_user);
+                ?>
                     <h3>ชื่อ-นามสกุล</h3>
-                    <p>นาย พงศกร จรัญรักษ์</p>
-                    <p>ตำแหน่ง: อาจารย์</p>
-                    <p>สาขา: วิทยาการคอมพิวเตอร์</p>
+                    <p><?php echo $row_user["fname"]?> <?php echo $row_user["lname"]?></p>
+                    <p>ตำแหน่ง: <?php echo $row_user["type_name"]?></p>
+                    <p>สาขา: <?php echo $row_user["major"]?></p>
                 </div>
             </div>
             <div class="line"></div>
-            <li><a href="index.html"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+            <li><a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
             <li><a href="/front-app/function/ManageProfile.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
             <li>
                 <a href="#" onclick="openModal()">
@@ -51,30 +63,32 @@
     color: #004085;
     position: absolute;
     top: 180px;
-    left: 700px;">โปรไฟล์ของฉัน</h1>
+    left: 700px;
+    font-weight: 500;
+    font-size: 48px;">โปรไฟล์ของฉัน</h1>
+
 
     <div class="card">
-      <div class="title">Virtual Teacher Card</div>
-    <div class="card-info">
-      <div class="card-title">พงศกร ปานถาวร</div>
-      <div class="card-title">PONGSAKORN PANTHAWORN</div>
-      <div class="card-title">6610210252</div>
-    </div>
-    <div class="text">คณะวิทยาศาสตร์</div>
-    <img class="img" src="" alt="">
-    <div class="boximg">
-       <img class="img1" src="\pub_teacher\front-app\Pic\logo1.png">
-    </div>
+        <div class="watermark">PSU PSU PSU PSU <br><br> PSU PSU PSU PSU PSU PSU <br><br> PSU PSU PSU PSU PSU PSU</div>
+        <div class="title">Virtual Teacher Card</div>
+        <div class="card-info">
+            <div class="card-title"><?php echo $row_user["fname"] ?> <?php echo $row_user["lname"] ?></div>
+            <div class="card-title"><?php echo strtoupper($row_user["fname"] . ' ' . $row_user["lname"]) ?></div>
+        </div>
+        <div class="text"><?php echo $row_user["major"] ?></div>
+        <div class="box_img">
+            <img class="img1" src="\pub_teacher\front-app\Pic\logo1.png" alt="Logo">
+        </div>
     </div>
 
-    <div class="x">
-        <div>วิทยาเขต</div>
-        <div>คณะ</div>
-        <div>ภาควิชา</div>
-        <div>สาขาวิชา</div>
+
+
+    <div class="footer-card">
+        <h2>วิทยาเขต หาดใหญ่</h2>
+        <h3>สาขาวิชา : <?php echo $row_user["major"] ?> </h3>
     <div>
 
-    <a href="\pub_teacher\front-app\user-role-index\teacher\edit-profile.php" class="edit">แก้ไขข้อมูลส่วนตัว</a>
+    <a href="\pub_teacher\front-app\user-role-index\teacher\edit-profile.php" class="edit" ><div class="fas fa-edit me-2"></div> แก้ไขข้อมูลส่วนตัว</a>
 
     </main>
 
@@ -94,7 +108,7 @@
     </div>
     <div class="modal-body">
       <!-- แทนที่ form ด้วย iframe สำหรับ PDF -->
-      <iframe src="/front-app/UserGuide/finalReq-Publication-group9.pdf" width="100%" height="800px" style="border:none;"></iframe>
+      <iframe src="/pub_teacher/front-app/UserGuide/guide.pdf" width="100%" height="800px" style="border:none;"></iframe>
     </div>
     <div class="modal-footer">
       <button class="btn cancel" onclick="closeModal()">ปิด</button>

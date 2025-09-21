@@ -6,6 +6,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
     <link rel="stylesheet" href="add-public.css">
+    <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
+
 </head>
 <body>
     <header>

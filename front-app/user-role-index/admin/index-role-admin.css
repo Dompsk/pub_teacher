@@ -86,10 +86,14 @@ header h1{
     font-size: 18px;
     padding: 10px 15px;
     border-radius: 4px;
-    display: block;        /* ให้กินพื้นที่เต็มของ li */
-    width: 100%;           
-    box-sizing: border-box;/* รวม padding อยู่ใน width */
-    transition: background-color 0.3s ease, color 0.3s ease;    
+
+    display: flex;          /* วาง icon กับข้อความแนวนอน */
+    align-items: center;    /* จัดให้อยู่กึ่งกลางแนวตั้ง */
+    gap: 10px;              /* ระยะห่างระหว่าง icon กับข้อความ */
+
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .nav ul li a:hover {
@@ -109,6 +113,7 @@ header h1{
     font-size: 32px;
     vertical-align: middle;
     margin-right: 10px;
+    
 }
 
 .profile h3{
@@ -131,6 +136,99 @@ main {
     margin-right: 230px; /* <-- เลื่อนลงจากด้านบน */
 }
 
+/* footer */
+.content-container {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.content-container h2 {
+    background-color: #cce5ff;
+    padding: 10px 15px;
+    border-radius: 8px 8px 0 0; /* มุมบนซ้าย-ขวาโค้ง */
+    display: inline-block;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    color: #000;
+    margin-bottom: 15px;
+    transform: translateY(-40%);
+}
+
+.articles-list-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.articles-list {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    transform: translateY(-5%);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.articles-list:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.article-pic {
+    width: 120px;
+    height: 170px;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    margin-bottom: 15px;
+}
+
+.article-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.article-text {
+    text-align: center;
+}
+
+.article-text h3 {
+    font-size: 1.1rem;
+    margin: 5px 0;
+}
+
+.article-text p {
+    margin: 3px 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+.article-text a {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 6px 12px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.article-text a:hover {
+    transform: translateY(-3px);
+    background-color: #0056b3;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
 
 /*search-bar*/
 
@@ -192,7 +290,7 @@ main {
     background-color: #f9fafb;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    width: 1070px;
+    width: 460px;
 }
 
 
@@ -201,7 +299,8 @@ main {
   padding: 0;
   margin: 0;
   list-style: none;
-  justify-content: space-between; /* กระจายช่องว่าง */
+  justify-content: left; /* กระจายช่องว่าง */
+  gap: 20px;  
 }
 
 .bar ul li a {
@@ -320,7 +419,10 @@ footer {
   padding-bottom: 10px;
 }
 
-.modal-header h2 { margin:0; font-size:1.5em; }
+.modal-header h2 {
+  margin:0; 
+  font-size:32px; 
+}
 
 .modal-header .close {
   font-size: 1.5em;
@@ -328,8 +430,26 @@ footer {
   color: #888;
   transition: color 0.2s;
 }
-.modal-header .close:hover { color:#ff4d4f; }
+.modal-header .close:hover { 
+  color:#ff4d4f; 
+}
 
-.modal-footer { display:flex; justify-content:flex-end; padding-top:10px; }
-.btn.cancel { padding:10px 20px; border-radius:8px; border:none; background:#f0f0f0; color:#333; cursor:pointer; }
-.btn.cancel:hover { background:#e0e0e0; }
+.modal-footer { 
+  display:flex; 
+  justify-content:flex-end; 
+  padding-top:10px; 
+}
+.btn.cancel { 
+  padding:10px 30px; 
+  border-radius:8px; 
+  border:none; 
+  background:#cacaca; 
+  color:#333; 
+  cursor:pointer; 
+  transition: background 0.3s ease;
+  font-size: 16px;
+}
+
+.btn.cancel:hover { 
+  background:#e0e0e0; 
+}
