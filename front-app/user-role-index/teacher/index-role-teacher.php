@@ -1,3 +1,7 @@
+<?php
+include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
+?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -73,52 +77,67 @@
                     </ul>           
                 </div>
 
-                <div class="content-container">
-                    <h2>บทความตีพิมพ์ล่าสุด</h2>
-                    <div class="articles-list-container">
-                        <?php
-                        // เชื่อมต่อฐานข้อมูล
-                        $conn = new mysqli("localhost", "root", "", "public_teacher");
+            <div class="content-container">
+                <h2>บทความตีพิมพ์ล่าสุด</h2>
+                <div class="articles-list-container">
+                    <?php
+                        // ดึงข้อมูลจาก Supabase
+                        $publications = getSupabaseData('publication');
+                        $users = getSupabaseData('user');
+                        $user_accs = getSupabaseData('user_acc');
+                        $categories = getSupabaseData('category');
 
-                        $sql = "
-                            SELECT p.pub_id, p.pub_name, p.upload_date, c.cname ,u.fname, u.lname , p.pic
-                                    FROM publication p , user_acc ua , user u , category c
-                                    WHERE p.acc_id = ua.acc_id 
-                                    AND ua.user_id = u.user_id 
-                                    AND p.c_id = c.c_id
-                                    ORDER BY p.upload_date DESC
-                            
-                            
-                        ";
-                        $result = $conn->query($sql);
+                        // สร้าง map เพื่อค้นหาข้อมูลได้ง่าย
+                        $user_map = array_column($users, null, 'user_id');
+                        $user_acc_map = array_column($user_accs, null, 'acc_id');
+                        $category_map = array_column($categories, null, 'c_id');
 
-                        if ($result->num_rows > 0) {
-                            while($row = $result->fetch_assoc()){
-                                $img = !empty($row['pic']) 
+                        // กรองเฉพาะบทความที่ approved
+                        $approved_publications = array_filter($publications, function($pub) {
+                            return $pub['status'] === 'approve';
+                        });
+
+                        // เรียงลำดับตามวันที่อัปโหลดล่าสุด
+                        usort($approved_publications, function($a, $b) {
+                            return strtotime($b['upload_date']) - strtotime($a['upload_date']);
+                        });
+
+                        // ดึง 8 บทความล่าสุด
+                        $recent_articles = $approved_publications;
+
+                        if (!empty($recent_articles)) {
+                            foreach ($recent_articles as $row) {
+                                $acc_id = $row['acc_id'];
+                                $c_id = $row['c_id'];
+
+                                $user_id = $user_acc_map[$acc_id]['user_id'] ?? null;
+                                $author = $user_map[$user_id] ?? null;
+                                $category = $category_map[$c_id] ?? null;
+
+                                $img = (!empty($row['pic']) && $row['pic'] !== null) 
                                     ? "/pub_teacher/src/pic_public/" . $row['pic'] 
                                     : "/pub_teacher/front-app/Pic/bk1.jpg";
-                                ?>
-                                <div class="articles-list">
-                                    <div class="article-pic">
-                                        <img src="<?php echo htmlspecialchars($img); ?>" alt="รูปบทความ">
-                                    </div>
-                                    <div class="article-text">
-                                        <h3><?php echo htmlspecialchars($row['pub_name']); ?></h3>
-                                        <p>ผู้แต่ง: <?php echo htmlspecialchars($row['fname'] . " " . $row['lname']); ?></p>
-                                        <p>หมวดหมู่: <?php echo htmlspecialchars($row['cname']); ?></p>
-                                        <a href="detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
-                                    </div>
-                                </div>
-                                <?php
+                    ?>
+                    <div class="articles-list">
+                        <div class="article-pic">
+                            <img src="<?php echo htmlspecialchars($img); ?>" alt="รูปบทความ">
+                        </div>
+                        <div class="article-text">
+                            <h3><?php echo htmlspecialchars($row['pub_name']); ?></h3>
+                            <p>ผู้แต่ง: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
+                            <p>หมวดหมู่: <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
+                            <a href="detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
+                        </div>
+                    </div>
+                    <?php
                             }
                         } else {
                             echo "<p>ยังไม่มีบทความ</p>";
                         }
-
-                        $conn->close();
-                        ?>
-                    </div>
+                    ?>
                 </div>
+            </div>
+
 
         </div>
     </main>
