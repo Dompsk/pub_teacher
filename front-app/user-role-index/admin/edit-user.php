@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
-    <link rel="stylesheet" href="edit-public.css">
-    <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
-
+    <link rel="stylesheet" href="edit-user.css">
 </head>
 <body>
     <header>
@@ -15,39 +13,47 @@
         <div class="header-container">
             
                 <div class="logo-container">
-                    <a href="index.html">
-                        <img src="/pro_teacher/front-app/Pic/logo1.png" alt="logo">
+                    <a href="\pub_teacher\front-app\user-role-index\teacher\index-role-teacher.php">
+                        <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
                     </a>
                 </div>
-            <h1 >แก้ไขบทความ</h1> 
+            <h1 >แก้ไขรายชื่อผู้ใช้</h1> 
         </div>
 
     </header>
 
     <main>
-      
-    <div class="box">
-      <div>ชื่อบทความ :</div>
-      <input type="text">
     
-    <br>
+    <?php
 
-      <div>ประเภทบทความ :</div>
-      <select>
-        <option value="">-- ผลงานตีพิมพ์ในที่ประชุมวิชาการระดับชาติ --</option>
-        <option value="news">ผลงานตีพิมพ์ในที่ประชุมวิชาการระดับนานาชาติ</option>
-        <option value="review">วารสาร</option>
-        <option value="tutorial">ตำรา</option>
-        <option value="opinion">อื่นๆ</option>
-      </select>
+    ?>
+
+    <div class="box">
+      <div>ID :<span style="color: red;">*</span></div>
+      <input type="number" name="" >
+    
+      <br>
+
+      <div>Name :<span style="color: red;">*</span></div>
+      <input type="text" name="" >
 
       <br>
 
-      <div>ไฟล์ :</div>
-      <input class="file-input" type="file" name="" accept=".pdf,.doc,.docx">
+      <div>Phone :<span style="color: red;">*</span></div>
+      <input type="text" name="" >
+
+      <br>
+
+      <div>Mail :<span style="color: red;">*</span></div>
+      <input type="text" name="" >
+
+      <br>
+
+      <div>Role :<span style="color: red;">*</span></div>
+      <input type="text" name="" >
 
     </div>
-
+   
     <button class="btn btn-cancel">ยกเลิก</button>
     <button class="btn btn-save">ยืนยันการแก้ไข</button>
 

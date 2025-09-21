@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
-    <link rel="stylesheet" href="edit-public.css">
-    <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
-
+    <link rel="stylesheet" href="manage-user.css">
 </head>
 <body>
     <header>
@@ -19,38 +17,34 @@
                         <img src="/pro_teacher/front-app/Pic/logo1.png" alt="logo">
                     </a>
                 </div>
-            <h1 >แก้ไขบทความ</h1> 
+            <h1 >ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
         </div>
 
     </header>
 
     <main>
+
+    <button class="btn">ย้อนกลับ</button>
       
-    <div class="box">
-      <div>ชื่อบทความ :</div>
-      <input type="text">
-    
-    <br>
+    <div style="overflow-x:auto; max-width:100%;">
+    <table>
+        <thead>
+        <tr>
+            <th style="width: 1px;">ID</th>
+            <th style="width: 120px;">Name</th>
+            <th style="width: 80px;">Phone</th>
+            <th style="width: 80px;">Mail</th>
+            <th style="width: 50px;">Role</th>
+            <th style="width: 50px;">Edit</th>
+            <th style="width: 50px;">Delete</th>
+        </tr>
+        </thead>
 
-      <div>ประเภทบทความ :</div>
-      <select>
-        <option value="">-- ผลงานตีพิมพ์ในที่ประชุมวิชาการระดับชาติ --</option>
-        <option value="news">ผลงานตีพิมพ์ในที่ประชุมวิชาการระดับนานาชาติ</option>
-        <option value="review">วารสาร</option>
-        <option value="tutorial">ตำรา</option>
-        <option value="opinion">อื่นๆ</option>
-      </select>
+    </table>
 
-      <br>
-
-      <div>ไฟล์ :</div>
-      <input class="file-input" type="file" name="" accept=".pdf,.doc,.docx">
-
+        
     </div>
-
-    <button class="btn btn-cancel">ยกเลิก</button>
-    <button class="btn btn-save">ยืนยันการแก้ไข</button>
-
+    
     </main>
 
     <footer>

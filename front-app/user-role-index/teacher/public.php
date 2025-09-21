@@ -10,6 +10,7 @@
     session_start();
     $con = new mysqli("localhost", "root", "", "public_teacher");
     ?>
+    <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
 </head>
 
 <body>

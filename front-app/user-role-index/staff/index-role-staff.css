@@ -1,6 +1,6 @@
 @font-face {
     font-family:Fontstyle;
-    src: url(/front-app/NotoSansThai-VariableFont_wdth\,wght.ttf);
+    src: url(/pub_teacher/front-app/NotoSansThai-VariableFont_wdth\,wght.ttf);
 }
 
 html, body {
@@ -198,7 +198,7 @@ main {
     background-color: #f9fafb;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    width: 1070px;
+    width: 700px;
 }
 
 
@@ -207,7 +207,8 @@ main {
   padding: 0;
   margin: 0;
   list-style: none;
-  justify-content: space-between; /* กระจายช่องว่าง */
+  justify-content: left; /* กระจายช่องว่าง */
+  gap: 20px;  
 }
 
 .bar ul li a {
@@ -358,20 +359,19 @@ footer {
 }
 
 
-/* ฉากหลัง setting */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.6);
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  z-index: 9999;
+/* footer */
+footer {
+    background-color: #004085;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 
+
+/* ฉากหลัง setting */
 .modal {
   display: none;
   position: fixed;
@@ -413,7 +413,10 @@ footer {
   padding-bottom: 10px;
 }
 
-.modal-header h2 { margin:0; font-size:1.5em; }
+.modal-header h2 {
+  margin:0; 
+  font-size:32px; 
+}
 
 .modal-header .close {
   font-size: 1.5em;
@@ -421,8 +424,26 @@ footer {
   color: #888;
   transition: color 0.2s;
 }
-.modal-header .close:hover { color:#ff4d4f; }
+.modal-header .close:hover { 
+  color:#ff4d4f; 
+}
 
-.modal-footer { display:flex; justify-content:flex-end; padding-top:10px; }
-.btn.cancel { padding:10px 20px; border-radius:8px; border:none; background:#f0f0f0; color:#333; cursor:pointer; }
-.btn.cancel:hover { background:#e0e0e0; }
+.modal-footer { 
+  display:flex; 
+  justify-content:flex-end; 
+  padding-top:10px; 
+}
+.btn.cancel { 
+  padding:10px 30px; 
+  border-radius:8px; 
+  border:none; 
+  background:#cacaca; 
+  color:#333; 
+  cursor:pointer; 
+  transition: background 0.3s ease;
+  font-size: 16px;
+}
+
+.btn.cancel:hover { 
+  background:#e0e0e0; 
+}
