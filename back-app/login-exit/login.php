@@ -1,6 +1,6 @@
 Try AI directly in your favorite apps … Use Gemini to generate drafts and refine content, plus get Gemini Pro with access to Google's next-gen AI
 <?php
-include("../condb.php");  // เชื่อม DB
+$con = new mysqli("localhost", "root", "", "public_teacher");
 session_start();
 
 $username = $_POST["username"];

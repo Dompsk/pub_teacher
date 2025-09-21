@@ -66,7 +66,7 @@
 
                 <div class="bar">
                     <ul>
-                        <li><a href="index.html"><i class="bi bi-journal-text icon-large"></i> จัดการบทความ</a></li>
+                        <li><a href="\pub_teacher\front-app\user-role-index\teacher\public.php"><i class="bi bi-journal-text icon-large"></i> จัดการบทความ</a></li>
                         <li><a href="index.html"><i class="bi-file-earmark-text icon-large"></i> จัดทำรายงานสรุป </a></li>
                         <li><a href="index.html"><i class="bi bi-pencil-square icon-large"></i> แก้ไขอัพเดตบทความ</a></li>
                         <li><a href="index.html"><i class="bi bi-bar-chart-line icon-large"></i> สถานะการอัพผลงานการตีพิมพ์</a></li>
