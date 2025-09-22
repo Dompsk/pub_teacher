@@ -4,10 +4,10 @@ $SUPABASE_URL = "https://jibnhzwxuzoccvxhzqri.supabase.co";
 $SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImppYm5oend4dXpvY2N2eGh6cXJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgzNzg3MjMsImV4cCI6MjA3Mzk1NDcyM30.5rg489NwkhiVvkXI2Y5wJy56Ads9JjFVX6snArPlrPc"; 
 
 // ฟังก์ชันสำหรับดึงข้อมูล (Read/Select)
-function getSupabaseData($table) {
+function getSupabaseData($table, $query = "") {
     global $SUPABASE_URL, $SUPABASE_KEY;
 
-    $url = $SUPABASE_URL . "/rest/v1/" . $table . "?select=*";
+    $url = $SUPABASE_URL . "/rest/v1/" . $table . "?select=*" . $query;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -26,7 +26,8 @@ function getSupabaseData($table) {
     return json_decode($response, true);
 }
 
-$publication = getSupabaseData('publication');
+// กรอง acc_id = 3 และ join ไปยัง user_acc
+$publication = getSupabaseData('publication', "&acc_id=eq.4&user_acc(*)");
 
 // รวมข้อมูล
 $combinedData = [];
@@ -36,7 +37,8 @@ if (!empty($publication) && is_array($publication)) {
             'pub_id'   => $p['pub_id'],
             'pub_name' => $p['pub_name'],
             'file'     => $p['file'],
-            'status'   => $p['status']
+            'status'   => $p['status'],
+            'username' => isset($p['user_acc']['username']) ? $p['user_acc']['username'] : '-' // เพิ่ม username จาก user_acc
         ];
     }
 }
@@ -71,37 +73,37 @@ if (!empty($publication) && is_array($publication)) {
         <div style="overflow-x:auto; max-width:100%;">
             <table>
                 <thead>
-                    <tr>
-                        <th style="width: 30px;">NO</th>
-                        <th style="width: 200px;">Publication Name</th>
-                        <th style="width: 120px;">File</th>
-                        <th style="width: 80px;">Status</th>     
-                        <th style="width: 50px;">Edit</th>
-                        <th style="width: 50px;">Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($combinedData as $row): ?>
-                    <tr>
-                        <td><?php echo $row['pub_id']; ?></td>
-                        <td><?php echo $row['pub_name']; ?></td>
-                        <td><?php echo $row['file']; ?></td>
-                        <td><?php echo $row['status']; ?></td>
-                        <td>
-                            <form method="post" style="display:inline;">
-                                <input type="hidden" name="edit_pub_id" value="<?php echo $row['pub_id']; ?>">
-                                <button type="submit">แก้ไข</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form method="post" style="display:inline;" onsubmit="return confirm('ยืนยันการลบ?');">
-                                <input type="hidden" name="delete_pub_id" value="<?php echo $row['pub_id']; ?>">
-                                <button type="submit">ลบ</button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-                </tbody>
+    <tr>
+        <th style="width: 30px;">NO</th>
+        <th style="width: 200px;">Publication Name</th>
+        <th style="width: 120px;">File</th>
+        <th style="width: 80px;">Status</th>
+        <th style="width: 50px;">Edit</th>
+        <th style="width: 50px;">Delete</th>
+    </tr>
+</thead>
+<tbody>
+<?php foreach ($combinedData as $row): ?>
+    <tr>
+        <td><?php echo $row['pub_id']; ?></td>
+        <td><?php echo $row['pub_name']; ?></td>
+        <td><?php echo $row['file']; ?></td>
+        <td><?php echo $row['status']; ?></td>
+        <td>
+            <form method="post" style="display:inline;">
+                <input type="hidden" name="edit_pub_id" value="<?php echo $row['pub_id']; ?>">
+                <button type="submit">แก้ไข</button>
+            </form>
+        </td>
+        <td>
+            <form method="post" style="display:inline;" onsubmit="return confirm('ยืนยันการลบ?');">
+                <input type="hidden" name="delete_pub_id" value="<?php echo $row['pub_id']; ?>">
+                <button type="submit">ลบ</button>
+            </form>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</tbody>
             </table>
             <button class="x">เพิ่มบทความ</button>
         </div>
