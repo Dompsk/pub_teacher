@@ -503,27 +503,58 @@ footer {
 }
 
   .edit {
-      display: inline-block;              /* ให้เหมือนปุ่ม */
-      background-color: #dcf1f1;         /* สีน้ำเงินทันสมัย */
-      color: rgb(0, 0, 0);                      /* ตัวอักษรสีขาว */
-      font-weight: 400;                  /* ตัวหนาเล็กน้อย */
-      border-radius: 12px;               /* มุมโค้ง */
+      display: flex;                    /* ใช้ flexbox */
+      align-items: center;              /* จัดกลางแนวตั้ง */
+      justify-content: center;          /* จัดกลางแนวนอน */
+      gap: 8px;                         /* ระยะห่างระหว่างไอคอนกับข้อความ */
+      
+      background-color: #ffffff;        /* สีพื้น */
+      color: rgb(0, 0, 0);              /* สีตัวอักษร */
+      font-weight: 400;                 
+      border-radius: 12px;              
       width: 200px; 
       height: 50px;
-      text-decoration: none;             /* เอาเส้นใต้ */
-      box-shadow: 0 4px 24px rgba(0,0,0,0.15); /* เงา */
-      transition: all 0.3s ease;        /* เพิ่ม transition */
-      font-size: 20px;                   /* ขนาดตัวอักษร */
-      cursor: pointer;                   /* เคอร์เซอร์ pointer */
-      border: none;      
-      position: absolute;                /* ลบเส้นขอบ */
-      top: -425px; 
-      left: 950px;
-      text-align: center;                /* จัดข้อความตรงกลาง */
+      text-decoration: none;            
+      box-shadow: 0 4px 14px rgba(0,0,0,0.15); 
+      transition: all 0.3s ease;       
+      font-size: 20px;                  
+      cursor: pointer;                  
+      border: solid 3px #f4f4f4;      
+      position: absolute;                
+      top:  300px; 
+      right: 550px;
+      text-align: center;               
   }
 
   .edit:hover {
-      background-color: #ffffff;        /* สีเข้มเมื่อ hover */
-      box-shadow: 0 6px 32  px rgba(0,0,0,0.25); /* เงาชัดขึ้น */
-      transform: translateY(-2px);      /* ยกขึ้นเล็กน้อย */
+      background-color: #ffffff;        
+      box-shadow: 0 6px 32px rgba(0,0,0,0.25); 
+      transform: translateY(-3px);      
   }
+
+
+/* กล่องรูปผู้ใช้ */
+.pic {
+    width: 180px;               /* ความกว้างของรูป */
+    height: 220px;              /* ความสูงของรูป */
+    margin: 20px auto;          /* จัดให้อยู่กึ่งกลาง */
+    border-radius: 24px;         /* ทำให้เป็นวงกลม */
+    overflow: hidden;           /* ซ่อนส่วนเกินของรูป */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* เงาเล็ก */
+    display: flex;
+    align-items: center;
+    transform: translateX(310px);
+    justify-content: center;
+}
+
+/* รูปผู้ใช้ */
+.pic_img {
+    width: 100%;                /* ให้รูปเต็มกล่อง */
+    height: 100%;               /* ให้รูปเต็มกล่อง */
+    object-fit: cover;          /* ครอบรูปเต็มโดยไม่บิดเบี้ยว */
+    border-radius: 24px;         /* ทำให้รูปเป็นวงกลมเหมือนกล่อง */
+    
+}
+
+
+
