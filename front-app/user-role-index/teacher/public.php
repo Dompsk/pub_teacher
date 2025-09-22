@@ -70,45 +70,60 @@ if (!empty($publication) && is_array($publication)) {
 
     <main>
         <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><button class="btn">ย้อนกลับ</button></a>
-        
-      
+    
         <div style="overflow-x:auto; max-width:100%;">
+
             <table>
                 <thead>
-    <tr style="height: 70px;">
-        <th style="width: 30px;">NO</th>
-        <th style="width: 200px;">Publication Name</th>
-        <th style="width: 120px;">File</th>
-        <th style="width: 80px;">Status</th>
-        <th style="width: 50px;">Edit</th>
-        <th style="width: 50px;">Delete</th>
-    </tr>
-</thead>
-<tbody>
-<?php foreach ($combinedData as $i => $row): ?>
-    <tr style="height: 70px;">
-        <td><?php echo $i + 1; ?></td>
-        <td><?php echo $row['pub_name']; ?></td>
-        <td><?php echo $row['file']; ?></td>
-        <td><?php echo $row['status']; ?></td>
-        <td>
-            <form method="post" style="display:inline;">
-                <input type="hidden" name="edit_pub_id" value="<?php echo $row['pub_id']; ?>">
-                <button type="submit">แก้ไข</button>
-            </form>
-        </td>
-        <td>
-            <form method="post" style="display:inline;" onsubmit="return confirm('ยืนยันการลบ?');">
-                <input type="hidden" name="delete_pub_id" value="<?php echo $row['pub_id']; ?>">
-                <button type="submit">ลบ</button>
-            </form>
-        </td>
-    </tr>
-<?php endforeach; ?>
-</tbody>
+                        <tr style="height: 70px;">
+                            <th style="width: 30px;">NO</th>
+                            <th style="width: 200px;">Publication Name</th>
+                            <th style="width: 120px;">File</th>
+                            <th style="width: 80px;">Status</th>
+                            <th style="width: 50px;">Edit</th>
+                            <th style="width: 50px;">Delete</th>
+                        </tr>
+                </thead>    
+
+                <tbody>
+                        <?php foreach ($combinedData as $i => $row): ?>
+                            <tr style="height: 70px;">
+                                <td><?php echo $i + 1; ?></td>
+                                <td><?php echo $row['pub_name']; ?></td>
+                                <td><?php echo $row['file']; ?></td>
+                                <td class="<?php 
+                                    if ($row['status'] === 'approve') {
+                                        echo 'status-approve';
+                                    } else {
+                                        echo 'status-not-approve';
+                                    }
+                                ?>">
+                                    <?php echo htmlspecialchars($row['status']); ?>
+                                </td>
+
+
+                                <td>
+                                    <form method="post" style="display:inline;">
+                                        <input type="hidden" name="edit_pub_id" value="<?php echo $row['pub_id']; ?>">
+                                        <button type="submit">แก้ไข</button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form method="post" action="delete-publication.php" style="display:inline;" onsubmit="return confirm('ยืนยันการลบ?');">
+                                        <input type="hidden" name="delete_pub_id" value="<?php echo $row['pub_id']; ?>">
+                                        <button type="submit">ลบ</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                </tbody>
+
             </table>
+
             <button class="x">เพิ่มบทความ</button>
+
         </div>
+
     </main>
 
     <footer>
@@ -116,3 +131,4 @@ if (!empty($publication) && is_array($publication)) {
     </footer>
 </body>
 </html>
+
