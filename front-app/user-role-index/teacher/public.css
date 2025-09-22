@@ -50,9 +50,6 @@ header h1{
     display: block;
 }
 
-
-
-
 /* footer */
 .content-container {
     background-color: white;
@@ -75,118 +72,154 @@ footer {
     bottom: 0;
 }
 
-.box {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px 20px;
-      max-width: 600px;
-      margin: 30px auto;
-      align-items: center;
-      position: absolute;
-      top: 150px;   
-      left: 700px;
-      font-size: 24px;
-      line-height: 1;
-    }
-    .box div {
-      font-weight: bold;
-    }
-    .box input {
-      width: 900px;
-      height: 70px;
-      padding: 10px ;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-.text {
-    position: absolute;
-      top: 180px;   
-      left: 700px;
-}
-
-select {
-  padding: 8px 12px;
-  font-size: 18px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  width: 900px;
-  height: 70px;
-}
-
-.file-input {
-  width: 900px;
-  height: 70px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.btn {
-      padding: 10px 20px;
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      border: 2px solid transparent;
-      text-decoration: none;
-      transition: 0.3s;
-      background: #747272;
-      color: white;
-      border: none;
-      width: 180px;
-      height: 60px;
-      position: absolute;
-      top: 250px;   
-      left: 60px;
-    }
-    .btn:hover {
-      background: #868686;
-    }
-
+/* ตาราง */
 table {
   border-collapse: collapse;
   min-width: 2300px;   
   position: absolute;
   top: 350px;   
   left: 60px;
-  
-}
-th, td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-  
-}
-th {
-  background-color: #2d6eb3;
-  color: white;
-  font-size: 20px;
-}
- table thead tr {
-   height: 50px; /* ปรับความสูงของแถวหัวตาราง */
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 14px rgba(0,0,0,0.1);
 }
 
+th, td {
+  border: 1px solid #eee;
+  padding: 16px;
+  text-align: center;
+  font-size: 16px;
+}
+
+th {
+  background: linear-gradient(90deg, #2d6eb3, #1f4d80);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+  
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #eaf4ff;
+  transition: 0.2s ease-in-out;
+}
+
+/* สไตล์ปุ่มหลักทั้งหมด */
+button, .btn, .x {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+  box-shadow: 0 8px 14px rgba(0,0,0,0.1);
+  color: white;
+}
+
+/* ปุ่มย้อนกลับ */
+.btn {
+  background: #4b78cc;
+  width: 180px;
+  height: 60px;
+  position: absolute;
+  top: 250px;   
+  left: 60px;
+  box-shadow: 0 8px 14px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+
+}
+.btn:hover {
+  background: #31b0d5;
+  transform: translateY(-3px);
+
+}
+
+/* ปุ่มเพิ่มบทความ */
 .x {
-      
-      border-radius: 10px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      border: 2px solid transparent;
-      text-decoration: none;
-      transition: 0.3s;
-      background: #20d329;
-      color: white;
-      border: none;
-      width: 180px;
-      height: 60px;
-      position: absolute;
-      top: 250px;   
-      right: 60px;
-    }
-    .x:hover {
-      background: #49fd02;
-    }
+  background: #259325;
+  width: 180px;
+  height: 60px;
+  position: absolute;
+  top: 250px;   
+  right: 60px;
+  transition: all 0.3s ease;
+}
+.x:hover {
+  background: #449d44;
+  transform: translateY(-3px);
+}
+
+/* ปุ่มในตาราง */
+table button {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+  background-color: #004085;
+  text-align: center;
+  justify-content: center;
+}
+
+/* ปุ่มแก้ไข */
+
+table button[type="submit"]:first-child:hover {
+  background: #ec971f;
+}
+
+/* ปุ่มลบ */
+table form[onsubmit] button {
+  background: #d9534f;
+  color: white;
+}
+table form[onsubmit] button:hover {
+  background: #c9302c;
+}
+
+/* Status Approve */
+.status-approve {
+  display: inline-block;
+  color: white;
+  background-color: #5cb85c; /* เขียว */
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 4px 10px;
+  min-width: 50px;       /* ขนาดขั้นต่ำ */
+  text-align: center;
+  transform: translateX(130px) translateY(20px);
+}
+
+/* Status Pending */
+.status-pending {
+  display: inline-block;
+  color: white;
+  background-color: #d9534f; /* แดง */
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 4px 10px;
+  min-width: 50px;       /* ขนาดขั้นต่ำ */
+  text-align: center;
+}
+
+/* Status Not Approve */
+.status-not-approve {
+  display: inline-block;
+  color: white;
+  background-color: #d9534f; /* แดง */
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 4px 10px;
+  min-width: 50px;       /* ขนาดขั้นต่ำ */
+  text-align: center;
+  transform: translateX(115px) translateY(20px);
+
+}

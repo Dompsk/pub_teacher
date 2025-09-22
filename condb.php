@@ -83,6 +83,7 @@ function deleteSupabaseData($table, $filterColumn, $filterValue) {
     global $SUPABASE_URL, $SUPABASE_KEY;
 
     $url = $SUPABASE_URL . "/rest/v1/" . $table . "?{$filterColumn}=eq.{$filterValue}";
+    
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

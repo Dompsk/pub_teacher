@@ -27,7 +27,7 @@ function getSupabaseData($table, $query = "")
     return json_decode($response, true);
 }
 
-// กรอง acc_id = 3 และ join ไปยัง user_acc
+// กรอง acc_id ของ session
 session_start();
 $acc_id = $_SESSION["id"];
 $publication = getSupabaseData('publication', "&acc_id=eq.$acc_id");
@@ -37,16 +37,15 @@ $combinedData = [];
 if (!empty($publication) && is_array($publication)) {
     foreach ($publication as $p) {
         $combinedData[] = [
-            'pub_id'   => $p['pub_id'],
-            'pub_name' => $p['pub_name'],
-            'file'     => $p['file'],
-            'upload_date'   => $p['upload_date'],
-            'status'   => $p['status'],
+            'pub_id'     => $p['pub_id'],
+            'pub_name'   => $p['pub_name'],
+            'file'       => $p['file'],
+            'upload_date'=> $p['upload_date'],
+            'status'     => $p['status'],
         ];
     }
 }
 ?>
-
 
 <html lang="en">
 
@@ -57,14 +56,13 @@ if (!empty($publication) && is_array($publication)) {
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
     <link rel="stylesheet" href="public.css">
     <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
-
 </head>
 
 <body>
     <header>
         <div class="header-container">
             <div class="logo-container">
-                <a href="\pub_teacher\front-app\user-role-index\teacher\index-role-teacher.php">
+                <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php">
                     <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
                 </a>
             </div>
@@ -74,7 +72,6 @@ if (!empty($publication) && is_array($publication)) {
 
     <main>
         <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><button class="btn">ย้อนกลับ</button></a>
-
 
         <div style="overflow-x:auto; max-width:100%;">
             <table>
@@ -95,8 +92,10 @@ if (!empty($publication) && is_array($publication)) {
                             <td><?php echo $i + 1; ?></td>
                             <td><?php echo $row['pub_name']; ?></td>
                             <td><?php echo $row['file']; ?></td>
-                            <td><?php echo $row['file']; ?></td>
-                            <td><?php echo $row['status']; ?></td>
+                            <td><?php echo $row['upload_date']; ?></td>
+                            <td class="<?php echo ($row['status'] === 'approve') ? 'status-approve' : 'status-not-approve'; ?>">
+                                <?php echo htmlspecialchars($row['status']); ?>
+                            </td>
                             <td>
                                 <form method="post" style="display:inline;">
                                     <input type="hidden" name="edit_pub_id" value="<?php echo $row['pub_id']; ?>">
@@ -104,7 +103,7 @@ if (!empty($publication) && is_array($publication)) {
                                 </form>
                             </td>
                             <td>
-                                <form method="post" style="display:inline;" onsubmit="return confirm('ยืนยันการลบ?');">
+                                <form method="post" action="delete-publication.php" style="display:inline;" onsubmit="return confirm('ยืนยันการลบ?');">
                                     <input type="hidden" name="delete_pub_id" value="<?php echo $row['pub_id']; ?>">
                                     <button type="submit">ลบ</button>
                                 </form>
@@ -113,8 +112,8 @@ if (!empty($publication) && is_array($publication)) {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <a href="/pub_teacher/front-app/user-role-index/teacher/add-public.php"><button class="x">เพิ่มบทความ</button></a>
 
+            <a href="/pub_teacher/front-app/user-role-index/teacher/add-public.php"><button class="x">เพิ่มบทความ</button></a>
         </div>
     </main>
 
@@ -122,5 +121,4 @@ if (!empty($publication) && is_array($publication)) {
         <p>@มหาวิทยาลัย สงขลานครินทร์ วิทยาเขตหาดใหญ่. สมาชิก 143 251 253 254 325 378 </p>
     </footer>
 </body>
-
 </html>

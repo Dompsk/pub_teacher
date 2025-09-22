@@ -288,7 +288,7 @@ main {
 
 .main-wrapper   h2{
     font-size: 32px;
-    transform: translateY(40%);
+    transform: translateY(0px);
     display: inline-block;           /* ทำให้สามารถกำหนด padding, border ได้ */
     padding: 8px 16px;               /* ระยะภายในปุ่ม */
     background-color: #0056b3;       /* สีพื้นหลัง */
@@ -311,7 +311,8 @@ main {
     display: grid;                        
     grid-template-columns: repeat(4, 1fr); /* 4 คอลัมน์ */
     grid-auto-rows: 200px;                 /* ความสูงเท่ากันทุกกล่อง */
-    gap: 40px;                             /* ระยะห่างเท่ากันทั้งแนวตั้ง-แนวนอน */
+    gap: 40px;    
+    transform: translateY(-25px);                         /* ระยะห่างเท่ากันทั้งแนวตั้ง-แนวนอน */
 }
 
 
@@ -321,7 +322,8 @@ main {
     text-overflow: ellipsis; /* แสดง ... ถ้ายาวเกิน */
     white-space: nowrap;     /* แสดงเป็นบรรทัดเดียว */
     width: 100%;             /* ครอบคลุมความกว้างกล่อง */
-    box-sizing: border-box;
+    box-sizing: border-box;                       /* ระยะห่างเท่ากันทั้งแนวตั้ง-แนวนอน */
+
 }
 
 .articles-list {
@@ -385,7 +387,7 @@ footer {
     color: white;
     position: fixed;
     bottom: 0;
-
+    
 }
 
 
