@@ -1,6 +1,7 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
+     include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
 ?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,35 +28,78 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
 
     </header>
 
-   <nav class="nav">
+      <nav class="nav">
         <ul>
+            <?php
+                
+                session_start();
+
+                // ดึง username/password จาก session
+                $current_username = $_SESSION['username'] ?? null;
+                $current_password = $_SESSION['password'] ?? null;
+
+                $row_user = null;
+                $pic_path = "/pub_teacher/src/pic_user/df.png"; // default image
+
+                if ($current_username && $current_password) {
+                    // ดึงข้อมูลจาก Supabase
+                    $users = getSupabaseData('user');
+                    $user_accs = getSupabaseData('user_acc');
+                    $account_types = getSupabaseData('account_type');
+
+                    // map สำหรับค้นหาข้อมูลง่าย
+                    $user_map = array_column($users, null, 'user_id');
+                    $user_acc_map = array_column($user_accs, null, 'acc_id');
+                    $account_type_map = array_column($account_types, null, 'type_id');
+
+                    // ค้นหา account ที่ตรงกับ username + password
+                    $current_acc = null;
+                    foreach ($user_accs as $ua) {
+                        if ($ua['username'] === $current_username && $ua['password'] === $current_password) {
+                            $current_acc = $ua;
+                            break;
+                        }
+                    }
+
+                    if ($current_acc) {
+                        $user_id = $current_acc['user_id'];
+                        $row_user = $user_map[$user_id] ?? null;
+                        $type_id = $current_acc['type_id'];
+                        $row_user['type_name'] = $account_type_map[$type_id]['type_name'] ?? '';
+
+                        // ตรวจสอบรูปผู้ใช้
+                        if (!empty($row_user['pic'])) {
+                            $pic_path = "/pub_teacher/src/pic_user/" . htmlspecialchars($row_user['pic']);
+                        }
+                    }
+                }
+            ?>
+
+
             <div class="profile">
                 <div class="profile-info">
-                <?php
-                $con = new mysqli("localhost", "root", "", "public_teacher");
-                session_start();
-                $username = $_SESSION["username"];
-                $password = $_SESSION["password"];
-                $sql_user = "SELECT u.fname , u.lname , a.type_name , u.major FROM user u , user_acc ua , account_type a WHERE ua.user_id = u.user_id AND ua.type_id = a.type_id AND ua.username = '$username' AND ua.password = '$password'";
-                $result_user = mysqli_query($con , $sql_user);
-                $row_user = mysqli_fetch_assoc($result_user);
-                ?>
-                    <h3>ชื่อ-นามสกุล</h3>
-                    <p><?php echo $row_user["fname"]?> <?php echo $row_user["lname"]?></p>
-                    <p>ตำแหน่ง: <?php echo $row_user["type_name"]?></p>
-                    <p>สาขา: <?php echo $row_user["major"]?></p>
+                    <?php if ($row_user): ?>
+                        <h3>ชื่อ-นามสกุล</h3>
+                        <p><?php echo htmlspecialchars($row_user["fname"] . ' ' . $row_user["lname"]); ?></p>
+                        <p>ตำแหน่ง: <?php echo htmlspecialchars($row_user["type_name"]); ?></p>
+                        <p>สาขา: <?php echo htmlspecialchars($row_user["major"]); ?></p>
+                    <?php else: ?>
+                        <p>ไม่พบข้อมูลผู้ใช้</p>
+                    <?php endif; ?>
                 </div>
             </div>
+
             <div class="line"></div>
-            <li><a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-            <li><a href="/front-app/function/ManageProfile.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
+              <li><a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+              <li><a href="/pub_teacher/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
+
             <li>
                 <a href="#" onclick="openModal()">
                     <i class="bi bi-gear icon-large"></i> คู่มือการใช้งาน
                 </a>
             </li>
                 <p></p>
-            <li><a href="/pro_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
+            <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
             
         </ul>
    </nav>
@@ -70,37 +114,21 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
     font-weight: 500;
     font-size: 48px;">โปรไฟล์ของฉัน</h1>
 
-
-    <?php
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        // ดึง user_id ของผู้ใช้ปัจจุบันจาก session
-        $current_user_id = $_SESSION['user_id'] ?? null;
-
-        // ดึงข้อมูล user จาก Supabase
-        $users = getSupabaseData('user');
-        $user_map = array_column($users, null, 'user_id');
-
-        // ดึงข้อมูล user ปัจจุบัน
-        $row_user = $user_map[$current_user_id] ?? null;
-
-        $fname = $row_user['fname'] ?? '';
-        $lname = $row_user['lname'] ?? '';
-        $major = $row_user['major'] ?? '';
-    ?>
-
     <div class="card">
         <div class="watermark">PSU PSU PSU PSU <br><br> PSU PSU PSU PSU PSU PSU <br><br> PSU PSU PSU PSU PSU PSU</div>
         <div class="title">Virtual Teacher Card</div>
 
         <div class="card-info">
-            <div class="card-title"><?php echo htmlspecialchars($fname . ' ' . $lname); ?></div>
-            <div class="card-title"><?php echo htmlspecialchars(strtoupper($fname . ' ' . $lname)); ?></div>
+            <div class="card-title"><?php echo htmlspecialchars($row_user["fname"] . ' ' . $row_user["lname"]); ?></div>
+            <div class="card-title"><?php echo htmlspecialchars($row_user["fname_eng"] . ' ' . $row_user["lname_eng"]); ?></div>
         </div>
 
-        <div class="text"><?php echo htmlspecialchars($major); ?></div>
+        <div class="pic">
+            <img class="pic_img" src="<?php echo $pic_path; ?>" alt="รูปผู้ใช้">
+        </div>
+
+
+        <div class="text"><label> คณะ : <?php echo htmlspecialchars($row_user["faculty"]); ?></div></label>
 
         <div class="box_img">
             <img class="img1" src="\pub_teacher\front-app\Pic\logo1.png" alt="Logo">
@@ -109,7 +137,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
 
     <div class="footer-card">
         <h2>วิทยาเขต หาดใหญ่</h2>
-        <h3>สาขาวิชา : <?php echo htmlspecialchars($major); ?></h3>
+        <h3>สาขาวิชา : <?php echo htmlspecialchars($row_user["major"]); ?></h3>
     </div>
 
     <a href="\pub_teacher\front-app\user-role-index\teacher\edit-profile.php" class="edit" ><div class="fas fa-edit me-2"></div> แก้ไขข้อมูลส่วนตัว</a>
