@@ -19,7 +19,7 @@
 
             <div class="logo-container">
                 <a href="/pub_teacher/front-app/user-role-index/staff/index-role-staff.php">
-                    <img src="/pub_teacher/front-app/pic/logo1.png" alt="logo">
+                    <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
                 </a>
             </div>
             <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1>
@@ -108,7 +108,7 @@
             <div class="bar">
                 <ul>
                     <li><a href="index.html"><i class="bi bi-journal-check icon-large"></i> จัดทำรายงานสรุป</a></li>
-                    <li><a href="index.html"><i class="bi bi-search icon-large"></i> ตรวจสอบผลงานตีพิมพ์ </a></li>
+                    <li><a href="/pub_teacher/front-app/user-role-index/staff/verify-public.php"><i class="bi bi-search icon-large"></i> ตรวจสอบผลงานตีพิมพ์ </a></li>
                     <li><a href="index.html"><i class="bi bi-folder-check icon-large"></i> ประวัติจัดการผลงานตีพิมพ์</a></li>
 
                 </ul>
