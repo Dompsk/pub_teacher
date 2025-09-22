@@ -105,7 +105,7 @@
 
             <div class="bar">
                 <ul>
-                    <li><a href="index.html"><i class="bi bi-person-plus icon-large"></i> จัดการผู้ใช้</a></li>
+                    <li><a href="/pub_teacher/front-app/user-role-index/admin/manage-user.php"><i class="bi bi-person-plus icon-large"></i> จัดการผู้ใช้</a></li>
                     <li><a href="index.html"><i class="bi bi-clock-history icon-large"></i> ประวัติการเข้าสู่ระบบ </a></li>
                 </ul>
             </div>
