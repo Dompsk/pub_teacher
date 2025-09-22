@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../condb.php"); // เชื่อม DB
+$con = new mysqli("localhost", "root", "", "public_teacher");
 
 if (isset($_SESSION["log_id"])) {
     $log_id = $_SESSION["log_id"];

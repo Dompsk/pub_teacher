@@ -8,6 +8,7 @@ html, body {
     margin: 0;
     padding: 0;
     overflow-x: hidden; /* ป้องกัน scroll แนวนอน */
+    height: 100%;     
 }
 
 body {
@@ -169,96 +170,6 @@ header h1{
   background-color: #1f6c8c;
 }
 
-/* top */
-.articles-container {
-    display: flex;
-    gap: 40px;              
-    justify-content: center;   /* จัดให้อยู่กลางแนวนอน */
-    padding: 10px;
-    width: 1250px;            
-    margin: 20px auto; 
-    height: 310px; 
-}
-
-.top-left-articles h1, .top-right-articles h1 {
-    background-color: #004085;  /* สีฟ้าอ่อน */
-    padding: 10px 15px;          /* เว้นระยะด้านใน */
-    border-radius: 8px 8px 0px 0px ;          /* มุมโค้ง */
-    display: inline-block;       /* ให้กรอบพอดีกับข้อความ */
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* เงาเล็กน้อย */
-    color: #ffffff;     
-    transform: translateY(-35px)translateX(-15px);         /* สีตัวอักษรเข้ม */
-    width: 575px;
-}
-
-
-.top-left-articles h1 ,.top-right-articles h1 {
-    position: relative;
-    top: -3px;  /* เลื่อนขึ้น 30px */
-}
-
-.top-left-articles,
-.top-right-articles {
-    flex: 1.6;       /* ขยายสัดส่วนมากขึ้น */
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    padding: 15px;
-    gap: 10px;
-    border-radius: 20px;
-    box-shadow: 4px 0 10px rgba(0,0,0,0.1);
-}
-
-.article-content {
-    display: flex;          
-    gap: 20px;                 
-    align-items: flex-start;
-}
-
-.lef-pic,
-.right-pic {
-    width: 120px;
-    height: 170px;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* เงา */
-    transform: translateY(-50px); /* เลื่อนขึ้น 50px */
-    margin-bottom: 10px; /* ปรับระยะห่างกับข้อความด้านล่าง */
-}
-
-.lef-pic img,
-.right-pic img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* ให้ภาพเต็มกรอบโดยไม่บิดเบี้ยว */
-    display: block;
-}
-
-.left-text, .right-text {
-    flex: 1;
-    transform: translateY(-30%);
-    gap: 5px;
-}
-
-.left-text a , .right-text a {
-    display: inline-block;           /* ทำให้สามารถกำหนด padding, border ได้ */
-    padding: 8px 16px;               /* ระยะภายในปุ่ม */
-    background-color: #007bff;       /* สีพื้นหลัง */
-    color: #fff;                     /* สีตัวอักษร */
-    text-decoration: none;           /* ลบขีดเส้นใต้ */
-    border-radius: 8px;              /* มุมโค้ง */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* เงา */
-    transition: all 0.3s ease;       /* ทำให้ขยับแบบ smooth */
-    font-weight: bold;
-}
-
-.left-text a:hover ,    .right-text a:hover {
-    transform: translateY(-5px);     /* ขยับขึ้นเมื่อ hover */
-    background-color: #0056b3;       /* สีเข้มขึ้นเมื่อ hover */
-    box-shadow: 0 6px 12px rgba(0,0,0,0.3); /* เงาเข้มขึ้น */
-}
-
 
 /* footer */
 .content-container {
@@ -268,6 +179,7 @@ header h1{
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
+    transform: translateY(-70px);
 }
 
 /* main */
@@ -275,6 +187,7 @@ main {
     display: flex;
     justify-content: center;
     padding: 40px 20px;
+    flex: 1;            
 }
 
 .main-wrapper {
@@ -284,6 +197,8 @@ main {
     width: 1250px; /* ความกว้างคงที่ */
     margin-top: -60px; /* <-- เลื่อนลงจากด้านบน */
     margin-right: 0px; /* <-- เลื่อนลงจากด้านบน */
+    margin: 0 auto;
+    transform: translateY(-60px);
 }
 
 .main-wrapper   h2{
@@ -296,6 +211,59 @@ main {
     border-radius: 8px;              /* มุมโค้ง */
     box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* เงา */
 }
+
+/* category-nav */
+
+.nav-category {
+    display: flex;
+    flex-wrap: nowrap;           /* ไม่ขึ้นบรรทัดใหม่ */
+    overflow-x: auto;            /* เลื่อนซ้าย-ขวา ถ้ามากเกิน */
+    gap: 10px;                   /* ช่องว่างระหว่างปุ่ม */
+    padding: 10px 0;
+    margin-bottom: 20px;
+    scrollbar-width: thin;       /* Firefox scrollbar เล็ก */
+    justify-content: center;
+    border-radius: 70px;
+    width: 800px;
+    align-items: center;
+    margin-left: 200px;
+    transform: translateX( 400px) translateY( -68px);
+}
+
+.nav-category::-webkit-scrollbar {
+    height: 6px;                 /* ขนาด scrollbar ใน Chrome */
+}
+
+.nav-category::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 3px;
+}
+
+.category-button {
+    flex: 0 0 auto;              /* ขนาดปุ่มไม่ยืดตาม container */
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;         /* ป้องกันข้อความตัดบรรทัด */
+}
+
+.category-button:hover {
+    background-color: #4a90e2;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.category-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
 
 /* content-container */
 .content-container {
@@ -385,7 +353,6 @@ footer {
     color: white;
     position: fixed;
     bottom: 0;
-
 }
 
 
