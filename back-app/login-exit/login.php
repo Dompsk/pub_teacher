@@ -1,48 +1,58 @@
-Try AI directly in your favorite apps … Use Gemini to generate drafts and refine content, plus get Gemini Pro with access to Google's next-gen AI
 <?php
-$con = new mysqli("localhost", "root", "", "public_teacher");
+// Include your Supabase connection file
+include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
+
 session_start();
 
 $username = $_POST["username"];
 $password = $_POST["pass"];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $sql = "select acc_id , username , password , type_id 
-            from user_acc
-            where username= '$username' and password = '$password'";
-    $result = mysqli_query($con,$sql);
-    $row = mysqli_fetch_assoc($result);
-
-    if($row>0) {
+    // 1. Fetch data from Supabase using the getSupabaseData function.
+    $user_accounts = getSupabaseData('user_acc');
+    
+    $row = null;
+    foreach ($user_accounts as $account) {
+        if ($account['username'] === $username && $account['password'] === $password) {
+            $row = $account;
+            break;
+        }
+    }
+    
+    // 2. Check if a matching user was found.
+    if ($row) {
         $_SESSION["username"] = $username;
         $_SESSION["password"] = $password;
         $_SESSION["id"] = $row["acc_id"];
-        
-        // บันทึก login_time
-        $acc_id = $row["acc_id"];
-        $login_time = date("Y-m-d H:i:s");
-        $stmt2 = $con->prepare("INSERT INTO login_log (login_time, acc_id) VALUES (?, ?)");
-        $stmt2->bind_param("si", $login_time, $acc_id);
-        $stmt2->execute();
-        // เก็บ log_id ไว้ใน session สำหรับ logout
-        $_SESSION["log_id"] = $stmt2->insert_id;
 
-        if($row["type_id"] == 1) { //แอดมิน
+        $acc_id = $row["acc_id"];
+        $login_time = gmdate('Y-m-d\TH:i:s\Z'); // เช่น 2025-09-21 20:30:00
+        
+        $log_data = [
+            'login_time' => $login_time,
+            'acc_id' => $acc_id
+        ];
+
+        $login_log_entry = insertSupabaseData('login_log', $log_data);
+        
+        if (isset($login_log_entry[0]['log_id'])) {
+            $_SESSION["log_id"] = $login_log_entry[0]['log_id'];
+        }
+
+        // 4. Redirect based on user type.
+        if ($row["type_id"] == 1) { // Admin
             echo "<script> alert('เข้าสู่ระบบสำเร็จแอดมิน'); </script>";
             echo "<script> window.location='/pub_teacher/front-app/user-role-index/admin/index-role-admin.php'; </script>";
-        }
-        else if($row["type_id"] == 2) { //เจ้าหน้าที่
+        } else if ($row["type_id"] == 2) { // Staff
             echo "<script> alert('เข้าสู่ระบบสำเร็จเจ้าหน้าที่'); </script>";
             echo "<script> window.location='/pub_teacher/front-app/user-role-index/staff/index-role-staff.php'; </script>";
-        }
-        else { //อาจารย์ 
+        } else { // Teacher
             echo "<script> alert('เข้าสู่ระบบสำเร็จอาจารย์'); </script>";
             echo "<script> window.location='/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php'; </script>";
         }
-    }
-    else if($row["username"]!==$username && $row["password"]!==$password) {
+    } else {
+        // User not found or credentials incorrect.
         echo "<script> alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง'); </script>";
         echo "<script> window.location='/pub_teacher/front-app/ex-user.php'; </script>";
     }
 }
-?>

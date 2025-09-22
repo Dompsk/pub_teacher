@@ -1,14 +1,10 @@
 <?php
-// condb.php (ใช้ Supabase)
+// condb.php
 $SUPABASE_URL = "https://jibnhzwxuzoccvxhzqri.supabase.co"; 
-$SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."; 
+$SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImppYm5oend4dXpvY2N2eGh6cXJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgzNzg3MjMsImV4cCI6MjA3Mzk1NDcyM30.5rg489NwkhiVvkXI2Y5wJy56Ads9JjFVX6snArPlrPc"; 
 
-<<<<<<< HEAD
 // ฟังก์ชันสำหรับดึงข้อมูล (Read/Select)
 function getSupabaseData($table, $query = "") {
-=======
-function getSupabaseData($table) {
->>>>>>> 3dab4e7899de71ad468510471273653693a085d4
     global $SUPABASE_URL, $SUPABASE_KEY;
 
     $url = $SUPABASE_URL . "/rest/v1/" . $table . "?select=*" . $query;
@@ -31,7 +27,9 @@ function getSupabaseData($table) {
 }
 
 // กรอง acc_id = 3 และ join ไปยัง user_acc
-$publication = getSupabaseData('publication', "&acc_id=eq.4&user_acc(*)");
+session_start();
+$acc_id = $_SESSION["id"];
+$publication = getSupabaseData('publication', "&acc_id=eq.$acc_id");
 
 // รวมข้อมูล
 $combinedData = [];
@@ -42,49 +40,42 @@ if (!empty($publication) && is_array($publication)) {
             'pub_name' => $p['pub_name'],
             'file'     => $p['file'],
             'status'   => $p['status'],
-            'username' => isset($p['user_acc']['username']) ? $p['user_acc']['username'] : '-' // เพิ่ม username จาก user_acc
         ];
     }
 }
 ?>
 
-<html lang="en">
 
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
     <link rel="stylesheet" href="public.css">
-    <?php
-    session_start();
-    $con = new mysqli("localhost", "root", "", "public_teacher");
-    ?>
     <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
-</head>
 
+</head>
 <body>
     <header>
         <div class="header-container">
             <div class="logo-container">
-                <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php">
-                    <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
+                <a href="ex-user.html">
+                    <img src="/pub_teacher/front-app/pic/logo1.png" alt="logo">
                 </a>
             </div>
-            <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1>
+            <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
         </div>
     </header>
 
     <main>
-        <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php">
-            <button class="btn">ย้อนกลับ</button>
-        </a>
-
+        <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><button class="btn">ย้อนกลับ</button></a>
+        
+      
         <div style="overflow-x:auto; max-width:100%;">
             <table>
                 <thead>
-<<<<<<< HEAD
-    <tr>
+    <tr style="height: 70px;">
         <th style="width: 30px;">NO</th>
         <th style="width: 200px;">Publication Name</th>
         <th style="width: 120px;">File</th>
@@ -94,9 +85,9 @@ if (!empty($publication) && is_array($publication)) {
     </tr>
 </thead>
 <tbody>
-<?php foreach ($combinedData as $row): ?>
-    <tr>
-        <td><?php echo $row['pub_id']; ?></td>
+<?php foreach ($combinedData as $i => $row): ?>
+    <tr style="height: 70px;">
+        <td><?php echo $i + 1; ?></td>
         <td><?php echo $row['pub_name']; ?></td>
         <td><?php echo $row['file']; ?></td>
         <td><?php echo $row['status']; ?></td>
@@ -115,64 +106,13 @@ if (!empty($publication) && is_array($publication)) {
     </tr>
 <?php endforeach; ?>
 </tbody>
-=======
-                    <tr style="height: 70px;">
-                        <th style="width: 30px;">NO</th>
-                        <th style="width: 200px;">Publication Name</th>
-                        <th style="width: 120px;">File</th>
-                        <th style="width: 50px;">Edit</th>
-                        <th style="width: 50px;">Delete</th>
-                        <th style="width: 80px;">Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($combinedData as $i => $row): ?>
-                        <tr style="height: 70px;">
-                            <td><?php echo $i + 1; ?></td>
-                            <td><?php echo $row['pub_name']; ?></td>
-                            <td>
-                                <a href="/pub_teacher/src/file_public/<?php echo $row['file']; ?>">
-                                    <?php echo $row['file']; ?>
-                                </a>
-                            </td>
-                            <td>
-                                <a href="edit-public.php?pub_id=<?php echo $row['pub_id']; ?>">แก้ไข</a>
-                            </td>
-                            <td>
-                                <a href="/pub_teacher/back-app/delete-publication.php?pub_id=<?php echo $row['pub_id']; ?>"
-                                   onclick="return confirm('Do you want to delete this publication? !!!')">ลบ</a>
-                            </td>
-                            <td>
-                                <?php echo ($row["status"] == 'approve') ? "อนุมัติ" : "รอการอนุมัติ"; ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
->>>>>>> 3dab4e7899de71ad468510471273653693a085d4
             </table>
-
-            <a href="/pub_teacher/front-app/user-role-index/teacher/add-public.php">
-                <button class="x">เพิ่มบทความ</button>
-            </a>
+            <button class="x">เพิ่มบทความ</button>
         </div>
     </main>
 
     <footer>
         <p>@มหาวิทยาลัย สงขลานครินทร์ วิทยาเขตหาดใหญ่. สมาชิก 143 251 253 254 325 378 </p>
     </footer>
-
-    <script>
-        function openModal() {
-            const modal = document.getElementById("settingsModal");
-            modal.style.display = "flex";
-            setTimeout(() => modal.classList.add("show"), 10);
-        }
-
-        function closeModal() {
-            const modal = document.getElementById("settingsModal");
-            modal.classList.remove("show");
-            setTimeout(() => modal.style.display = "none", 400);
-        }
-    </script>
 </body>
 </html>
