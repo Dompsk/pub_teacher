@@ -1,3 +1,6 @@
+<?php
+include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -68,25 +71,46 @@
     font-size: 48px;">โปรไฟล์ของฉัน</h1>
 
 
+    <?php
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // ดึง user_id ของผู้ใช้ปัจจุบันจาก session
+        $current_user_id = $_SESSION['user_id'] ?? null;
+
+        // ดึงข้อมูล user จาก Supabase
+        $users = getSupabaseData('user');
+        $user_map = array_column($users, null, 'user_id');
+
+        // ดึงข้อมูล user ปัจจุบัน
+        $row_user = $user_map[$current_user_id] ?? null;
+
+        $fname = $row_user['fname'] ?? '';
+        $lname = $row_user['lname'] ?? '';
+        $major = $row_user['major'] ?? '';
+    ?>
+
     <div class="card">
         <div class="watermark">PSU PSU PSU PSU <br><br> PSU PSU PSU PSU PSU PSU <br><br> PSU PSU PSU PSU PSU PSU</div>
         <div class="title">Virtual Teacher Card</div>
+
         <div class="card-info">
-            <div class="card-title"><?php echo $row_user["fname"] ?> <?php echo $row_user["lname"] ?></div>
-            <div class="card-title"><?php echo strtoupper($row_user["fname"] . ' ' . $row_user["lname"]) ?></div>
+            <div class="card-title"><?php echo htmlspecialchars($fname . ' ' . $lname); ?></div>
+            <div class="card-title"><?php echo htmlspecialchars(strtoupper($fname . ' ' . $lname)); ?></div>
         </div>
-        <div class="text"><?php echo $row_user["major"] ?></div>
+
+        <div class="text"><?php echo htmlspecialchars($major); ?></div>
+
         <div class="box_img">
             <img class="img1" src="\pub_teacher\front-app\Pic\logo1.png" alt="Logo">
         </div>
     </div>
 
-
-
     <div class="footer-card">
         <h2>วิทยาเขต หาดใหญ่</h2>
-        <h3>สาขาวิชา : <?php echo $row_user["major"] ?> </h3>
-    <div>
+        <h3>สาขาวิชา : <?php echo htmlspecialchars($major); ?></h3>
+    </div>
 
     <a href="\pub_teacher\front-app\user-role-index\teacher\edit-profile.php" class="edit" ><div class="fas fa-edit me-2"></div> แก้ไขข้อมูลส่วนตัว</a>
 

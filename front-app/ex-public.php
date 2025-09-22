@@ -58,11 +58,11 @@
         <h2>บทความตีพิมพ์ล่าสุด</h2>
             <div class="nav-category">
                 <button class="category-button" onclick="location.href='ex-public.php'">ทั้งหมด</button>
-                <button class="category-button" onclick="location.href='ex-public.php'">ระดับชาติ</button>
-                <button class="category-button" onclick="location.href='ex-public-category.php?c_id=1'">ระดับนานาชาติ</button>
-                <button class="category-button" onclick="location.href='ex-public-category.php?c_id=2'">วารสาร</button>
-                <button class="category-button" onclick="location.href='ex-public-category.php?c_id=3'">ตำรา</button>
-                
+                <button class="category-button" onclick="location.href='ex-public-cate.php?c_id=1'">ระดับชาติ</button> 
+                <button class="category-button" onclick="location.href='ex-public-cate.php?c_id=2'">ระดับนานาชาติ</button> 
+                <button class="category-button" onclick="location.href='ex-public-cate.php?c_id=3'">วารสาร</button> 
+                <button class="category-button" onclick="location.href='ex-public-cate.php?c_id=4'">ตำรา</button> 
+                <button class="category-button" onclick="location.href='ex-public-cate.php?c_id=5'">อื่น ๆ</button>   
             </div>
         <div class="content-container">     
             <?php
@@ -131,6 +131,8 @@
                 </div>
                 <p><?php echo htmlspecialchars($row['pub_name']); ?></p>
                 <p>โดย: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
+                <p>หมวดหมู่: <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
+
             </div>
             <?php
                     }
