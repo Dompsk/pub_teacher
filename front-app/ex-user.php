@@ -96,7 +96,7 @@
                 <div class="left-text">
                     <h2>เรื่อง : <?php echo htmlspecialchars($latest_article['pub_name']); ?></h2>
                     <p>ชื่อผู้แต่ง: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
-                    <p>เกี่ยวกับ : <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
+                    <p>หมวดหมู่ : <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
                     <a href="detail.php?pub_id=<?php echo $latest_article['pub_id']; ?>">อ่านเพิ่มเติม...</a>
                 </div>
                 <?php
@@ -136,7 +136,7 @@
                 <div class="right-text">
                     <h2>เรื่อง : <?php echo htmlspecialchars($random_article['pub_name']); ?></h2>
                     <p>ชื่อผู้แต่ง: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
-                    <p>เกี่ยวกับ: <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
+                    <p>หมวดหมู่ : <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
                     <a href="detail.php?pub_id=<?php echo $random_article['pub_id']; ?>">อ่านเพิ่มเติม...</a>
                 </div>
             </div>

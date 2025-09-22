@@ -1,5 +1,5 @@
 <?php
-include("../back-app/condb.php");
+    include("../condb.php");
 ?>
 
 <html lang="en">
