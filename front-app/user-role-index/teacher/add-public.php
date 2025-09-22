@@ -2,6 +2,7 @@
 $SUPABASE_URL = "https://jibnhzwxuzoccvxhzqri.supabase.co";
 $SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImppYm5oend4dXpvY2N2eGh6cXJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgzNzg3MjMsImV4cCI6MjA3Mzk1NDcyM30.5rg489NwkhiVvkXI2Y5wJy56Ads9JjFVX6snArPlrPc";
 
+session_start();
 // ฟังก์ชัน Insert ข้อมูลเข้า Supabase
 function insertSupabaseData($table, $data) {
     global $SUPABASE_URL, $SUPABASE_KEY;
@@ -59,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save_pub'])) {
     $c_id = (int)$_POST['c_id'];
     $upload_date = date("Y-m-d");
     $status = "not approve";
-    $acc_id = 3; // สมมติล็อกอินเป็น user acc_id = 3
+    $acc_id = $_SESSION['id']; // สมมติล็อกอินเป็น user acc_id = 3
 
     // ดึง pub_id ล่าสุด
     $lastPub = fetchSupabaseData("publication", "&order=pub_id.desc&limit=1");
@@ -111,9 +112,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save_pub'])) {
   <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
   <link rel="stylesheet" href="add-public.css">
   <?php
-  session_start();
-  $con = new mysqli("localhost", "root", "", "public_teacher");
-
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pub_name = $_POST['pub_name'];
     $btn = $_POST['btn'];
