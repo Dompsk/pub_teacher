@@ -93,7 +93,7 @@ footer {
     }
     .box input {
       width: 900px;
-      height: 70px;
+      height: 50px;
       padding: 10px ;
       border: 1px solid #ccc;
       border-radius: 6px;
@@ -116,7 +116,7 @@ select {
 
 .file-input {
   width: 900px;
-  height: 70px;
+  height: 50px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
