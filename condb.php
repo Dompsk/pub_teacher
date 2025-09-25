@@ -4,10 +4,37 @@ $SUPABASE_URL = "https://jibnhzwxuzoccvxhzqri.supabase.co";
 $SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImppYm5oend4dXpvY2N2eGh6cXJpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc1ODM3ODcyMywiZXhwIjoyMDczOTU0NzIzfQ.64nPKBZ6I5EkU0hSfq-NSIrNkdfToOwkVXqN7GQRBnE"; 
 
 // ฟังก์ชันสำหรับดึงข้อมูล (Read/Select)
-function getSupabaseData($table) {
+function getSupabaseData($table, $options = []) {
     global $SUPABASE_URL, $SUPABASE_KEY;
 
-    $url = $SUPABASE_URL . "/rest/v1/" . $table . "?select=*";
+    $query = [];
+
+    // select column
+    if(isset($options['select'])) {
+        $query['select'] = implode(',', $options['select']);
+    } else {
+        $query['select'] = '*'; // default
+    }
+
+    // limit
+    if(isset($options['limit'])) {
+        $query['limit'] = $options['limit'];
+    }
+
+    // offset
+    if(isset($options['offset'])) {
+        $query['offset'] = $options['offset'];
+    }
+
+    // filter เงื่อนไข (associative array)
+    if(isset($options['filter']) && is_array($options['filter'])) {
+        foreach($options['filter'] as $column => $value) {
+            $query[$column] = 'eq.' . urlencode($value); // filter แบบ = value
+        }
+    }
+
+    $url = $SUPABASE_URL . "/rest/v1/" . $table . "?" . http_build_query($query);
+
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -23,6 +50,7 @@ function getSupabaseData($table) {
         die("cURL Error: " . curl_error($ch));
     }
     curl_close($ch);
+
     return json_decode($response, true);
 }
 

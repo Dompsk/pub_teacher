@@ -42,8 +42,12 @@
 
             if ($current_username && $current_password) {
                 // ดึงข้อมูลจาก Supabase
-                $users = getSupabaseData('user');
-                $user_accs = getSupabaseData('user_acc');
+                $users = getSupabaseData('user', [
+                    'select' => ['user_id', 'fname', 'lname'],
+                ]);
+                $user_accs = getSupabaseData('user_acc',[
+                    'select' => ['acc_id', 'user_id', 'type_id', 'username', 'password'],
+                ]);
                 $account_types = getSupabaseData('account_type');
 
                 // map สำหรับค้นหาข้อมูลง่าย
@@ -73,8 +77,8 @@
                 <div class="profile-info">
                     <?php if ($row_user): ?>
                         <h3>ชื่อ-นามสกุล</h3>
-                        <p><?php echo htmlspecialchars($row_user["fname"] . ' ' . $row_user["lname"]); ?></p>
-                        <p>ตำแหน่ง: <?php echo htmlspecialchars($row_user["type_name"]); ?></p>
+                        <p><?php echo ($row_user["fname"] . ' ' . $row_user["lname"]); ?></p>
+                        <p>ตำแหน่ง: <?php echo ($row_user["type_name"]); ?></p>
                         <br><br>
                     <?php else: ?>
                         <p>ไม่พบข้อมูลผู้ใช้</p>
@@ -120,10 +124,18 @@
                 <div class="articles-list-container">
                     <?php
                     // ดึงข้อมูลจาก Supabase
-                    $publications = getSupabaseData('publication');
-                    $users = getSupabaseData('user');
-                    $user_accs = getSupabaseData('user_acc');
-                    $categories = getSupabaseData('category');
+                    $publications = getSupabaseData('publication',[
+                        'select' => ['pub_id', 'pub_name', 'pic', 'acc_id', 'c_id', 'upload_date', 'status'],
+                    ]);
+                    $users = getSupabaseData('user', [
+                        'select' => ['user_id', 'fname', 'lname']
+                    ]);
+                    $user_accs = getSupabaseData('user_acc', [
+                        'select' => ['acc_id', 'user_id', 'type_id', 'username', 'password']
+                    ]);
+                    $categories = getSupabaseData('category', [
+                        'select' => ['c_id', 'cname']
+                    ]);
 
                     // สร้าง map เพื่อค้นหาข้อมูลได้ง่าย
                     $user_map = array_column($users, null, 'user_id');
