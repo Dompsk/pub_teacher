@@ -3,10 +3,17 @@
     src: url(/front-app/NotoSansThai-VariableFont_wdth\,wght.ttf);
 }
 
+html, body {
+  height: 100%;            /* สูงเต็มจอ */
+  margin: 0;
+  display: flex;
+  flex-direction: column;  /* เรียงบนลงล่าง */
+}
+
 body {
-    font-family: Fontstyle;
-    margin: 0;
-    padding: 0;
+    display: flex;             /* ใช้ Flexbox */
+    flex-direction: column;    /* จัดเรียงบนลงล่าง */
+    min-height: 100vh;         /* อย่างน้อยสูงเท่ากับจอ */
     background-color: #f5f5f5;
 }
 
@@ -32,6 +39,11 @@ header h1{
     position: relative;
 }
 
+main {
+    flex: 1;   /* ดัน footer ลงไปล่าง */
+    
+}
+
 /* logo */
 .logo-container{
    background-color: white;
@@ -45,13 +57,14 @@ header h1{
 }
 
 .logo-container img {
-    height: 50px;
+    height: 50px; 
     width: auto;
     display: block;
 }
 
-/* footer */
+/* nav */
 .content-container {
+    flex: 1;   /* ดัน footer ลงไปล่าง */
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -66,30 +79,36 @@ footer {
     background-color: #004085;
     color: white;
     text-align: center;
-    padding: 10px;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
+    padding: 5px 0;   
+    width: 100%;          /* 100% ของ viewport width */
+    box-sizing: border-box; /* รวม padding กับ border ใน width */
+    margin: 0;  
+    
 }
 
 /* ตาราง */
 table {
   border-collapse: collapse;
-  min-width: 2300px;   
-  position: absolute;
+  min-width: 2100px;   
+  margin: 50px auto; 
   top: 350px;   
   left: 60px;
   background: #fff;
   border-radius: 12px;
-  overflow: hidden;
   box-shadow: 0 8px 14px rgba(0,0,0,0.1);
 }
 
 th, td {
   border: 1px solid #eee;
   padding: 16px;
-  text-align: center;
   font-size: 16px;
+  font-family: Fontstyle;
+  
+}
+
+td {
+    text-align: center;       /* แนวนอน */
+    vertical-align: middle;   /* แนวตั้ง */
 }
 
 th {
@@ -128,16 +147,17 @@ button, .btn, .x {
   background: #4b78cc;
   width: 180px;
   height: 60px;
-  position: absolute;
-  top: 250px;   
+  margin: 50px auto; 
+  top: 100px;   
   left: 60px;
   box-shadow: 0 8px 14px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
+  transform: translateX(140px);
+  transition: ease-in-out 0.3s;
+
 
 }
 .btn:hover {
   background: #31b0d5;
-  transform: translateY(-3px);
 
 }
 
@@ -146,14 +166,14 @@ button, .btn, .x {
   background: #259325;
   width: 180px;
   height: 60px;
-  position: absolute;
-  top: 250px;   
-  right: 60px;
-  transition: all 0.3s ease;
+  top: 100px;  
+  margin: 50px auto; 
+  transition: ease-in-out 0.3s;
+  transform: translateX(1870px);
 }
 .x:hover {
   background: #449d44;
-  transform: translateY(-3px);
+  
 }
 
 /* ปุ่มในตาราง */
@@ -187,39 +207,33 @@ table form[onsubmit] button:hover {
 
 /* Status Approve */
 .status-approve {
-  display: inline-block;
-  color: white;
-  background-color: #5cb85c; /* เขียว */
-  font-weight: bold;
-  border-radius: 6px;
-  padding: 4px 10px;
-  min-width: 50px;       /* ขนาดขั้นต่ำ */
-  text-align: center;
-  transform: translateX(130px) translateY(20px);
-}
-
-/* Status Pending */
-.status-pending {
-  display: inline-block;
-  color: white;
-  background-color: #d9534f; /* แดง */
-  font-weight: bold;
-  border-radius: 6px;
-  padding: 4px 10px;
-  min-width: 50px;       /* ขนาดขั้นต่ำ */
-  text-align: center;
+    display: block;                 /* เต็มความกว้าง container */
+    width: 100%;                     /* เต็มความกว้าง td */
+    height: 70px;                    /* เต็มความสูง td */
+    line-height: normal;             /* ให้ข้อความจัดกลางแนวตั้ง */
+    color: white;
+    background-color: #5cb85c;      /* เขียว */
+    font-weight: bold;
+    border-radius: 6px;
+    text-align: center;              /* จัดข้อความตรงกลางแนวนอน */
+    box-sizing: border-box;          /* รวม padding ด้วย */
+    padding: 10px 0;          
+    padding-top: 25px; /* ขยับข้อความลงมา */  
 }
 
 /* Status Not Approve */
 .status-not-approve {
-  display: inline-block;
-  color: white;
-  background-color: #d9534f; /* แดง */
-  font-weight: bold;
-  border-radius: 6px;
-  padding: 4px 10px;
-  min-width: 50px;       /* ขนาดขั้นต่ำ */
-  text-align: center;
-  transform: translateX(115px) translateY(20px);
-
+    display: block;                 /* เต็มความกว้าง container */
+    width: 100%;                     /* เต็มความกว้าง td */
+    height: 70px;                    /* เต็มความสูง td */
+    line-height: normal;             /* ให้ข้อความจัดกลางแนวตั้ง */
+    color: white;
+    background-color: #d9534f;      /* เขียว */
+    font-weight: bold;
+    border-radius: 6px;
+    text-align: center;              /* จัดข้อความตรงกลางแนวนอน */
+    box-sizing: border-box;          /* รวม padding ด้วย */
+    padding: 10px 0;   
+    padding-top: 25px; /* ขยับข้อความลงมา */    
+    
 }
