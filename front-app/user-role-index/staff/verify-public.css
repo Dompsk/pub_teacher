@@ -75,55 +75,7 @@ footer {
     bottom: 0;
 }
 
-.box {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px 20px;
-      max-width: 600px;
-      margin: 30px auto;
-      align-items: center;
-      position: absolute;
-      top: 150px;   
-      left: 700px;
-      font-size: 24px;
-      line-height: 1;
-    }
-    .box div {
-      font-weight: bold;
-    }
-    .box input {
-      width: 900px;
-      height: 70px;
-      padding: 10px ;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-.text {
-    position: absolute;
-      top: 180px;   
-      left: 700px;
-}
-
-select {
-  padding: 8px 12px;
-  font-size: 18px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  width: 900px;
-  height: 70px;
-}
-
-.file-input {
-  width: 900px;
-  height: 70px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 18px;
-  cursor: pointer;
-}
-
+/* ปุ่มย้อนกลับ */
 .btn {
       padding: 10px 20px;
       border-radius: 10px;
@@ -140,31 +92,50 @@ select {
       height: 60px;
       position: absolute;
       top: 250px;   
-      left: 60px;
+      left: 120px;
     }
     .btn:hover {
       background: #868686;
     }
 
+/* ตาราง */
 table {
   border-collapse: collapse;
-  min-width: 2300px;   
-  position: absolute;
-  top: 350px;   
-  left: 60px;
-  
+  width: 90%;   
+  margin: 30px auto;
+  margin-top: 230px;
+  background: #fff;
+  overflow: hidden;           /* ตัดขอบให้โค้งทำงาน */
+  border-radius: 12px;  
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* เงาสวย ๆ */
 }
-th, td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-  
-}
-th {
-  background-color: #2d6eb3;
+
+thead {
+  background: linear-gradient(90deg, #2d6eb3, #4a90e2); /* ไล่สีหัวตาราง */
   color: white;
-  font-size: 20px;
 }
- table thead tr {
-   height: 50px; /* ปรับความสูงของแถวหัวตาราง */
+
+th, td {
+  padding: 14px 20px;
+  text-align: center;
+  font-size: 18px;
+  border-bottom: 1px solid #e0e0e0; /* เส้นแบ่งบาง ๆ */
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* สลับสีแถว */
+}
+
+tbody tr:hover {
+  background-color: #eaf4ff; /* ไฮไลท์เมื่อ hover */
+  transition: 0.3s;
+}
+
+th {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+td {
+  color: #333;
 }

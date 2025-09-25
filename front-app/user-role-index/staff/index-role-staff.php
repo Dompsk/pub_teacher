@@ -1,4 +1,6 @@
-
+<?php
+     include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
+?>
 <html lang="en">
 
 <head>
@@ -30,24 +32,21 @@
 
     <nav class="nav">
         <ul>
-            <?php
-            include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
-            session_start(); // เริ่ม session
+           <?php
 
-            // ดึง user_id ของผู้ใช้ปัจจุบันจาก session
+            session_start();
+
+            // ดึง username/password จาก session
             $current_username = $_SESSION['username'] ?? null;
             $current_password = $_SESSION['password'] ?? null;
 
             $row_user = null;
+            $pic_path = "/pub_teacher/src/pic_user/df.png"; // default image
 
             if ($current_username && $current_password) {
                 // ดึงข้อมูลจาก Supabase
-                $users = getSupabaseData('user', [
-                    'select' => ['user_id', 'fname', 'lname'],
-                ]);
-                $user_accs = getSupabaseData('user_acc',[
-                    'select' => ['acc_id', 'user_id', 'type_id', 'username', 'password'],
-                ]);
+                $users = getSupabaseData('user');
+                $user_accs = getSupabaseData('user_acc');
                 $account_types = getSupabaseData('account_type');
 
                 // map สำหรับค้นหาข้อมูลง่าย
@@ -69,6 +68,11 @@
                     $row_user = $user_map[$user_id] ?? null;
                     $type_id = $current_acc['type_id'];
                     $row_user['type_name'] = $account_type_map[$type_id]['type_name'] ?? '';
+
+                    // ตรวจสอบรูปผู้ใช้
+                    if (!empty($row_user['pic'])) {
+                        $pic_path = "/pub_teacher/src/pic_user/" . htmlspecialchars($row_user['pic']);
+                    }
                 }
             }
             ?>
