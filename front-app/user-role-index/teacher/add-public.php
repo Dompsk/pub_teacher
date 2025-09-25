@@ -141,6 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save_pub'])) {
     <main>
     <!-- ฟอร์มเพิ่มบทความ -->
     <form method="POST" enctype="multipart/form-data">
+
         <div class="box">
             <div>ชื่อบทความ :</div>
             <input type="text" name="pub_name" placeholder="กรอกชื่อบทความ" required>
@@ -165,6 +166,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save_pub'])) {
 
         <button type="button" class="btn btn-cancel" onclick="window.location.href='index-role-teacher.php'">ยกเลิก</button>
         <button type="submit" name="save_pub" class="btn btn-save">เพิ่มบทความ</button>
+        
     </form>
     </main>
 

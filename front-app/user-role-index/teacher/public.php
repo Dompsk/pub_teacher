@@ -1,9 +1,9 @@
 <?php
-// condb.php
+
 $SUPABASE_URL = "https://jibnhzwxuzoccvxhzqri.supabase.co";
 $SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImppYm5oend4dXpvY2N2eGh6cXJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTgzNzg3MjMsImV4cCI6MjA3Mzk1NDcyM30.5rg489NwkhiVvkXI2Y5wJy56Ads9JjFVX6snArPlrPc";
 
-// ฟังก์ชันสำหรับดึงข้อมูล (Read/Select)
+
 function getSupabaseData($table, $query = "")
 {
     global $SUPABASE_URL, $SUPABASE_KEY;
@@ -27,12 +27,12 @@ function getSupabaseData($table, $query = "")
     return json_decode($response, true);
 }
 
-// กรอง acc_id ของ session
+
 session_start();
 $acc_id = $_SESSION["id"];
 $publication = getSupabaseData('publication', "&acc_id=eq.$acc_id");
 
-// รวมข้อมูล
+
 $combinedData = [];
 if (!empty($publication) && is_array($publication)) {
     foreach ($publication as $p) {
@@ -97,10 +97,10 @@ if (!empty($publication) && is_array($publication)) {
                                 <?php echo htmlspecialchars($row['status']); ?>
                             </td>
                             <td>
-                                <form method="post" style="display:inline;">
-                                    <input type="hidden" name="edit_pub_id" value="<?php echo $row['pub_id']; ?>">
-                                    <button type="submit">แก้ไข</button>
-                                </form>
+                             <a href="edit-public.php?pub_id=<?php echo $row['pub_id']; ?>">
+    <button type="button">แก้ไข</button>
+</a>
+
                             </td>
                             <td>
                                 <form method="post" action="delete-publication.php" style="display:inline;" onsubmit="return confirm('ยืนยันการลบ?');">
