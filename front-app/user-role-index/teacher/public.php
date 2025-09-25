@@ -115,7 +115,6 @@ if (!empty($publication) && is_array($publication)) {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-
            
         </div>
     </main>
