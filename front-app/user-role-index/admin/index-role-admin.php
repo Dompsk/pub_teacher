@@ -72,7 +72,8 @@
                         <h3>ชื่อ-นามสกุล</h3>
                         <p><?php echo htmlspecialchars($row_user["fname"] . ' ' . $row_user["lname"]); ?></p>
                         <p>ตำแหน่ง: <?php echo htmlspecialchars($row_user["type_name"]); ?></p>
-                        <br><br>
+                        <p>สาขา: <?php echo htmlspecialchars($row_user["major"]); ?></p>
+                        
                     <?php else: ?>
                         <p>ไม่พบข้อมูลผู้ใช้</p>
                     <?php endif; ?>
@@ -80,14 +81,14 @@
             </div>
 
             <div class="line"></div>
-            <li><a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-            <li><a href="/pub_teacher/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
+            <li><a href="/pub_teacher/front-app/user-role-index/admin/index-role-admin.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+            <li><a href="/pub_teacher/front-app/user-role-index/admin/profile-admin.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
 
             <li>
                 <a href="#" onclick="openModal()">
                     <i class="bi bi-gear icon-large"></i> คู่มือการใช้งาน
                 </a>
-            </li>
+            </li>  
             <p></p>
             <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
 
