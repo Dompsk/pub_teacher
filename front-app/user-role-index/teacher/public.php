@@ -113,7 +113,7 @@ if (!empty($publication) && is_array($publication)) {
                 </tbody>
             </table>
 
-            <a href="/pub_teacher/front-app/user-role-index/teacher/add-public.php"><button class="x">เพิ่มบทความ</button></a>
+            <a href="\pub_teacher\front-app\user-role-index\teacher\add-public.php"><button class="x">เพิ่มบทความ</button></a>
         </div>
     </main>
 
