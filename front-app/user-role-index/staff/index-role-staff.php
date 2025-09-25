@@ -75,7 +75,8 @@
                         <h3>ชื่อ-นามสกุล</h3>
                         <p><?php echo htmlspecialchars($row_user["fname"] . ' ' . $row_user["lname"]); ?></p>
                         <p>ตำแหน่ง: <?php echo htmlspecialchars($row_user["type_name"]); ?></p>
-                        <br><br>
+                        <p>สาขา: <?php echo htmlspecialchars($row_user["major"]); ?></p>
+                        
                     <?php else: ?>
                         <p>ไม่พบข้อมูลผู้ใช้</p>
                     <?php endif; ?>
@@ -83,8 +84,8 @@
             </div>
 
             <div class="line"></div>
-            <li><a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-            <li><a href="/pub_teacher/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
+            <li><a href="/pub_teacher/front-app/user-role-index/staff/index-role-staff.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+            <li><a href="/pub_teacher/front-app/user-role-index/staff/profile-staff.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
 
             <li>
                 <a href="#" onclick="openModal()">
@@ -108,9 +109,9 @@
 
             <div class="bar">
                 <ul>
-                    <li><a href="index.html"><i class="bi bi-journal-check icon-large"></i> จัดทำรายงานสรุป</a></li>
+                    <li><a href="#"><i class="bi bi-journal-check icon-large"></i> จัดทำรายงานสรุป</a></li>
                     <li><a href="/pub_teacher/front-app/user-role-index/staff/verify-public.php"><i class="bi bi-search icon-large"></i> ตรวจสอบผลงานตีพิมพ์ </a></li>
-                    <li><a href="index.html"><i class="bi bi-folder-check icon-large"></i> ประวัติจัดการผลงานตีพิมพ์</a></li>
+                    <li><a href="#"><i class="bi bi-folder-check icon-large"></i> ประวัติจัดการผลงานตีพิมพ์</a></li>
 
                 </ul>
             </div>
