@@ -107,7 +107,7 @@
 
             <div class="bar">
                 <ul>
-                    <li><a href="index.html"><i class="bi bi-journal-check icon-large"></i> จัดทำรายงานสรุป</a></li>
+                    <li><a href="staff-annual.php"><i class="bi bi-journal-check icon-large"></i> จัดทำรายงานสรุป</a></li>
                     <li><a href="/pub_teacher/front-app/user-role-index/staff/verify-public.php"><i class="bi bi-search icon-large"></i> ตรวจสอบผลงานตีพิมพ์ </a></li>
                     <li><a href="index.html"><i class="bi bi-folder-check icon-large"></i> ประวัติจัดการผลงานตีพิมพ์</a></li>
 
