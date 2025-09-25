@@ -107,7 +107,7 @@
                 <div class="bar">
                     <ul>
                         <li><a href="\pub_teacher\front-app\user-role-index\teacher\public.php"><i class="bi bi-journal-text icon-large"></i> จัดการบทความ</a></li>
-                        <li><a href="index.html"><i class="bi-file-earmark-text icon-large"></i> จัดทำรายงานสรุป </a></li>
+                        <li><a href="teacher-annual.php"><i class="bi-file-earmark-text icon-large"></i> จัดทำรายงานสรุป </a></li>
                     </ul>           
                 </div>
 
