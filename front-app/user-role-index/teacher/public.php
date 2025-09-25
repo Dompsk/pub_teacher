@@ -98,10 +98,12 @@ if (!empty($publication) && is_array($publication)) {
                                 <?php echo htmlspecialchars($row['status']); ?>
                             </td>
                             <td>
+
                                 <a href="edit-public.php?pub_id=<?php echo $row['pub_id']; ?>">
                                     <button type="button">แก้ไข</button>
                                 </a>
                                 
+
                             </td>
                             <td>
                                 <form method="post" action="delete-publication.php" style="display:inline;" onsubmit="return confirm('ยืนยันการลบ?');">

@@ -1,6 +1,8 @@
 @font-face {
+
     font-family:Fontstyle;
     src: url(/pub_teacher/front-app/NotoSansThai-VariableFont_wdth\,wght.ttf);
+
 }
 
 body {
@@ -110,8 +112,6 @@ small {
     background-color: #0056b3;
 }
 
-
-/* footer */
 
 footer {
     background-color: #004085;

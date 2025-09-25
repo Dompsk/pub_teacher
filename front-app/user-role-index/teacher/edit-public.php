@@ -54,6 +54,7 @@ if ($pub_id) {
     $pub_data = $result[0] ?? null;
 }
 
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
     $pub_name = $_POST['pub_name'] ?? "";
 
@@ -77,6 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
     exit;
 }
 ?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -102,6 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
 
     </header>
 
+
 <main>
     <?php if ($pub_data): ?>
         <form method="POST" enctype="multipart/form-data">
@@ -109,7 +112,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
 
             <div class="box">
                 <label>ชื่อบทความ :</label>
+
                 <input type="text" name="pub_name" value="<?= htmlspecialchars($pub_data['pub_name'] ?? '') ?>" required><br>
+
 
                 <label>ประเภทบทความ :</label>
                 <select name="pub_type">
@@ -119,7 +124,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
                     <option value="ตำรา">ตำรา</option>
                     <option value="อื่นๆ">อื่นๆ</option>
                 </select>
-                <small></small>
+
+
+
 
                 <label>ไฟล์เดิม:</label>
                 <?php if (!empty($pub_data['file'])): ?>
