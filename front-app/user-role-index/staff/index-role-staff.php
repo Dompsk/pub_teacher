@@ -1,3 +1,4 @@
+
 <html lang="en">
 
 <head>
@@ -118,59 +119,59 @@
                 <h2>บทความตีพิมพ์ล่าสุด</h2>
                 <div class="articles-list-container">
                     <?php
-                        // ดึงข้อมูลจาก Supabase
-                        $publications = getSupabaseData('publication');
-                        $users = getSupabaseData('user');
-                        $user_accs = getSupabaseData('user_acc');
-                        $categories = getSupabaseData('category');
+                    // ดึงข้อมูลจาก Supabase
+                    $publications = getSupabaseData('publication');
+                    $users = getSupabaseData('user');
+                    $user_accs = getSupabaseData('user_acc');
+                    $categories = getSupabaseData('category');
 
-                        // สร้าง map เพื่อค้นหาข้อมูลได้ง่าย
-                        $user_map = array_column($users, null, 'user_id');
-                        $user_acc_map = array_column($user_accs, null, 'acc_id');
-                        $category_map = array_column($categories, null, 'c_id');
+                    // สร้าง map เพื่อค้นหาข้อมูลได้ง่าย
+                    $user_map = array_column($users, null, 'user_id');
+                    $user_acc_map = array_column($user_accs, null, 'acc_id');
+                    $category_map = array_column($categories, null, 'c_id');
 
-                        // กรองเฉพาะบทความที่ approved
-                        $approved_publications = array_filter($publications, function($pub) {
-                            return $pub['status'] === 'approve';
-                        });
+                    // กรองเฉพาะบทความที่ approved
+                    $approved_publications = array_filter($publications, function ($pub) {
+                        return $pub['status'] === 'approve';
+                    });
 
-                        // เรียงลำดับตามวันที่อัปโหลดล่าสุด
-                        usort($approved_publications, function($a, $b) {
-                            return strtotime($b['upload_date']) - strtotime($a['upload_date']);
-                        });
+                    // เรียงลำดับตามวันที่อัปโหลดล่าสุด
+                    usort($approved_publications, function ($a, $b) {
+                        return strtotime($b['upload_date']) - strtotime($a['upload_date']);
+                    });
 
-                        // ดึง 8 บทความล่าสุด
-                        $recent_articles = $approved_publications;
+                    // ดึง 8 บทความล่าสุด
+                    $recent_articles = $approved_publications;
 
-                        if (!empty($recent_articles)) {
-                            foreach ($recent_articles as $row) {
-                                $acc_id = $row['acc_id'];
-                                $c_id = $row['c_id'];
+                    if (!empty($recent_articles)) {
+                        foreach ($recent_articles as $row) {
+                            $acc_id = $row['acc_id'];
+                            $c_id = $row['c_id'];
 
-                                $user_id = $user_acc_map[$acc_id]['user_id'] ?? null;
-                                $author = $user_map[$user_id] ?? null;
-                                $category = $category_map[$c_id] ?? null;
+                            $user_id = $user_acc_map[$acc_id]['user_id'] ?? null;
+                            $author = $user_map[$user_id] ?? null;
+                            $category = $category_map[$c_id] ?? null;
 
-                                $img = (!empty($row['pic']) && $row['pic'] !== null) 
-                                    ? "/pub_teacher/src/pic_public/" . $row['pic'] 
-                                    : "/pub_teacher/front-app/Pic/bk1.jpg";
+                            $img = (!empty($row['pic']) && $row['pic'] !== null)
+                                ? "/pub_teacher/src/pic_public/" . $row['pic']
+                                : "/pub_teacher/front-app/Pic/bk1.jpg";
                     ?>
-                    <div class="articles-list">
-                        <div class="article-pic">
-                            <img src="<?php echo htmlspecialchars($img); ?>" alt="รูปบทความ">
-                        </div>
-                        <div class="article-text">
-                            <h3><?php echo htmlspecialchars($row['pub_name']); ?></h3>
-                            <p>ผู้แต่ง: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
-                            <p>หมวดหมู่: <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
-                            <a href="detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
-                        </div>
-                    </div>
+                            <div class="articles-list">
+                                <div class="article-pic">
+                                    <img src="<?php echo htmlspecialchars($img); ?>" alt="รูปบทความ">
+                                </div>
+                                <div class="article-text">
+                                    <h3><?php echo htmlspecialchars($row['pub_name']); ?></h3>
+                                    <p>ผู้แต่ง: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
+                                    <p>หมวดหมู่: <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
+                                    <a href="detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
+                                </div>
+                            </div>
                     <?php
-                            }
-                        } else {
-                            echo "<p>ยังไม่มีบทความ</p>";
                         }
+                    } else {
+                        echo "<p>ยังไม่มีบทความ</p>";
+                    }
                     ?>
                 </div>
             </div>

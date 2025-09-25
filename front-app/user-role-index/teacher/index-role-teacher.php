@@ -2,7 +2,6 @@
     include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
 ?>
 
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
