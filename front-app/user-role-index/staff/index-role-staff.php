@@ -1,3 +1,4 @@
+
 <html lang="en">
 
 <head>
@@ -41,8 +42,12 @@
 
             if ($current_username && $current_password) {
                 // ดึงข้อมูลจาก Supabase
-                $users = getSupabaseData('user');
-                $user_accs = getSupabaseData('user_acc');
+                $users = getSupabaseData('user', [
+                    'select' => ['user_id', 'fname', 'lname'],
+                ]);
+                $user_accs = getSupabaseData('user_acc',[
+                    'select' => ['acc_id', 'user_id', 'type_id', 'username', 'password'],
+                ]);
                 $account_types = getSupabaseData('account_type');
 
                 // map สำหรับค้นหาข้อมูลง่าย
@@ -74,7 +79,8 @@
                         <h3>ชื่อ-นามสกุล</h3>
                         <p><?php echo htmlspecialchars($row_user["fname"] . ' ' . $row_user["lname"]); ?></p>
                         <p>ตำแหน่ง: <?php echo htmlspecialchars($row_user["type_name"]); ?></p>
-                        <br><br>
+                        <p>สาขา: <?php echo htmlspecialchars($row_user["major"]); ?></p>
+                        
                     <?php else: ?>
                         <p>ไม่พบข้อมูลผู้ใช้</p>
                     <?php endif; ?>
@@ -82,8 +88,8 @@
             </div>
 
             <div class="line"></div>
-            <li><a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-            <li><a href="/pub_teacher/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
+            <li><a href="/pub_teacher/front-app/user-role-index/staff/index-role-staff.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+            <li><a href="/pub_teacher/front-app/user-role-index/staff/profile-staff.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
 
             <li>
                 <a href="#" onclick="openModal()">
@@ -107,9 +113,11 @@
 
             <div class="bar">
                 <ul>
-                    <li><a href="index.html"><i class="bi bi-journal-check icon-large"></i> จัดทำรายงานสรุป</a></li>
+
+                    <li><a href="staff-annual.php"><i class="bi bi-journal-check icon-large"></i> จัดทำรายงานสรุป</a></li>
+
                     <li><a href="/pub_teacher/front-app/user-role-index/staff/verify-public.php"><i class="bi bi-search icon-large"></i> ตรวจสอบผลงานตีพิมพ์ </a></li>
-                    <li><a href="index.html"><i class="bi bi-folder-check icon-large"></i> ประวัติจัดการผลงานตีพิมพ์</a></li>
+                    <li><a href="#"><i class="bi bi-folder-check icon-large"></i> ประวัติจัดการผลงานตีพิมพ์</a></li>
 
                 </ul>
             </div>
@@ -118,59 +126,67 @@
                 <h2>บทความตีพิมพ์ล่าสุด</h2>
                 <div class="articles-list-container">
                     <?php
-                        // ดึงข้อมูลจาก Supabase
-                        $publications = getSupabaseData('publication');
-                        $users = getSupabaseData('user');
-                        $user_accs = getSupabaseData('user_acc');
-                        $categories = getSupabaseData('category');
+                    // ดึงข้อมูลจาก Supabase
+                    $publications = getSupabaseData('publication',[
+                        'select' => ['pub_id', 'pub_name', 'pic', 'acc_id', 'c_id', 'upload_date', 'status'],
+                    ]);
+                    $users = getSupabaseData('user', [
+                        'select' => ['user_id', 'fname', 'lname']
+                    ]);
+                    $user_accs = getSupabaseData('user_acc', [
+                        'select' => ['acc_id', 'user_id', 'type_id', 'username', 'password']
+                    ]);
+                    $categories = getSupabaseData('category', [
+                        'select' => ['c_id', 'cname']
+                    ]);
 
-                        // สร้าง map เพื่อค้นหาข้อมูลได้ง่าย
-                        $user_map = array_column($users, null, 'user_id');
-                        $user_acc_map = array_column($user_accs, null, 'acc_id');
-                        $category_map = array_column($categories, null, 'c_id');
+                    // สร้าง map เพื่อค้นหาข้อมูลได้ง่าย
+                    $user_map = array_column($users, null, 'user_id');
+                    $user_acc_map = array_column($user_accs, null, 'acc_id');
+                    $category_map = array_column($categories, null, 'c_id');
 
-                        // กรองเฉพาะบทความที่ approved
-                        $approved_publications = array_filter($publications, function($pub) {
-                            return $pub['status'] === 'approve';
-                        });
+                    // กรองเฉพาะบทความที่ approved
+                    $approved_publications = array_filter($publications, function ($pub) {
+                        return $pub['status'] === 'approve';
+                    });
 
-                        // เรียงลำดับตามวันที่อัปโหลดล่าสุด
-                        usort($approved_publications, function($a, $b) {
-                            return strtotime($b['upload_date']) - strtotime($a['upload_date']);
-                        });
+                    // เรียงลำดับตามวันที่อัปโหลดล่าสุด
+                    usort($approved_publications, function ($a, $b) {
+                        return strtotime($b['upload_date']) - strtotime($a['upload_date']);
+                    });
 
-                        // ดึง 8 บทความล่าสุด
-                        $recent_articles = $approved_publications;
+                    // ดึง 8 บทความล่าสุด
+                    $recent_articles = $approved_publications;
 
-                        if (!empty($recent_articles)) {
-                            foreach ($recent_articles as $row) {
-                                $acc_id = $row['acc_id'];
-                                $c_id = $row['c_id'];
+                    if (!empty($recent_articles)) {
+                        foreach ($recent_articles as $row) {
+                            $acc_id = $row['acc_id'];
+                            $c_id = $row['c_id'];
 
-                                $user_id = $user_acc_map[$acc_id]['user_id'] ?? null;
-                                $author = $user_map[$user_id] ?? null;
-                                $category = $category_map[$c_id] ?? null;
+                            $user_id = $user_acc_map[$acc_id]['user_id'] ?? null;
+                            $author = $user_map[$user_id] ?? null;
+                            $category = $category_map[$c_id] ?? null;
 
-                                $img = (!empty($row['pic']) && $row['pic'] !== null) 
-                                    ? "/pub_teacher/src/pic_public/" . $row['pic'] 
-                                    : "/pub_teacher/front-app/Pic/bk1.jpg";
+                            $img = (!empty($row['pic']) && $row['pic'] !== null)
+                                ? "/pub_teacher/src/pic_public/" . $row['pic']
+                                : "/pub_teacher/front-app/Pic/bk1.jpg";
                     ?>
-                    <div class="articles-list">
-                        <div class="article-pic">
-                            <img src="<?php echo htmlspecialchars($img); ?>" alt="รูปบทความ">
-                        </div>
-                        <div class="article-text">
-                            <h3><?php echo htmlspecialchars($row['pub_name']); ?></h3>
-                            <p>ผู้แต่ง: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
-                            <p>หมวดหมู่: <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
-                            <a href="detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
-                        </div>
-                    </div>
+                            <div class="articles-list">
+                                <div class="article-pic">
+                                    <img src="<?php echo htmlspecialchars($img); ?>" alt="รูปบทความ">
+                                </div>
+                                <div class="article-text">
+                                    <h3><?php echo htmlspecialchars($row['pub_name']); ?></h3>
+                                    <p>ผู้แต่ง: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
+                                    <p>หมวดหมู่: <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
+                                    <a href="detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
+                                </div>
+                            </div>
                     <?php
-                            }
-                        } else {
-                            echo "<p>ยังไม่มีบทความ</p>";
                         }
+                    } else {
+                        echo "<p>ยังไม่มีบทความ</p>";
+                    }
                     ?>
                 </div>
             </div>

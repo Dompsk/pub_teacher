@@ -41,9 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
       $updated_data = [
           'fname' => !empty($_POST['fname']) ? $_POST['fname'] : $row_user['fname'],
           'lname' => !empty($_POST['lname']) ? $_POST['lname'] : $row_user['lname'],
+          'fname_eng' => !empty($_POST['fname_eng']) ? $_POST['fname_eng'] : $row_user['fname_eng'],
+          'lname_eng' => !empty($_POST['lname_eng']) ? $_POST['lname_eng'] : $row_user['lname_eng'],
+          'major' => !empty($_POST['major']) ? $_POST['major'] : $row_user['major'],
           'tel' => !empty($_POST['tel']) ? $_POST['tel'] : $row_user['tel'],
           'age' => !empty($_POST['age']) ? $_POST['age'] : $row_user['age'],
-          'major' => !empty($_POST['major']) ? $_POST['major'] : $row_user['major'],
 ];
 
 
@@ -51,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
     $result = updateSupabaseData('user', $updated_data, 'user_id', $user_id);
 
    if (!empty($result)) {
-        header("Location: manage-user.php");
+        header("Location: profile-admin.php");
         exit();
     } else {
         echo "เกิดข้อผิดพลาดในการอัปเดตข้อมูล";
@@ -66,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
-    <link rel="stylesheet" href="edit-user.css">
+    <link rel="stylesheet" href="edit-profile.css">
     <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
 
 </head>
@@ -169,14 +171,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
                     <label>นามสกุล</label>
                     <input type="text" name="lname" value="<?php echo htmlspecialchars($row_user['lname']); ?>">
 
-                     <label>เบอร์โทร</label>
+                    <label>Firstname (อังกฤษ)</label>
+                    <input type="text" name="fname_eng" value="<?php echo htmlspecialchars($row_user['fname_eng']); ?>">
+
+                    <label>Lastname (อังกฤษ)</label>
+                    <input type="text" name="lname_eng" value="<?php echo htmlspecialchars($row_user['lname_eng']); ?>">
+
+                    <label>สาขา</label>
+                    <input type="text" name="major" value="<?php echo htmlspecialchars($row_user['major']); ?>">
+
+                    <label>เบอร์โทร</label>
                     <input type="text" name="tel" value="<?php echo htmlspecialchars($row_user['tel']); ?>">
 
                     <label>อายุ</label>
                     <input type="text" name="age" value="<?php echo htmlspecialchars($row_user['age']); ?>">
-
-                    <label>สาขา</label>
-                    <input type="text" name="major" value="<?php echo htmlspecialchars($row_user['major']); ?>">
 
                     <button type="submit">บันทึกข้อมูล</button>
                 </form>
