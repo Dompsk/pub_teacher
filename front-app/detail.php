@@ -140,10 +140,21 @@ foreach ($publications as $pub) {
             $file = "/pub_teacher/src/file_public/" . $article['file'];
         ?>
             <div class="article-info">
-                <h2><?php echo htmlspecialchars($article['pub_name']); ?></h2>
-                <p>ผู้แต่ง: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
-                <p>หมวดหมู่: <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
+                <div class="pic-left-info">
+                    <?php if (!empty($article['pic'])): ?>
+                        <div class="article-pic">
+                            <img src="/pub_teacher/src/pic_public/<?php echo htmlspecialchars($article['pic']); ?>" alt="รูปบทความ">
+                        </div>
+                    <?php endif; ?>
+
+                    <div class="article-text">
+                        <h2><?php echo htmlspecialchars($article['pub_name']); ?></h2>
+                        <p>ผู้แต่ง: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
+                        <p>หมวดหมู่: <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
+                    </div>
+                </div>
             </div>
+
 
             <div class="pdf-viewer">
                 <iframe src="<?php echo htmlspecialchars($file); ?>" width="95%" height="100%"></iframe>
