@@ -58,18 +58,32 @@ if ($pub_id) {
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
     $pub_name = $_POST['pub_name'] ?? "";
 
-    $filename = null;
-    if (!empty($_FILES['file']['name'])) {
-        $filename = time() . "_" . basename($_FILES['file']['name']);
-        $targetPath = "uploads/" . $filename;
-        move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
+    // จัดการไฟล์
+    $filename = $_FILES['file']['name'] ?? null;
+    if (!empty($filename)) {
+        $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/src/file_public/";
+        if (!is_dir($targetDir)) mkdir($targetDir, 0755, true);
+        move_uploaded_file($_FILES['file']['tmp_name'], $targetDir . $filename);
+    }
+
+    //รูป
+    $picname = $_FILES['pic']['name'] ?? null;
+    if (!empty($picname)) {
+        $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/src/pic_public/";
+        if (!is_dir($targetDir)) mkdir($targetDir, 0755, true);
+        move_uploaded_file($_FILES['pic']['tmp_name'], $targetDir . $picname);
     }
 
     $updateData = [
-        "pub_name" => $pub_name
+        "pub_name" => $pub_name,
+        "file" => $filename,
+        "pic" => $picname
     ];
     if ($filename) {
         $updateData["file"] = $filename;
+    }
+    if ($picname) {
+        $updateData["pic"] = $picname;
     }
 
     updateSupabaseData("publication", $pub_id, $updateData);
@@ -80,6 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
 ?>
 
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -89,68 +104,81 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
     <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
 
 </head>
+
 <body>
-<header>
+    <header>
 
         <div class="header-container">
-            
-                <div class="logo-container">
-                    <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php">
-                        <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
-                    </a>
-                </div>
-            <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
+
+            <div class="logo-container">
+                <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php">
+                    <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
+                </a>
+            </div>
+            <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1>
         </div>
 
     </header>
 
 
-<main>
-    <?php if ($pub_data): ?>
-        <form method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="pub_id" value="<?= htmlspecialchars($pub_id) ?>">
+    <main>
+        <?php if ($pub_data): ?>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="pub_id" value="<?= htmlspecialchars($pub_id) ?>">
 
-            <div class="box">
-                <label>ชื่อบทความ :</label>
+                <div class="box">
+                    <label style="font-weight: bold;">ชื่อบทความ :</label>
 
-                <input type="text" name="pub_name" value="<?= htmlspecialchars($pub_data['pub_name'] ?? '') ?>" required><br>
-
-
-                <label>ประเภทบทความ :</label>
-                <select name="pub_type">
-                    <option value="ระดับชาติ">ระดับชาติ</option>
-                    <option value="ระดับนานาชาติ">ระดับนานาชาติ</option>
-                    <option value="วารสาร">วารสาร</option>
-                    <option value="ตำรา">ตำรา</option>
-                    <option value="อื่นๆ">อื่นๆ</option>
-                </select>
+                    <input type="text" name="pub_name" value="<?= htmlspecialchars($pub_data['pub_name'] ?? '') ?>" required>
 
 
+                    <label style="font-weight: bold;">ประเภทบทความ :</label>
+                    <select name="pub_type">
+                        <option value="ระดับชาติ">ระดับชาติ</option>
+                        <option value="ระดับนานาชาติ">ระดับนานาชาติ</option>
+                        <option value="วารสาร">วารสาร</option>
+                        <option value="ตำรา">ตำรา</option>
+                        <option value="อื่นๆ">อื่นๆ</option>
+                    </select><br>
 
 
-                <label>ไฟล์เดิม:</label>
-                <?php if (!empty($pub_data['file'])): ?>
-                    <a href="uploads/<?= htmlspecialchars($pub_data['file']) ?>" target="_blank"><?= htmlspecialchars($pub_data['file']) ?></a>
-                <?php else: ?>
-                    <span>ไม่มีไฟล์</span>
-                <?php endif; ?>
 
-                <label>อัปโหลดไฟล์ใหม่:</label>
-                <input class="file-input" type="file" name="file" accept=".pdf,.doc,.docx">
-            </div>
 
-            <div class="button-group">
-                <button type="button" class="btn btn-cancel" onclick="window.history.back()">ยกเลิก</button>
-                <button type="submit" name="save" class="btn btn-save">ยืนยันการแก้ไข</button>
-            </div>
-        </form>
-    <?php else: ?>
-        <p style="text-align:center;">ไม่พบบทความ</p>
-    <?php endif; ?>
-</main>
+                    <label style="font-weight: bold;">ไฟล์เดิม:</label>
+                    <?php if (!empty($pub_data['file'])): ?>
+                        <a href="/pub_teacher/src/file_public/<?= htmlspecialchars($pub_data['file']) ?>" target="_blank"><?= htmlspecialchars($pub_data['file']) ?></a>
+                    <?php else: ?>
+                        <span>ไม่มีไฟล์</span>
+                    <?php endif; ?>
 
-<footer>
-    @มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตหาดใหญ่ สมาคม 143 251 252 253 254 325 378
-</footer>
+                    <label style="font-weight: bold;">รูปเดิม:</label>
+                    <?php if (!empty($pub_data['pic'])): ?>
+                        <a href="/pub_teacher/src/pic_public/<?= htmlspecialchars($pub_data['pic']) ?>" target="_blank"><?= htmlspecialchars($pub_data['pic']) ?></a>
+                    <?php else: ?>
+                        <span>ไม่มีรูป</span>
+                    <?php endif; ?>
+
+                    <br>
+
+                    <label style="font-weight: bold;">อัปโหลดไฟล์ใหม่:</label>
+                    <input class="file-input" type="file" name="file" accept=".pdf,.doc,.docx">
+                    <label style="font-weight: bold;">อัปโหลดรูปใหม่:</label>
+                    <input class="file-input" type="file" name="pic">
+                </div>
+
+                <div class="button-group">
+                    <button type="button" class="btn btn-cancel" onclick="window.history.back()">ยกเลิก</button>
+                    <button type="submit" name="save" class="btn btn-save">ยืนยันการแก้ไข</button>
+                </div>
+            </form>
+        <?php else: ?>
+            <p style="text-align:center;">ไม่พบบทความ</p>
+        <?php endif; ?>
+    </main>
+
+    <footer>
+        @มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตหาดใหญ่ สมาคม 143 251 252 253 254 325 378
+    </footer>
 </body>
+
 </html>

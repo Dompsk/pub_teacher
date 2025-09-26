@@ -40,7 +40,7 @@ if (!empty($publication) && is_array($publication)) {
             'pub_id'     => $p['pub_id'],
             'pub_name'   => $p['pub_name'],
             'file'       => $p['file'],
-            'upload_date'=> $p['upload_date'],
+            'upload_date' => $p['upload_date'],
             'status'     => $p['status'],
         ];
     }
@@ -93,7 +93,11 @@ if (!empty($publication) && is_array($publication)) {
                             <td><?php echo $i + 1; ?></td>
                             <td><?php echo $row['pub_name']; ?></td>
                             <td><?php echo $row['file']; ?></td>
-                            <td><?php echo $row['upload_date']; ?></td>
+                            <td><?php
+                                $date = new DateTime($row['upload_date'], new DateTimeZone('UTC'));
+                                $date->setTimezone(new DateTimeZone('Asia/Bangkok'));
+                                echo $date->format('d/m/Y H:i:s');
+                                ?></td>
                             <td class="<?php echo ($row['status'] === 'approve') ? 'status-approve' : 'status-not-approve'; ?>">
                                 <?php echo htmlspecialchars($row['status']); ?>
                             </td>
@@ -102,7 +106,7 @@ if (!empty($publication) && is_array($publication)) {
                                 <a href="edit-public.php?pub_id=<?php echo $row['pub_id']; ?>">
                                     <button type="button">แก้ไข</button>
                                 </a>
-                                
+
 
                             </td>
                             <td>
@@ -115,7 +119,7 @@ if (!empty($publication) && is_array($publication)) {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-           
+
         </div>
     </main>
 
@@ -123,4 +127,5 @@ if (!empty($publication) && is_array($publication)) {
         <p>@มหาวิทยาลัย สงขลานครินทร์ วิทยาเขตหาดใหญ่. สมาชิก 143 251 253 254 325 378 </p>
     </footer>
 </body>
+
 </html>
