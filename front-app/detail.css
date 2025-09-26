@@ -177,9 +177,11 @@ header h1{
     max-width: 1350px;
     text-align: center;
     box-sizing: border-box;
+    transform: translateY(-30px);
+    
 }
 .article-info:hover {
-    transform: translateY(-3px);
+    transform: translateY(-27px);
 }
 
 /* ชื่อบทความ */
@@ -203,6 +205,27 @@ header h1{
     margin: 5px 0;
     color: #333;
 }
+
+.pic-left-info {
+    display: flex;
+    align-items: flex-start;  /* จัดให้ text เริ่มต้นจากบน */
+    gap: 20px;                /* ระยะห่างระหว่างรูปกับข้อความ */
+}
+
+.article-pic img {
+    width: 120px;             /* ปรับขนาดรูป */
+    height: 150px;
+    object-fit: cover;        /* ครอบรูปเต็มกรอบ */
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.article-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 /* main */
 main {
     display: flex;
@@ -215,10 +238,11 @@ main {
 .pdf-viewer {
     width: 100%;        /* ความกว้าง pdf-viewer */
     max-width: 1350px;  /* จำกัดขนาดใหญ่สุด */
-    height: 600px;     /* ความสูง */
+    height: 800px;     /* ความสูง */
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transform: translateY(-45px);
     overflow: hidden;
 
 }
