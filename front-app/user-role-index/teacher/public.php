@@ -72,6 +72,7 @@ if (!empty($publication) && is_array($publication)) {
 
     <main>
         <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><button class="btn">ย้อนกลับ</button></a>
+        <a href="/pub_teacher/front-app/user-role-index/teacher/add-public.php"><button class="x">เพิ่มบทความ</button></a>
 
         <div style="overflow-x:auto; max-width:100%;">
             <table>
@@ -97,9 +98,11 @@ if (!empty($publication) && is_array($publication)) {
                                 <?php echo htmlspecialchars($row['status']); ?>
                             </td>
                             <td>
-                             <a href="edit-public.php?pub_id=<?php echo $row['pub_id']; ?>">
-    <button type="button">แก้ไข</button>
-</a>
+
+                                <a href="edit-public.php?pub_id=<?php echo $row['pub_id']; ?>">
+                                    <button type="button">แก้ไข</button>
+                                </a>
+                                
 
                             </td>
                             <td>
@@ -112,8 +115,7 @@ if (!empty($publication) && is_array($publication)) {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-
-            <a href="/pub_teacher/front-app/user-role-index/teacher/add-public.php"><button class="x">เพิ่มบทความ</button></a>
+           
         </div>
     </main>
 

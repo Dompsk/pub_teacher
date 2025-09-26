@@ -69,14 +69,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save_pub'])) {
     // จัดการไฟล์
     $fileName = $_FILES['file']['name'] ?? null;
     if (!empty($fileName)) {
-        $targetDir = "uploads/";
+        $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/src/file_public/";
         if (!is_dir($targetDir)) mkdir($targetDir, 0755, true);
         move_uploaded_file($_FILES['file']['tmp_name'], $targetDir . $fileName);
     }
 
+    //รูป
     $picName = $_FILES['pic']['name'] ?? null;
     if (!empty($picName)) {
-        $targetDir = "uploads/";
+        $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/src/pic_public/";
         if (!is_dir($targetDir)) mkdir($targetDir, 0755, true);
         move_uploaded_file($_FILES['pic']['tmp_name'], $targetDir . $picName);
     }
@@ -141,6 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save_pub'])) {
     <main>
     <!-- ฟอร์มเพิ่มบทความ -->
     <form method="POST" enctype="multipart/form-data">
+
         <div class="box">
             <div>ชื่อบทความ :</div>
             <input type="text" name="pub_name" placeholder="กรอกชื่อบทความ" required>
@@ -165,6 +167,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save_pub'])) {
 
         <button type="button" class="btn btn-cancel" onclick="window.location.href='index-role-teacher.php'">ยกเลิก</button>
         <button type="submit" name="save_pub" class="btn btn-save">เพิ่มบทความ</button>
+        
     </form>
     </main>
 

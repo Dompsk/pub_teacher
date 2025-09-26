@@ -54,6 +54,7 @@ if ($pub_id) {
     $pub_data = $result[0] ?? null;
 }
 
+
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
     $pub_name = $_POST['pub_name'] ?? "";
 
@@ -78,22 +79,31 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>แก้ไขบทความ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
     <link rel="stylesheet" href="edit-public.css">
+    <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
+
 </head>
 <body>
 <header>
-    <div class="header-container">
-        <div class="logo-container">
-            <img src="psu-logo.png" alt="PSU Logo">
+
+        <div class="header-container">
+            
+                <div class="logo-container">
+                    <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php">
+                        <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
+                    </a>
+                </div>
+            <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
         </div>
-        <h1>แก้ไขบทความ</h1>
-    </div>
-</header>
+
+    </header>
+
 
 <main>
     <?php if ($pub_data): ?>
@@ -102,7 +112,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
 
             <div class="box">
                 <label>ชื่อบทความ :</label>
-                <input type="text" name="pub_name" value="<?= htmlspecialchars($pub_data['pub_name'] ?? '') ?>" required>
+
+                <input type="text" name="pub_name" value="<?= htmlspecialchars($pub_data['pub_name'] ?? '') ?>" required><br>
+
 
                 <label>ประเภทบทความ :</label>
                 <select name="pub_type">
@@ -112,7 +124,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
                     <option value="ตำรา">ตำรา</option>
                     <option value="อื่นๆ">อื่นๆ</option>
                 </select>
-                <small>(เลือกได้ แต่ไม่ถูกบันทึกลงฐานข้อมูล)</small>
+
+
+
 
                 <label>ไฟล์เดิม:</label>
                 <?php if (!empty($pub_data['file'])): ?>

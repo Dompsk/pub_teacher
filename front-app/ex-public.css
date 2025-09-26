@@ -74,11 +74,11 @@ header h1{
     align-items: flex-start;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* เงาด้านขวา */
-    position: absolute; /* ให้ยึดกับด้านซ้ายของหน้าจอ */
+    position: relative; /* ให้ยึดกับด้านซ้ายของหน้าจอ */
     top: 0;
     left: 0;
     border-radius: 8px;
-    margin-top: 150px;
+    margin-top: 26px;
     margin-left: 200px;
 }
 
@@ -195,10 +195,10 @@ main {
     flex-direction: column;
     gap: 10px;
     width: 1250px; /* ความกว้างคงที่ */
-    margin-top: -60px; /* <-- เลื่อนลงจากด้านบน */
+    margin-top: 2%; /* <-- เลื่อนลงจากด้านบน */
     margin-right: 0px; /* <-- เลื่อนลงจากด้านบน */
     margin: 0 auto;
-    transform: translateY(-60px);
+    transform: translateY(-730px);
 }
 
 .main-wrapper   h2{

@@ -1,6 +1,8 @@
 @font-face {
-    font-family: Fontstyle;
-    src: url('/front-app/NotoSansThai-VariableFont_wdth,wght.ttf');
+
+    font-family:Fontstyle;
+    src: url(/pub_teacher/front-app/NotoSansThai-VariableFont_wdth\,wght.ttf);
+
 }
 
 body {
