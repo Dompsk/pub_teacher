@@ -183,7 +183,7 @@
                                     <h3><?php echo htmlspecialchars($row['pub_name']); ?></h3>
                                     <p>ผู้แต่ง: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
                                     <p>หมวดหมู่: <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
-                                    <a href="detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
+                                    <a href="/pub_teacher/front-app/detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
                                 </div>
                             </div>
                     <?php
