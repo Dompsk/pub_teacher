@@ -44,6 +44,10 @@ if (!empty($publication) && is_array($publication)) {
             'status'     => $p['status'],
         ];
     }
+    // เรียงข้อมูลตาม upload_date จากใหม่ไปเก่า
+    usort($combinedData, function ($a, $b) {
+        return strcmp($b['upload_date'], $a['upload_date']);
+    }); 
 }
 ?>
 

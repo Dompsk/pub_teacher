@@ -56,7 +56,7 @@ if ($data) {
         }
     }
 
-    ksort($year_summary); // เรียงปี
+    krsort($year_summary); // เรียงปี
 }
 ?>
 
