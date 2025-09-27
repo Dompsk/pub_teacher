@@ -222,7 +222,7 @@ header h1{
 
 .search-bar {
     position: fixed;      /* ติดอยู่บน viewport ตลอด */
-    top: 70px;            /* ระยะจากบนของหน้าจอ */
+    top: 67px;            /* ระยะจากบนของหน้าจอ */
     right: -450px;          /* ระยะจากขวาของหน้าจอ */
     z-index: 9999;        /* ให้ทับทุกอย่าง */
     flex-shrink: 0;

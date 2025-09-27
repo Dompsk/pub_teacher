@@ -221,8 +221,12 @@ header h1{
 }
 
 .search-bar {
+    position: fixed;      /* ติดอยู่บน viewport ตลอด */
+    top: 67px;            /* ระยะจากบนของหน้าจอ */
+    right: -450px;          /* ระยะจากขวาของหน้าจอ */
+    z-index: 9999;        /* ให้ทับทุกอย่าง */
     flex-shrink: 0;
-    transform: translateX( 1300px) translateY( -1180px);
+    width: 400px;         /* กำหนดความกว้าง */
 
 }
 .search-form {
