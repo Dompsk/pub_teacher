@@ -350,6 +350,7 @@ main {
 
 /* footer */
 
+
 footer {
     background-color: #004085;
     padding: 5px 0;        /* เว้นระยะบน-ล่าง */
@@ -359,8 +360,9 @@ footer {
     overflow-x: hidden;    /* ป้องกัน Scroll แนวนอน */
     text-align: center;    /* จัดข้อความตรงกลาง */
     color: white;
+    position: fixed;
+    bottom: 0;
 }
-
 
 
 /* ฉากหลัง setting */
