@@ -96,7 +96,7 @@ if (!empty($publication) && is_array($publication)) {
                         <tr style="height: 70px;">
                             <td><?php echo $i + 1; ?></td>
                             <td><?php echo $row['pub_name']; ?></td>
-                            <td><?php echo $row['file']; ?></td>
+                            <td><a href="/pub_teacher/src/file_public/<?php echo $row['file']; ?>"><?php echo $row['file']; ?></a></td>
                             <td><?php
                                 $date = new DateTime($row['upload_date'], new DateTimeZone('UTC'));
                                 $date->setTimezone(new DateTimeZone('Asia/Bangkok'));

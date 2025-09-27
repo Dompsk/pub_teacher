@@ -23,6 +23,43 @@ function getSupabaseData($table, $query = "")
     return json_decode($response, true);
 }
 
+function insertSupabaseData($table, $data)
+{
+    global $SUPABASE_URL, $SUPABASE_KEY;
+
+    $url = $SUPABASE_URL . "/rest/v1/" . $table;
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        "apikey: $SUPABASE_KEY",
+        "Authorization: Bearer $SUPABASE_KEY",
+        "Content-Type: application/json",
+        "Prefer: return=representation"
+    ]);
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    if (curl_errno($ch)) {
+        error_log("cURL Error: " . curl_error($ch));
+        curl_close($ch);
+        return false;
+    }
+    curl_close($ch);
+
+    // ตรวจสอบ HTTP status code
+    if ($httpCode >= 400) {
+        error_log("Supabase Error (HTTP $httpCode): " . $response);
+        error_log("Data sent: " . json_encode($data));
+        return false;
+    }
+
+    return json_decode($response, true);
+}
+
 function updateSupabaseData($table, $id, $data)
 {
     global $SUPABASE_URL, $SUPABASE_KEY;
@@ -41,7 +78,19 @@ function updateSupabaseData($table, $id, $data)
         "Prefer: return=representation"
     ]);
     $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    if (curl_errno($ch)) {
+        error_log("cURL Error: " . curl_error($ch));
+        curl_close($ch);
+        return false;
+    }
     curl_close($ch);
+
+    if ($httpCode >= 400) {
+        error_log("Supabase Update Error (HTTP $httpCode): " . $response);
+        return false;
+    }
 
     return json_decode($response, true);
 }
@@ -54,39 +103,57 @@ if ($pub_id) {
     $pub_data = $result[0] ?? null;
 }
 
-
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
     $pub_name = $_POST['pub_name'] ?? "";
-
-    // จัดการไฟล์
-    $filename = $_FILES['file']['name'] ?? null;
-    if (!empty($filename)) {
-        $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/src/file_public/";
-        if (!is_dir($targetDir)) mkdir($targetDir, 0755, true);
-        move_uploaded_file($_FILES['file']['tmp_name'], $targetDir . $filename);
-    }
-
-    //รูป
-    $picname = $_FILES['pic']['name'] ?? null;
-    if (!empty($picname)) {
-        $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/src/pic_public/";
-        if (!is_dir($targetDir)) mkdir($targetDir, 0755, true);
-        move_uploaded_file($_FILES['pic']['tmp_name'], $targetDir . $picname);
-    }
-
+    $c_id = $_POST['pub_type'] ?? "";
+    // เตรียม updateData เริ่มต้นด้วยชื่อบทความ
     $updateData = [
         "pub_name" => $pub_name,
-        "file" => $filename,
-        "pic" => $picname
+        "c_id" => $c_id
     ];
-    if ($filename) {
-        $updateData["file"] = $filename;
-    }
-    if ($picname) {
-        $updateData["pic"] = $picname;
+
+    // จัดการไฟล์ - อัปเดตเฉพาะเมื่อมีไฟล์ใหม่
+    $filename = $_FILES['file']['name'] ?? null;
+    if (!empty($filename) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
+        $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/src/file_public/";
+        if (!is_dir($targetDir)) mkdir($targetDir, 0755, true);
+
+        if (move_uploaded_file($_FILES['file']['tmp_name'], $targetDir . $filename)) {
+            $updateData["file"] = $filename;
+        }
     }
 
-    updateSupabaseData("publication", $pub_id, $updateData);
+    // จัดการรูป - อัปเดตเฉพาะเมื่อมีรูปใหม่
+    $picname = $_FILES['pic']['name'] ?? null;
+    if (!empty($picname) && $_FILES['pic']['error'] === UPLOAD_ERR_OK) {
+        $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/src/pic_public/";
+        if (!is_dir($targetDir)) mkdir($targetDir, 0755, true);
+
+        if (move_uploaded_file($_FILES['pic']['tmp_name'], $targetDir . $picname)) {
+            $updateData["pic"] = $picname;
+        }
+    }
+
+    // อัปเดตข้อมูล
+    $updateResult = updateSupabaseData("publication", $pub_id, $updateData);
+
+    // บันทึก history หลังจากอัปเดต
+    if ($updateResult !== false) {
+        $upload_date = date("Y-m-d H:i:s");
+        $updateLog = [
+            "edit_time" => $upload_date,
+            "pub_id" => intval($pub_id) // แปลงเป็น integer
+        ];
+
+        error_log("Attempting to insert history: " . json_encode($updateLog));
+        $historyResult = insertSupabaseData("history", $updateLog);
+
+        if ($historyResult === false) {
+            error_log("Failed to insert history for pub_id: " . $pub_id);
+        } else {
+            error_log("Successfully inserted history: " . json_encode($historyResult));
+        }
+    }
 
     header("Location: public.php");
     exit;
@@ -134,12 +201,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
 
                     <label style="font-weight: bold;">ประเภทบทความ :</label>
                     <select name="pub_type">
-                        <option value="ระดับชาติ">ระดับชาติ</option>
-                        <option value="ระดับนานาชาติ">ระดับนานาชาติ</option>
-                        <option value="วารสาร">วารสาร</option>
-                        <option value="ตำรา">ตำรา</option>
-                        <option value="อื่นๆ">อื่นๆ</option>
-                    </select><br>
+                        <option value="1" <?= ($pub_data['c_id'] == 1) ? 'selected' : '' ?>>ระดับชาติ</option>
+                        <option value="2" <?= ($pub_data['c_id'] == 2) ? 'selected' : '' ?>>ระดับนานาชาติ</option>
+                        <option value="3" <?= ($pub_data['c_id'] == 3) ? 'selected' : '' ?>>วารสาร</option>
+                        <option value="4" <?= ($pub_data['c_id'] == 4) ? 'selected' : '' ?>>ตำรา</option>
+                        <option value="5" <?= ($pub_data['c_id'] == 5) ? 'selected' : '' ?>>อื่นๆ</option>
+                    </select>
+                    <br>
 
 
 
