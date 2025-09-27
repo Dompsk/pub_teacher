@@ -1,6 +1,6 @@
 <?php
 include("../condb.php");
-
+session_start();
 // รับ pub_id จาก query string
 $pub_id = $_GET['pub_id'] ?? null;
 
@@ -24,6 +24,7 @@ foreach ($publications as $pub) {
 }
 ?>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,12 +43,14 @@ foreach ($publications as $pub) {
             border-radius: 8px;
             overflow: hidden;
         }
+
         .article-info {
             text-align: center;
             margin: 20px;
         }
     </style>
 </head>
+
 <body>
     <header>
         <div class="header-container">
@@ -56,21 +59,24 @@ foreach ($publications as $pub) {
                     <img src="/pub_teacher/front-app/pic/logo1.png" alt="logo">
                 </a>
             </div>
-            <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
+            <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1>
         </div>
     </header>
-    
-       <nav class="nav">
-        <ul>
-            <?php
-                session_start(); // เริ่ม session
 
+    <?php
+
+    if (!isset($_SESSION['id'])) {
+        $_SESSION['id'] = '';
+    }
+
+    if ($_SESSION['id'] != null && $_SESSION['id'] != '') { ?>
+        <nav class="nav">
+            <ul>
+                <?php
                 // ดึง user_id ของผู้ใช้ปัจจุบันจาก session
                 $current_username = $_SESSION['username'] ?? null;
                 $current_password = $_SESSION['password'] ?? null;
-
                 $row_user = null;
-
                 if ($current_username && $current_password) {
                     // ดึงข้อมูลจาก Supabase
                     $users = getSupabaseData('user');
@@ -98,38 +104,59 @@ foreach ($publications as $pub) {
                         $row_user['type_name'] = $account_type_map[$type_id]['type_name'] ?? '';
                     }
                 }
-            ?>
-
-            <div class="profile">
-                <div class="profile-info">
-                    <?php if ($row_user): ?>
-                        <h3>ชื่อ-นามสกุล</h3>
-                        <p><?php echo htmlspecialchars($row_user["fname"] . ' ' . $row_user["lname"]); ?></p>
-                        <p>ตำแหน่ง: <?php echo htmlspecialchars($row_user["type_name"]); ?></p>
-                        <p>สาขา: <?php echo htmlspecialchars($row_user["major"]); ?></p>
-                    <?php else: ?>
-                        <p>ไม่พบข้อมูลผู้ใช้</p>
-                    <?php endif; ?>
+                ?>
+                <div class="profile">
+                    <div class="profile-info">
+                        <?php if ($row_user): ?>
+                            <h3>ชื่อ-นามสกุล</h3>
+                            <p><?php echo htmlspecialchars($row_user["fname"] . ' ' . $row_user["lname"]); ?></p>
+                            <p>ตำแหน่ง: <?php echo htmlspecialchars($row_user["type_name"]); ?></p>
+                            <p>สาขา: <?php echo htmlspecialchars($row_user["major"]); ?></p>
+                        <?php else: ?>
+                            <p>ไม่พบข้อมูลผู้ใช้</p>
+                        <?php endif; ?>
+                    </div>
                 </div>
-            </div>
+                <div class="line"></div>
+                <li><a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+                <li><a href="/pub_teacher/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
 
-            <div class="line"></div>
-              <li><a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-              <li><a href="/pub_teacher/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
-
-            <li>
-                <a href="#" onclick="openModal()">
-                    <i class="bi bi-gear icon-large"></i> คู่มือการใช้งาน
-                </a>
-            </li>
+                <li>
+                    <a href="#" onclick="openModal()">
+                        <i class="bi bi-gear icon-large"></i> คู่มือการใช้งาน
+                    </a>
+                </li>
                 <p></p>
-            <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
-            
-        </ul>
-   </nav>
-
+                <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
+            </ul>
+        </nav>
+    <?php } else { ?>
+        <nav class="nav">
+            <ul>
+                <div class="user-login-container">
+                    <div class="login-info">
+                        <h3>สำหรับบุคลากร</h3>
+                        <form action="/pub_teacher/back-app/login-exit/login.php" method="post">
+                            <div class="input-box">
+                                <input type="text" name="username" placeholder="ชื่อผู้ใช้" required>
+                            </div>
+                            <div class="input-box">
+                                <input type="password" name="pass" placeholder="รหัสผ่าน" required>
+                            </div>
+                            <button type="submit" class="btn">ลงชื่อเข้าใช้</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <li><a href="/pub_teacher/front-app/ex-user.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+                <li><a href="/pub_teacher/front-app/ex-public.php"><i class="bi bi-journal-text icon-large"></i> บทความตีพิมพ์</a></li>
+                <li><a href="/pub_teacher/front-app/contact.php"><i class="bi bi-envelope icon-large"></i> ติดต่อ</a></li>
+                <li><a href="/front-app/function/ManageProfile.php"><i class="bi bi-info-circle icon-large"></i> เกี่ยวกับ</a></li>
+            </ul>
+        </nav>
+    <?php } ?>
     <main>
-        <?php if ($article): 
+        <?php if ($article):
             $acc_id = $article['acc_id'];
             $c_id = $article['c_id'];
             $user_id = $user_acc_map[$acc_id]['user_id'];
@@ -145,6 +172,10 @@ foreach ($publications as $pub) {
                         <div class="article-pic">
                             <img src="/pub_teacher/src/pic_public/<?php echo htmlspecialchars($article['pic']); ?>" alt="รูปบทความ">
                         </div>
+                    <?php elseif (empty($article['pic'])): ?>
+                        <div class="article-pic">
+                            <img src="/pub_teacher/front-app/Pic/bk1.jpg" alt="รูปบทความ">
+                        </div>
                     <?php endif; ?>
 
                     <div class="article-text">
@@ -156,16 +187,25 @@ foreach ($publications as $pub) {
             </div>
 
 
-            <div class="pdf-viewer">
-                <iframe src="<?php echo htmlspecialchars($file); ?>" width="95%" height="100%"></iframe>
-            </div>
+            <?php if (!empty($article['file'])): ?>
+                <div class="pdf-viewer">
+                    <iframe src="<?php echo htmlspecialchars($file); ?>" width="95%" height="10%"></iframe>
+                </div>
+            <?php elseif (empty($article['pic']) && $article['file'] == null): ?>
+                <div class="pdf-viewer">
+                    <p>ไม่มีการอัปโหลดไฟล์</p>
+                </div>
+            <?php endif; ?>
+
+
         <?php else: ?>
             <p style="text-align:center; color:red;">ไม่พบบทความ</p>
         <?php endif; ?>
     </main>
 
-<footer>
-    <p>@มหาวิทยาลัย สงขลานครินทร์ วิทยาเขตหาดใหญ่. สมาชิก 143 251 253 254 325 378 </p>
-</footer>
+    <footer>
+        <p>@มหาวิทยาลัย สงขลานครินทร์ วิทยาเขตหาดใหญ่. สมาชิก 143 251 253 254 325 378 </p>
+    </footer>
 </body>
+
 </html>
