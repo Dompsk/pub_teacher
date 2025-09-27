@@ -14,17 +14,14 @@
 </head>
 <body>
     <header>
-
         <div class="header-container">
-            
-                <div class="logo-container">
-                    <a href="ex-user.html">
-                        <img src="/pub_teacher/front-app/pic/logo1.png" alt="logo">
-                    </a>
-                </div>
+            <div class="logo-container">
+                <a href="/pub_teacher/front-app/ex-user.php">
+                    <img src="/pub_teacher/front-app/pic/logo1.png" alt="logo">
+                </a>
+            </div>
             <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
         </div>
-
     </header>
 
     <nav class="nav">
@@ -48,7 +45,7 @@
             <li><a href="/pub_teacher/front-app/ex-user.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
             <li><a href="/pub_teacher/front-app/ex-public.php"><i class="bi bi-journal-text icon-large"></i> บทความตีพิมพ์</a></li>
             <li><a href="/pub_teacher/front-app/contact.php"><i class="bi bi-envelope icon-large"></i> ติดต่อ</a></li>
-            <li><a href="/front-app/function/ManageProfile.php"><i class="bi bi-info-circle icon-large"></i> เกี่ยวกับ</a></li>
+            <li><a href="/pub_teacher/front-app/objective.php"><i class="bi bi-info-circle icon-large"></i> เกี่ยวกับ</a></li>
            
         </ul>
    </nav>
