@@ -45,21 +45,22 @@ foreach ($user_acc as $ua) {
 
 <body>
     <header>
-        <div class="header-container">         
-                <div class="logo-container">
-                    <a href="index.html">
-                        <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
-                    </a>
-                </div>
-            <h1 >ประวัติการจัดการผลงานตีพิมพ์</h1> 
-
+        <div class="header-container">
+            <div class="logo-container">
+                <a href="/pub_teacher/front-app/user-role-index/staff/index-role-staff.php">
+                    <img src="\pub_teacher\front-app\Pic\logo1.png" alt="logo">
+                </a>
+            </div>
+            <h1>ประวัติการจัดการผลงานตีพิมพ์</h1>
         </div>
     </header>
 
     <main>
-        <button class="btn">ย้อนกลับ</button>
+        <a href="/pub_teacher/front-app/user-role-index/staff/index-role-staff.php">
+            <button class="btn">ย้อนกลับ</button>
+        </a>
 
-        <div style="overflow-x:auto; max-width:100%;">
+        <divstyle="overflow-x:auto; max-width:100%;">
             <table>
                 <thead>
                     <tr>
@@ -107,7 +108,7 @@ foreach ($user_acc as $ua) {
                 </tbody>
 
             </table>
-        </div>
+        </divstyle=>
     </main>
 
     <footer>
