@@ -58,7 +58,7 @@ $categories = fetchSupabaseData("category");
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save_pub'])) {
     $pub_name = $_POST['pub_name'];
     $c_id = (int)$_POST['c_id'];
-    $upload_date = date("Y-m-d");
+    $upload_date = date("Y-m-d H:i:s");
     $status = "not approve";
     $acc_id = $_SESSION['id']; // สมมติล็อกอินเป็น user acc_id = 3
 
@@ -151,8 +151,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save_pub'])) {
             <div>ประเภทบทความ :</div>
             <select name="c_id" required>
                 <option value="" hidden>-- เลือกประเภทบทความ --</option>
-                <?php foreach($categories as $cat): ?>
-                    <option value="<?= $cat['c_id'] ?>"><?= htmlspecialchars($cat['cname']) ?></option>
+                <?php 
+                    // เรียง array ตาม c_id จากน้อยไปมาก
+                    usort($categories, function($a, $b) {
+                        return $a['c_id'] <=> $b['c_id'];
+                    });
+
+                    foreach($categories as $cat): 
+                ?>
+                    <option value="<?= $cat['c_id'] ?>">
+                        <?= htmlspecialchars($cat['cname']) ?>
+                    </option>
                 <?php endforeach; ?>
             </select>
             <br>
