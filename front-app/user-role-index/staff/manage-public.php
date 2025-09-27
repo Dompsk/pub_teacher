@@ -45,13 +45,14 @@ foreach ($user_acc as $ua) {
 
 <body>
     <header>
-        <div class="header-container">
-            <div class="logo-container">
-                <a href="index.html">
-                    <img src="\pub_teacher\front-app\Pic\logo1.png" alt="logo">
-                </a>
-            </div>
-            <h1>ประวัติการจัดการผลงานตีพิมพ์</h1>
+        <div class="header-container">         
+                <div class="logo-container">
+                    <a href="index.html">
+                        <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
+                    </a>
+                </div>
+            <h1 >ประวัติการจัดการผลงานตีพิมพ์</h1> 
+
         </div>
     </header>
 

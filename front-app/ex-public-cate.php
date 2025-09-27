@@ -187,7 +187,7 @@ if ($search_query !== '') {
                                             <h4><?= htmlspecialchars($article['pub_name']) ?></h4>
                                             <p>ผู้แต่ง: <?= htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')) ?></p>
                                             <p>หมวดหมู่: <?= htmlspecialchars($category['cname'] ?? '') ?></p>
-                                            <p>ปี: <?= htmlspecialchars($article['year'] ?? 'ไม่ระบุ') ?></p>
+                                           
                                         </div>
                                     </div>
                                 </div>

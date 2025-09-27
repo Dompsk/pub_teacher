@@ -87,7 +87,7 @@
             <div class="header-container">
                 <div class="logo-container">
                     <a href="index.html">
-                        <img src="/pro_teacher/front-app/Pic/logo1.png" alt="logo">
+                        <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
                     </a>
                 </div>
                 <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1>
