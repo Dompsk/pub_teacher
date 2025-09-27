@@ -73,7 +73,7 @@
                         <p><?php echo htmlspecialchars($row_user["fname"] . ' ' . $row_user["lname"]); ?></p>
                         <p>ตำแหน่ง: <?php echo htmlspecialchars($row_user["type_name"]); ?></p>
                         <p>สาขา: <?php echo htmlspecialchars($row_user["major"]); ?></p>
-                        
+
                     <?php else: ?>
                         <p>ไม่พบข้อมูลผู้ใช้</p>
                     <?php endif; ?>
@@ -88,7 +88,7 @@
                 <a href="#" onclick="openModal()">
                     <i class="bi bi-gear icon-large"></i> คู่มือการใช้งาน
                 </a>
-            </li>  
+            </li>
             <p></p>
             <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
 
@@ -115,59 +115,69 @@
                 <h2>บทความตีพิมพ์ล่าสุด</h2>
                 <div class="articles-list-container">
                     <?php
-                        // ดึงข้อมูลจาก Supabase
-                        $publications = getSupabaseData('publication');
-                        $users = getSupabaseData('user');
-                        $user_accs = getSupabaseData('user_acc');
-                        $categories = getSupabaseData('category');
+                    // ดึงค่าที่ค้นหามา
+                    $search_query = $_GET['q'] ?? '';
 
-                        // สร้าง map เพื่อค้นหาข้อมูลได้ง่าย
-                        $user_map = array_column($users, null, 'user_id');
-                        $user_acc_map = array_column($user_accs, null, 'acc_id');
-                        $category_map = array_column($categories, null, 'c_id');
+                    // ดึงข้อมูลจาก Supabase
+                    $publications = getSupabaseData('publication');
+                    $users = getSupabaseData('user');
+                    $user_accs = getSupabaseData('user_acc');
+                    $categories = getSupabaseData('category');
 
-                        // กรองเฉพาะบทความที่ approved
-                        $approved_publications = array_filter($publications, function($pub) {
-                            return $pub['status'] === 'approve';
+                    // สร้าง map เพื่อค้นหาข้อมูลได้ง่าย
+                    $user_map = array_column($users, null, 'user_id');
+                    $user_acc_map = array_column($user_accs, null, 'acc_id');
+                    $category_map = array_column($categories, null, 'c_id');
+
+                    // กรองเฉพาะบทความที่ approved
+                    $approved_publications = array_filter($publications, function ($pub) {
+                        return $pub['status'] === 'approve';
+                    });
+
+                    // ถ้ามีการ search ให้กรองตาม pub_name
+                    if ($search_query !== '') {
+                        $approved_publications = array_filter($approved_publications, function ($pub) use ($search_query) {
+                            return stripos($pub['pub_name'], $search_query) !== false;
                         });
+                    }
 
-                        // เรียงลำดับตามวันที่อัปโหลดล่าสุด
-                        usort($approved_publications, function($a, $b) {
-                            return strtotime($b['upload_date']) - strtotime($a['upload_date']);
-                        });
+                    // เรียงลำดับตามวันที่อัปโหลดล่าสุด
+                    usort($approved_publications, function ($a, $b) {
+                        return strtotime($b['upload_date']) - strtotime($a['upload_date']);
+                    });
 
-                        // ดึง 8 บทความล่าสุด
-                        $recent_articles = $approved_publications;
+                    // บทความที่ต้องแสดง (ถ้าไม่ search ก็เป็นทั้งหมด, ถ้า search ก็เฉพาะที่เจอ)
+                    $articles_to_show = $approved_publications;
 
-                        if (!empty($recent_articles)) {
-                            foreach ($recent_articles as $row) {
-                                $acc_id = $row['acc_id'];
-                                $c_id = $row['c_id'];
+                    if (!empty($articles_to_show)) {
+                        foreach ($articles_to_show as $row) {
+                            $acc_id = $row['acc_id'];
+                            $c_id = $row['c_id'];
 
-                                $user_id = $user_acc_map[$acc_id]['user_id'] ?? null;
-                                $author = $user_map[$user_id] ?? null;
-                                $category = $category_map[$c_id] ?? null;
+                            $user_id = $user_acc_map[$acc_id]['user_id'] ?? null;
+                            $author = $user_map[$user_id] ?? null;
+                            $category = $category_map[$c_id] ?? null;
 
-                                $img = (!empty($row['pic']) && $row['pic'] !== null) 
-                                    ? "/pub_teacher/src/pic_public/" . $row['pic'] 
-                                    : "/pub_teacher/front-app/Pic/bk1.jpg";
+                            $img = (!empty($row['pic']) && $row['pic'] !== null)
+                                ? "/pub_teacher/src/pic_public/" . $row['pic']
+                                : "/pub_teacher/front-app/Pic/bk1.jpg";
                     ?>
-                    <div class="articles-list">
-                        <div class="article-pic">
-                            <img src="<?php echo htmlspecialchars($img); ?>" alt="รูปบทความ">
-                        </div>
-                        <div class="article-text">
-                            <h3><?php echo htmlspecialchars($row['pub_name']); ?></h3>
-                            <p>ผู้แต่ง: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
-                            <p>หมวดหมู่: <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
-                            <a href="/pub_teacher/front-app/detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
-                        </div>
-                    </div>
+                            <div class="articles-list">
+                                <div class="article-pic">
+                                    <img src="<?php echo htmlspecialchars($img); ?>" alt="รูปบทความ">
+                                </div>
+                                <div class="article-text">
+                                    <h3><?php echo htmlspecialchars($row['pub_name']); ?></h3>
+                                    <p>ผู้แต่ง: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
+                                    <p>หมวดหมู่: <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
+                                    <a href="/pub_teacher/front-app/detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
+                                </div>
+                            </div>
                     <?php
-                            }
-                        } else {
-                            echo "<p>ยังไม่มีบทความ</p>";
                         }
+                    } else {
+                        echo "<p style='text-align:center; color:red;'>ไม่พบบทความที่ค้นหา</p>";
+                    }
                     ?>
                 </div>
             </div>

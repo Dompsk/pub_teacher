@@ -205,7 +205,7 @@ include("../condb.php");
                                             <h4><?php echo htmlspecialchars($article['pub_name']); ?></h4>
                                             <p>ผู้แต่ง: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
                                             <p>หมวดหมู่: <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
-                                            <p>ปี: <?php echo htmlspecialchars($article['year'] ?? 'ไม่ระบุ'); ?></p>
+                                            
                                         </div>
                                     </div>
 
