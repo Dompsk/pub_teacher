@@ -1,5 +1,5 @@
 <?php
-     include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
 ?>
 <html lang="en">
 
@@ -32,7 +32,7 @@
 
     <nav class="nav">
         <ul>
-           <?php
+            <?php
 
             session_start();
 
@@ -84,7 +84,7 @@
                         <p><?php echo htmlspecialchars($row_user["fname"] . ' ' . $row_user["lname"]); ?></p>
                         <p>ตำแหน่ง: <?php echo htmlspecialchars($row_user["type_name"]); ?></p>
                         <p>สาขา: <?php echo htmlspecialchars($row_user["major"]); ?></p>
-                        
+
                     <?php else: ?>
                         <p>ไม่พบข้อมูลผู้ใช้</p>
                     <?php endif; ?>
@@ -130,19 +130,14 @@
                 <h2>บทความตีพิมพ์ล่าสุด</h2>
                 <div class="articles-list-container">
                     <?php
+                    // ดึงค่าที่ค้นหามา
+                    $search_query = $_GET['q'] ?? '';
+
                     // ดึงข้อมูลจาก Supabase
-                    $publications = getSupabaseData('publication',[
-                        'select' => ['pub_id', 'pub_name', 'pic', 'acc_id', 'c_id', 'upload_date', 'status'],
-                    ]);
-                    $users = getSupabaseData('user', [
-                        'select' => ['user_id', 'fname', 'lname']
-                    ]);
-                    $user_accs = getSupabaseData('user_acc', [
-                        'select' => ['acc_id', 'user_id', 'type_id', 'username', 'password']
-                    ]);
-                    $categories = getSupabaseData('category', [
-                        'select' => ['c_id', 'cname']
-                    ]);
+                    $publications = getSupabaseData('publication');
+                    $users = getSupabaseData('user');
+                    $user_accs = getSupabaseData('user_acc');
+                    $categories = getSupabaseData('category');
 
                     // สร้าง map เพื่อค้นหาข้อมูลได้ง่าย
                     $user_map = array_column($users, null, 'user_id');
@@ -154,16 +149,23 @@
                         return $pub['status'] === 'approve';
                     });
 
+                    // ถ้ามีการ search ให้กรองตาม pub_name
+                    if ($search_query !== '') {
+                        $approved_publications = array_filter($approved_publications, function ($pub) use ($search_query) {
+                            return stripos($pub['pub_name'], $search_query) !== false;
+                        });
+                    }
+
                     // เรียงลำดับตามวันที่อัปโหลดล่าสุด
                     usort($approved_publications, function ($a, $b) {
                         return strtotime($b['upload_date']) - strtotime($a['upload_date']);
                     });
 
-                    // ดึง 8 บทความล่าสุด
-                    $recent_articles = $approved_publications;
+                    // บทความที่ต้องแสดง (ถ้าไม่ search ก็เป็นทั้งหมด, ถ้า search ก็เฉพาะที่เจอ)
+                    $articles_to_show = $approved_publications;
 
-                    if (!empty($recent_articles)) {
-                        foreach ($recent_articles as $row) {
+                    if (!empty($articles_to_show)) {
+                        foreach ($articles_to_show as $row) {
                             $acc_id = $row['acc_id'];
                             $c_id = $row['c_id'];
 
@@ -189,7 +191,7 @@
                     <?php
                         }
                     } else {
-                        echo "<p>ยังไม่มีบทความ</p>";
+                        echo "<p style='text-align:center; color:red;'>ไม่พบบทความที่ค้นหา</p>";
                     }
                     ?>
                 </div>
