@@ -1,3 +1,4 @@
+
         <?php
         include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
 
@@ -25,6 +26,7 @@
                 $current_user_acc = $ua;
                 $current_user_id = $ua['user_id'];
                 break;
+
             }
         }
 
@@ -220,3 +222,4 @@
     setTimeout(() => modal.style.display = "none", 400);
     }
     </script>
+
