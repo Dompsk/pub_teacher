@@ -64,6 +64,16 @@ header h1{
 
 
 /* nav */
+.top-bar {
+    display: flex;
+    justify-content: space-between; /* nav-category ซ้าย, search-bar ขวา */
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
 
 .nav {
     background-color: #ffffff;
@@ -74,11 +84,11 @@ header h1{
     align-items: flex-start;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* เงาด้านขวา */
-    position: absolute; /* ให้ยึดกับด้านซ้ายของหน้าจอ */
+    position: relative; /* ให้ยึดกับด้านซ้ายของหน้าจอ */
     top: 0;
     left: 0;
     border-radius: 8px;
-    margin-top: 150px;
+    margin-top: 26px;
     margin-left: 200px;
 }
 
@@ -125,6 +135,151 @@ header h1{
     margin-right: 10px;
 }
 
+.nav-category {
+    display: flex;
+    flex-wrap: nowrap;       /* ไม่ขึ้นบรรทัดใหม่ */
+    overflow-x: auto;        /* เลื่อนซ้าย-ขวา */
+    gap: 10px;               /* ระยะระหว่างปุ่ม */
+    padding: 5px 0;
+    width: 100%;             /* เต็มความกว้าง top-bar */
+    justify-content: flex-start;  /* จัดปุ่มไปซ้าย */
+    align-items: center;
+    border-radius: 12px;
+    position: relative;
+    top:-73px; /* เลื่อนขึ้น 5px จากตำแหน่งเดิม */
+    left: 660px;
+}
+
+.nav-category::-webkit-scrollbar {
+    height: 6px;
+}
+
+.nav-category::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 3px;
+}
+
+.category-button {
+    flex: 0 0 auto;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.category-button:hover {
+    background-color: #4a90e2;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.category-button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* search-bar */
+.article-card {
+    display: flex;
+    padding: 10px;
+    gap: 15px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.article-card:hover {
+    background-color: #f5f5f5;
+}
+
+.article-pic img {
+    width: 80px;  /* ขนาดรูป */
+    height: 110px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.article-text h4 {
+    margin: 0 0 5px 0;
+}
+
+.article-text p {
+    margin: 2px 0;
+}
+.pic-left-info {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.search-bar {
+    position: fixed;      /* ติดอยู่บน viewport ตลอด */
+    top: 67px;            /* ระยะจากบนของหน้าจอ */
+    right: -450px;          /* ระยะจากขวาของหน้าจอ */
+    z-index: 9999;        /* ให้ทับทุกอย่าง */
+    flex-shrink: 0;
+    width: 400px;         /* กำหนดความกว้าง */
+}
+.search-form {
+    display: flex;
+    width: 400px;
+    height: 50px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+.search-form input {
+    flex: 1;
+    border: none;
+    padding: 0 10px;
+    font-size: 16px;
+}
+.search-form button {
+    background-color: #007bff;
+    border: none;
+    padding: 0 15px;
+    color: white;
+    cursor: pointer;
+}
+.search-form button:hover {
+    background-color: #0056b3;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;                /* ให้อยู่ใต้ search-bar */
+    left: 0;
+    transform: translateX(20px); /* ขยับไปทางขวานิดนึง */
+    width: 350px;             /* ความกว้างกล่องผลลัพธ์ */
+    max-height: 300px;        /* ถ้าผลลัพธ์เยอะ จะมี scroll */
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    z-index: 1000;
+    padding: 10px;
+}
+
+.search-results .article-card {
+    border-bottom: 1px solid #eee;
+    padding: 8px 5px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.search-results .article-card:hover {
+    background: #f5f5f5;
+}
 /* กรอบของกล่อง login */
 .user-login-container {
   width: 90%;
@@ -170,8 +325,7 @@ header h1{
   background-color: #1f6c8c;
 }
 
-
-/* footer */
+/* content */
 .content-container {
     background-color: white;
     border-radius: 12px;
@@ -179,7 +333,8 @@ header h1{
     width: 100%;
     padding: 20px;
     box-sizing: border-box;
-    transform: translateY(-70px);
+    bottom: 480px;
+    position: relative;
 }
 
 /* main */
@@ -195,10 +350,11 @@ main {
     flex-direction: column;
     gap: 10px;
     width: 1250px; /* ความกว้างคงที่ */
-    margin-top: -60px; /* <-- เลื่อนลงจากด้านบน */
-    margin-right: 0px; /* <-- เลื่อนลงจากด้านบน */
+    margin-top: 2%; /* <-- เลื่อนลงจากด้านบน */
+    margin-right: -2%; /* <-- เลื่อนลงจากด้านบน */
     margin: 0 auto;
-    transform: translateY(-60px);
+    height: 100%;
+    transform: translateY(-730px);
 }
 
 .main-wrapper   h2{
@@ -211,59 +367,6 @@ main {
     border-radius: 8px;              /* มุมโค้ง */
     box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* เงา */
 }
-
-/* category-nav */
-
-.nav-category {
-    display: flex;
-    flex-wrap: nowrap;           /* ไม่ขึ้นบรรทัดใหม่ */
-    overflow-x: auto;            /* เลื่อนซ้าย-ขวา ถ้ามากเกิน */
-    gap: 10px;                   /* ช่องว่างระหว่างปุ่ม */
-    padding: 10px 0;
-    margin-bottom: 20px;
-    scrollbar-width: thin;       /* Firefox scrollbar เล็ก */
-    justify-content: center;
-    border-radius: 70px;
-    width: 800px;
-    align-items: center;
-    margin-left: 200px;
-    transform: translateX( 345px) translateY( -68px);
-}
-
-.nav-category::-webkit-scrollbar {
-    height: 6px;                 /* ขนาด scrollbar ใน Chrome */
-}
-
-.nav-category::-webkit-scrollbar-thumb {
-    background-color: rgba(0,0,0,0.3);
-    border-radius: 3px;
-}
-
-.category-button {
-    flex: 0 0 auto;              /* ขนาดปุ่มไม่ยืดตาม container */
-    padding: 8px 16px;
-    border: none;
-    border-radius: 20px;
-    background-color: #f0f0f0;
-    color: #333;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    white-space: nowrap;         /* ป้องกันข้อความตัดบรรทัด */
-}
-
-.category-button:hover {
-    background-color: #4a90e2;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-.category-button:active {
-    transform: translateY(0);
-    box-shadow: none;
-}
-
 
 /* content-container */
 .content-container {
@@ -279,7 +382,8 @@ main {
     display: grid;                        
     grid-template-columns: repeat(4, 1fr); /* 4 คอลัมน์ */
     grid-auto-rows: 220px;                 /* ความสูงเท่ากันทุกกล่อง */
-    gap: 40px;                             /* ระยะห่างเท่ากันทั้งแนวตั้ง-แนวนอน */
+    gap: 40px;    
+    transform: translateX(0px) translateY(450px);                         /* ระยะห่างเท่ากันทั้งแนวตั้ง-แนวนอน */
 }
 
 
@@ -342,7 +446,6 @@ main {
     border-radius: 5px;
     display: block;
 }
-
 
 
 /* footer */
