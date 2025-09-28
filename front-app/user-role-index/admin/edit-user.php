@@ -5,52 +5,34 @@ session_start();
 $current_username = $_SESSION['username'] ?? null;
 $current_password = $_SESSION['password'] ?? null;
 
-$row_user = null;
+$user_id = $_GET['user_id'] ?? null;
 
-if ($current_username && $current_password) {
-    // ดึงข้อมูลจาก Supabase
+// ดึงข้อมูลผู้ใช้ที่จะแก้ไข
+$row_edit_user = null;
+if ($user_id) {
     $users = getSupabaseData('user');
-    $user_accs = getSupabaseData('user_acc');
-    $account_types = getSupabaseData('account_type');
-
-    $user_map = array_column($users, null, 'user_id');
-    $account_type_map = array_column($account_types, null, 'type_id');
-
-    $current_acc = null;
-    foreach ($user_accs as $ua) {
-        if ($ua['username'] === $current_username && $ua['password'] === $current_password) {
-            $current_acc = $ua;
+    foreach ($users as $u) {
+        if ($u['user_id'] == $user_id) {
+            $row_edit_user = $u;
             break;
         }
     }
-
-    if ($current_acc) {
-        $user_id = $current_acc['user_id'];
-        $row_user = $user_map[$user_id] ?? null;
-        $type_id = $current_acc['type_id'];
-        $row_user['type_name'] = $account_type_map[$type_id]['type_name'] ?? '';
-    }
-
-    if (!$current_username || !$current_password) {
-    die("กรุณาเข้าสู่ระบบก่อน");
-}
 }
 
 // หากมีการส่งฟอร์มบันทึกข้อมูล
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
-      $updated_data = [
-          'fname' => !empty($_POST['fname']) ? $_POST['fname'] : $row_user['fname'],
-          'lname' => !empty($_POST['lname']) ? $_POST['lname'] : $row_user['lname'],
-          'tel' => !empty($_POST['tel']) ? $_POST['tel'] : $row_user['tel'],
-          'age' => !empty($_POST['age']) ? $_POST['age'] : $row_user['age'],
-          'major' => !empty($_POST['major']) ? $_POST['major'] : $row_user['major'],
-];
-
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_edit_user) {
+    $updated_data = [
+        'fname' => !empty($_POST['fname']) ? $_POST['fname'] : $row_edit_user['fname'],
+        'lname' => !empty($_POST['lname']) ? $_POST['lname'] : $row_edit_user['lname'],
+        'tel' => !empty($_POST['tel']) ? $_POST['tel'] : $row_edit_user['tel'],
+        'age' => !empty($_POST['age']) ? $_POST['age'] : $row_edit_user['age'],
+        'major' => !empty($_POST['major']) ? $_POST['major'] : $row_edit_user['major'],
+    ];
 
     // อัปเดตข้อมูลใน Supabase
     $result = updateSupabaseData('user', $updated_data, 'user_id', $user_id);
 
-   if (!empty($result)) {
+    if (!empty($result)) {
         header("Location: manage-user.php");
         exit();
     } else {
@@ -60,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
 ?>
 
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -68,68 +51,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
     <link rel="stylesheet" href="edit-user.css">
     <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
-
 </head>
+
 <body>
     <header>
-
         <div class="header-container">
-            
-                <div class="logo-container">
-                    <a href="index.html">
-                        <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
-                    </a>
-                </div>
-            <h1 >ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
+            <div class="logo-container">
+                <a href="index.html">
+                    <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
+                </a>
+            </div>
+            <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1>
         </div>
-
     </header>
 
-      <nav class="nav">
+    <nav class="nav">
         <ul>
             <?php
+            // ดึง username/password จาก session สำหรับแสดงใน navigation
+            $current_username = $_SESSION['username'] ?? null;
+            $current_password = $_SESSION['password'] ?? null;
 
-                // ดึง username/password จาก session
-                $current_username = $_SESSION['username'] ?? null;
-                $current_password = $_SESSION['password'] ?? null;
+            $row_user = null; // สำหรับแสดงใน nav (ข้อมูล admin ที่ login)
+            $pic_path = "/pub_teacher/src/pic_user/df.png"; // default image
 
-                $row_user = null;
-                $pic_path = "/pub_teacher/src/pic_user/df.png"; // default image
+            if ($current_username && $current_password) {
+                // ดึงข้อมูลจาก Supabase
+                $users = getSupabaseData('user');
+                $user_accs = getSupabaseData('user_acc');
+                $account_types = getSupabaseData('account_type');
 
-                if ($current_username && $current_password) {
-                    // ดึงข้อมูลจาก Supabase
-                    $users = getSupabaseData('user');
-                    $user_accs = getSupabaseData('user_acc');
-                    $account_types = getSupabaseData('account_type');
+                // map สำหรับค้นหาข้อมูลง่าย
+                $user_map = array_column($users, null, 'user_id');
+                $user_acc_map = array_column($user_accs, null, 'acc_id');
+                $account_type_map = array_column($account_types, null, 'type_id');
 
-                    // map สำหรับค้นหาข้อมูลง่าย
-                    $user_map = array_column($users, null, 'user_id');
-                    $user_acc_map = array_column($user_accs, null, 'acc_id');
-                    $account_type_map = array_column($account_types, null, 'type_id');
-
-                    // ค้นหา account ที่ตรงกับ username + password
-                    $current_acc = null;
-                    foreach ($user_accs as $ua) {
-                        if ($ua['username'] === $current_username && $ua['password'] === $current_password) {
-                            $current_acc = $ua;
-                            break;
-                        }
-                    }
-
-                    if ($current_acc) {
-                        $user_id = $current_acc['user_id'];
-                        $row_user = $user_map[$user_id] ?? null;
-                        $type_id = $current_acc['type_id'];
-                        $row_user['type_name'] = $account_type_map[$type_id]['type_name'] ?? '';
-
-                        // ตรวจสอบรูปผู้ใช้
-                        if (!empty($row_user['pic'])) {
-                            $pic_path = "/pub_teacher/src/pic_user/" . htmlspecialchars($row_user['pic']);
-                        }
+                // ค้นหา account ที่ตรงกับ username + password
+                $current_acc = null;
+                foreach ($user_accs as $ua) {
+                    if ($ua['username'] === $current_username && $ua['password'] === $current_password) {
+                        $current_acc = $ua;
+                        break;
                     }
                 }
-            ?>
 
+                if ($current_acc) {
+                    $admin_user_id = $current_acc['user_id'];
+                    $row_user = $user_map[$admin_user_id] ?? null;
+                    $type_id = $current_acc['type_id'];
+                    $row_user['type_name'] = $account_type_map[$type_id]['type_name'] ?? '';
+
+                    // ตรวจสอบรูปผู้ใช้
+                    if (!empty($row_user['pic'])) {
+                        $pic_path = "/pub_teacher/src/pic_user/" . htmlspecialchars($row_user['pic']);
+                    }
+                }
+            }
+            ?>
 
             <div class="profile">
                 <div class="profile-info">
@@ -145,50 +123,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
             </div>
 
             <div class="line"></div>
-              <li><a href="/pub_teacher/front-app/user-role-index/admin/index-role-admin.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-              <li><a href="/pub_teacher/front-app/user-role-index/admin/profile-admin.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
+            <li><a href="/pub_teacher/front-app/user-role-index/admin/index-role-admin.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+            <li><a href="/pub_teacher/front-app/user-role-index/admin/profile-admin.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
 
             <li>
                 <a href="#" onclick="openModal()">
                     <i class="bi bi-gear icon-large"></i> คู่มือการใช้งาน
                 </a>
             </li>
-                <p></p>
+            <p></p>
             <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
-            
         </ul>
-   </nav>
-          <div class="form-container">
-            <h1>แก้ไขข้อมูลส่วนตัว</h1>
+    </nav>
 
-              <?php if ($row_user): ?>
-                <form method="post">
-                    <label>ชื่อ</label>
-                    <input type="text" name="fname" value="<?php echo htmlspecialchars($row_user['fname']); ?>">
+    <div class="form-container">
+        <h1>แก้ไขข้อมูลส่วนตัว</h1>
 
-                    <label>นามสกุล</label>
-                    <input type="text" name="lname" value="<?php echo htmlspecialchars($row_user['lname']); ?>">
-
-                     <label>เบอร์โทร</label>
-                    <input type="text" name="tel" value="<?php echo htmlspecialchars($row_user['tel']); ?>">
-
-                    <label>อายุ</label>
-                    <input type="text" name="age" value="<?php echo htmlspecialchars($row_user['age']); ?>">
-
-                    <label>สาขา</label>
-                    <input type="text" name="major" value="<?php echo htmlspecialchars($row_user['major']); ?>">
-
-                    <button type="submit">บันทึกข้อมูล</button>
-                </form>
+        <?php if ($row_edit_user): ?>
+            <form method="post">
+                <input type="hidden" name="user_id" value="<?php echo htmlspecialchars($user_id); ?>">
                 
-              <?php else: ?>
-                  <p>ไม่พบข้อมูลผู้ใช้</p>
-              <?php endif; ?>
+                <label>ชื่อ</label>
+                <input type="text" name="fname" value="<?php echo htmlspecialchars($row_edit_user['fname']); ?>">
 
-          </div>
-              
+                <label>นามสกุล</label>
+                <input type="text" name="lname" value="<?php echo htmlspecialchars($row_edit_user['lname']); ?>">
+
+                <label>เบอร์โทร</label>
+                <input type="text" name="tel" value="<?php echo htmlspecialchars($row_edit_user['tel']); ?>">
+
+                <label>อายุ</label>
+                <input type="text" name="age" value="<?php echo htmlspecialchars($row_edit_user['age']); ?>">
+
+                <label>สาขา</label>
+                <input type="text" name="major" value="<?php echo htmlspecialchars($row_edit_user['major']); ?>">
+
+                <button type="submit">บันทึกข้อมูล</button>
+            </form>
+
+        <?php else: ?>
+            <p>ไม่พบข้อมูลผู้ใช้</p>
+        <?php endif; ?>
+    </div>
+
     <footer>
         <p>@มหาวิทยาลัย สงขลานครินทร์ วิทยาเขตหาดใหญ่. สมาชิก 143 251 253 254 325 378 </p>
     </footer>
-        </body>
+</body>
+
 </html>
