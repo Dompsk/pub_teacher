@@ -1,0 +1,162 @@
+@font-face {
+    font-family:Fontstyle;
+    src: url(/pub_teacher/front-app/NotoSansThai-VariableFont_wdth\,wght.ttf);
+}
+
+body {
+    font-family: Fontstyle;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+/* header */
+header {
+    background-color: #004085;
+    padding: 5px;
+    
+}
+
+header h1{
+    color: white;
+    justify-content: left;
+    font-size: 40px;
+    display: flex;
+    margin-right: 750px;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* logo */
+.logo-container{
+   background-color: white;
+    padding: 15px;
+    border-radius: 15px;  
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateX(80%) translateY(-50%);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+}
+
+.logo-container img {
+    height: 50px;
+    width: auto;
+    display: block;
+}
+
+
+
+
+/* footer */
+.content-container {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+/* footer */
+footer {
+    background-color: #004085;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+
+
+.btn {
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      border: 2px solid transparent;
+      text-decoration: none;
+      transition: 0.3s;
+      background: #747272;
+      color: white;
+      border: none;
+      width: 180px;
+      height: 60px;
+      position: absolute;
+      top: 250px;   
+      left: 60px;
+    }
+    .btn:hover {
+      background: #868686;
+    }
+
+/* ตาราง */
+table {
+  border-collapse: collapse;
+  min-width: 2300px;   
+  position: absolute;
+  top: 350px;   
+  left: 60px;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 14px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #004085;
+    color: white;
+    font-weight: 500;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* ปุ่มในตาราง */
+table button {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: 0.3s;
+  background-color: #ffe250;
+  text-align: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 14px rgba(0,0,0,0.1);
+}
+
+/* ปุ่มแก้ไข */
+
+table button[type="submit"]:first-child:hover {
+  background: #ec971f;
+  transform: translateY(-3px);
+}
+
+/* ปุ่มลบ */
+table form[onsubmit] button {
+  background: #d9534f;
+  color: white;
+  transform: translateY(-3px);
+}
+table form[onsubmit] button:hover {
+  background: #c9302c;
+}
