@@ -47,15 +47,15 @@ if ($search_query !== '') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
     <link rel="stylesheet" href="ex-public-cate.css">
-    <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
+    <link rel="icon" href="/front-app/Pic/logo3.png" type="image/png">
 </head>
 
 <body>
     <header>
         <div class="header-container">
             <div class="logo-container">
-                <a href="/pub_teacher/front-app/ex-user.php">
-                    <img src="/pub_teacher/front-app/pic/logo1.png" alt="logo">
+                <a href="/front-app/ex-user.php">
+                    <img src="/front-app/pic/logo1.png" alt="logo">
                 </a>
             </div>
             <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
@@ -67,7 +67,7 @@ if ($search_query !== '') {
             <div class="user-login-container">
                 <div class="login-info">
                     <h3>สำหรับบุคลากร</h3>
-                    <form action="/pub_teacher/back-app/login-exit/login.php" method="post">
+                    <form action="/back-app/login-exit/login.php" method="post">
                         <div class="input-box">
                             <input type="text" name="username" placeholder="ชื่อผู้ใช้" required>
                         </div>
@@ -80,10 +80,10 @@ if ($search_query !== '') {
             </div>
 
             <div class="line"></div>
-            <li><a href="/pub_teacher/front-app/ex-user.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-            <li><a href="/pub_teacher/front-app/ex-public.php"><i class="bi bi-journal-text icon-large"></i> บทความตีพิมพ์</a></li>
-            <li><a href="/pub_teacher/front-app/contact.php"><i class="bi bi-envelope icon-large"></i> ติดต่อ</a></li>
-            <li><a href="/pub_teacher/front-app/objective.php"><i class="bi bi-info-circle icon-large"></i> เกี่ยวกับ</a></li>
+            <li><a href="/front-app/ex-user.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+            <li><a href="/front-app/ex-public.php"><i class="bi bi-journal-text icon-large"></i> บทความตีพิมพ์</a></li>
+            <li><a href="/front-app/contact.php"><i class="bi bi-envelope icon-large"></i> ติดต่อ</a></li>
+            <li><a href="/front-app/objective.php"><i class="bi bi-info-circle icon-large"></i> เกี่ยวกับ</a></li>
         </ul>
     </nav>
 
@@ -138,8 +138,8 @@ if ($search_query !== '') {
                         $category = $category_map[$row['c_id']] ?? null;
 
                         $img = (!empty($row['pic']))
-                            ? "/pub_teacher/src/pic_public/" . $row['pic']
-                            : "/pub_teacher/front-app/Pic/bk1.jpg";
+                            ? "/src/pic_public/" . $row['pic']
+                            : "/front-app/Pic/bk1.jpg";
                 ?>
                         <div class="articles-list" onclick="location.href='detail.php?pub_id=<?php echo $row['pub_id']; ?>'">
                             <div class="pic-articles">
@@ -175,8 +175,8 @@ if ($search_query !== '') {
 
                                 // รูป fallback ถ้าไม่มีภาพ
                                 $img = !empty($article['pic'])
-                                    ? "/pub_teacher/src/pic_public/" . $article['pic']
-                                    : "/pub_teacher/front-app/Pic/bk1.jpg";
+                                    ? "/src/pic_public/" . $article['pic']
+                                    : "/front-app/Pic/bk1.jpg";
                             ?>
                                 <div class="article-card" onclick="location.href='detail.php?pub_id=<?= $article['pub_id'] ?>'">
                                     <div class="pic-left-info">

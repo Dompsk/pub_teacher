@@ -30,7 +30,7 @@ foreach ($publications as $pub) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>รายละเอียดบทความ</title>
     <link rel="stylesheet" href="detail.css">
-    <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
+    <link rel="icon" href="/front-app/Pic/logo3.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         .pdf-viewer {
@@ -55,8 +55,8 @@ foreach ($publications as $pub) {
     <header>
         <div class="header-container">
             <div class="logo-container">
-                <a href="/pub_teacher/front-app/ex-user.php">
-                    <img src="/pub_teacher/front-app/pic/logo1.png" alt="logo">
+                <a href="/front-app/ex-user.php">
+                    <img src="/front-app/pic/logo1.png" alt="logo">
                 </a>
             </div>
             <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
@@ -118,8 +118,8 @@ foreach ($publications as $pub) {
                     </div>
                 </div>
                 <div class="line"></div>
-                <li><a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-                <li><a href="/pub_teacher/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
+                <li><a href="/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+                <li><a href="/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
 
                 <li>
                     <a href="#" onclick="openModal()">
@@ -127,7 +127,7 @@ foreach ($publications as $pub) {
                     </a>
                 </li>
                 <p></p>
-                <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
+                <li><a href="/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
             </ul>
         </nav>
     <?php } else { ?>
@@ -136,7 +136,7 @@ foreach ($publications as $pub) {
                 <div class="user-login-container">
                     <div class="login-info">
                         <h3>สำหรับบุคลากร</h3>
-                        <form action="/pub_teacher/back-app/login-exit/login.php" method="post">
+                        <form action="/back-app/login-exit/login.php" method="post">
                             <div class="input-box">
                                 <input type="text" name="username" placeholder="ชื่อผู้ใช้" required>
                             </div>
@@ -148,10 +148,10 @@ foreach ($publications as $pub) {
                     </div>
                 </div>
                 <div class="line"></div>
-                <li><a href="/pub_teacher/front-app/ex-user.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-                <li><a href="/pub_teacher/front-app/ex-public.php"><i class="bi bi-journal-text icon-large"></i> บทความตีพิมพ์</a></li>
-                <li><a href="/pub_teacher/front-app/contact.php"><i class="bi bi-envelope icon-large"></i> ติดต่อ</a></li>
-                <li><a href="/pub_teacher/front-app/objective.php"><i class="bi bi-info-circle icon-large"></i> เกี่ยวกับ</a></li>
+                <li><a href="/front-app/ex-user.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+                <li><a href="/front-app/ex-public.php"><i class="bi bi-journal-text icon-large"></i> บทความตีพิมพ์</a></li>
+                <li><a href="/front-app/contact.php"><i class="bi bi-envelope icon-large"></i> ติดต่อ</a></li>
+                <li><a href="/front-app/objective.php"><i class="bi bi-info-circle icon-large"></i> เกี่ยวกับ</a></li>
             </ul>
         </nav>
     <?php } ?>
@@ -164,17 +164,17 @@ foreach ($publications as $pub) {
             $category = $category_map[$c_id] ?? null;
 
             // path ไฟล์ pdf
-            $file = "/pub_teacher/src/file_public/" . $article['file'];
+            $file = "/src/file_public/" . $article['file'];
         ?>
             <div class="article-info">
                 <div class="pic-left-info">
                     <?php if (!empty($article['pic'])): ?>
                         <div class="article-pic">
-                            <img src="/pub_teacher/src/pic_public/<?php echo htmlspecialchars($article['pic']); ?>" alt="รูปบทความ">
+                            <img src="/src/pic_public/<?php echo htmlspecialchars($article['pic']); ?>" alt="รูปบทความ">
                         </div>
                     <?php elseif (empty($article['pic'])): ?>
                         <div class="article-pic">
-                            <img src="/pub_teacher/front-app/Pic/bk1.jpg" alt="รูปบทความ">
+                            <img src="/front-app/Pic/bk1.jpg" alt="รูปบทความ">
                         </div>
                     <?php endif; ?>
 
