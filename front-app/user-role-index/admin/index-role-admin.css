@@ -355,12 +355,16 @@ main {
 /* footer */
 footer {
     background-color: #004085;
+    padding: 5px 0;        /* เว้นระยะบน-ล่าง */
+    width: 100vw;          /* 100% ของ viewport width */
+    box-sizing: border-box; /* รวม padding กับ border ใน width */
+    margin: 0;             /* ลบ margin ภายนอก */
+    overflow-x: hidden;    /* ป้องกัน Scroll แนวนอน */
+    text-align: center;    /* จัดข้อความตรงกลาง */
     color: white;
-    text-align: center;
-    padding: 10px;
     position: fixed;
-    width: 100%;
     bottom: 0;
+    position: relative;
 }
 
 
