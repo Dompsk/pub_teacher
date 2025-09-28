@@ -59,15 +59,15 @@ if (!empty($publication) && is_array($publication)) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
     <link rel="stylesheet" href="public.css">
-    <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
+    <link rel="icon" href="Pic/logo3.png" type="image/png">
 </head>
 
 <body>
     <header>
         <div class="header-container">
             <div class="logo-container">
-                <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php">
-                    <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
+                <a href="/front-app/user-role-index/teacher/index-role-teacher.php">
+                    <img src="Pic/logo1.png" alt="logo">
                 </a>
             </div>
             <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1>
@@ -75,8 +75,8 @@ if (!empty($publication) && is_array($publication)) {
     </header>
 
     <main>
-        <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><button class="btn">ย้อนกลับ</button></a>
-        <a href="/pub_teacher/front-app/user-role-index/teacher/add-public.php"><button class="x">เพิ่มบทความ</button></a>
+        <a href="/front-app/user-role-index/teacher/index-role-teacher.php"><button class="btn">ย้อนกลับ</button></a>
+        <a href="/front-app/user-role-index/teacher/add-public.php"><button class="x">เพิ่มบทความ</button></a>
 
         <div style="overflow-x:auto; max-width:100%;">
             <table>
@@ -96,7 +96,7 @@ if (!empty($publication) && is_array($publication)) {
                         <tr style="height: 70px;">
                             <td><?php echo $i + 1; ?></td>
                             <td><?php echo $row['pub_name']; ?></td>
-                            <td><a href="/pub_teacher/src/file_public/<?php echo $row['file']; ?>"><?php echo $row['file']; ?></a></td>
+                            <td><a href="/src/file_public/<?php echo $row['file']; ?>"><?php echo $row['file']; ?></a></td>
                             <td><?php
                                 $date = new DateTime($row['upload_date'], new DateTimeZone('UTC'));
                                 $date->setTimezone(new DateTimeZone('Asia/Bangkok'));

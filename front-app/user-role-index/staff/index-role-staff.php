@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/condb.php");
 ?>
 <html lang="en">
 
@@ -8,7 +8,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
+    <link rel="icon" href="Pic/logo3.png" type="image/png">
 
 
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
@@ -21,8 +21,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
         <div class="header-container">
 
             <div class="logo-container">
-                <a href="/pub_teacher/front-app/user-role-index/staff/index-role-staff.php">
-                    <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
+                <a href="/front-app/user-role-index/staff/index-role-staff.php">
+                    <img src="Pic/logo1.png" alt="logo">
                 </a>
             </div>
             <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1>
@@ -41,7 +41,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
             $current_password = $_SESSION['password'] ?? null;
 
             $row_user = null;
-            $pic_path = "/pub_teacher/src/pic_user/df.png"; // default image
+            $pic_path = "/src/pic_user/df.png"; // default image
 
             if ($current_username && $current_password) {
                 // ดึงข้อมูลจาก Supabase
@@ -71,7 +71,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
 
                     // ตรวจสอบรูปผู้ใช้
                     if (!empty($row_user['pic'])) {
-                        $pic_path = "/pub_teacher/src/pic_user/" . htmlspecialchars($row_user['pic']);
+                        $pic_path = "/src/pic_user/" . htmlspecialchars($row_user['pic']);
                     }
                 }
             }
@@ -92,8 +92,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
             </div>
 
             <div class="line"></div>
-            <li><a href="/pub_teacher/front-app/user-role-index/staff/index-role-staff.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-            <li><a href="/pub_teacher/front-app/user-role-index/staff/profile-staff.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
+            <li><a href="/front-app/user-role-index/staff/index-role-staff.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+            <li><a href="/front-app/user-role-index/staff/profile-staff.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
 
             <li>
                 <a href="#" onclick="openModal()">
@@ -101,7 +101,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
                 </a>
             </li>
             <p></p>
-            <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
+            <li><a href="/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
 
         </ul>
     </nav>
@@ -120,8 +120,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
 
                     <li><a href="staff-annual.php"><i class="bi bi-journal-check icon-large"></i> จัดทำรายงานสรุป</a></li>
 
-                    <li><a href="/pub_teacher/front-app/user-role-index/staff/verify-public.php"><i class="bi bi-search icon-large"></i> ตรวจสอบผลงานตีพิมพ์ </a></li>
-                    <li><a href="\pub_teacher\front-app\user-role-index\staff\manage-public.php"><i class="bi bi-folder-check icon-large"></i> ประวัติจัดการผลงานตีพิมพ์</a></li>
+                    <li><a href="/front-app/user-role-index/staff/verify-public.php"><i class="bi bi-search icon-large"></i> ตรวจสอบผลงานตีพิมพ์ </a></li>
+                    <li><a href="\front-app\user-role-index\staff\manage-public.php"><i class="bi bi-folder-check icon-large"></i> ประวัติจัดการผลงานตีพิมพ์</a></li>
 
                 </ul>
             </div>
@@ -174,8 +174,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
                             $category = $category_map[$c_id] ?? null;
 
                             $img = (!empty($row['pic']) && $row['pic'] !== null)
-                                ? "/pub_teacher/src/pic_public/" . $row['pic']
-                                : "/pub_teacher/front-app/Pic/bk1.jpg";
+                                ? "/src/pic_public/" . $row['pic']
+                                : "/front-app/Pic/bk1.jpg";
                     ?>
                             <div class="articles-list">
                                 <div class="article-pic">
@@ -185,7 +185,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
                                     <h3><?php echo htmlspecialchars($row['pub_name']); ?></h3>
                                     <p>ผู้แต่ง: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
                                     <p>หมวดหมู่: <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
-                                    <a href="/pub_teacher/front-app/detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
+                                    <a href="/front-app/detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
                                 </div>
                             </div>
                     <?php
@@ -216,7 +216,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
         </div>
         <div class="modal-body">
             <!-- แทนที่ form ด้วย iframe สำหรับ PDF -->
-            <iframe src="/pub_teacher/front-app/UserGuide/guide.pdf" width="100%" height="800px" style="border:none;"></iframe>
+            <iframe src="/front-app/UserGuide/guide.pdf" width="100%" height="800px" style="border:none;"></iframe>
         </div>
         <div class="modal-footer">
             <button class="btn cancel" onclick="closeModal()">ปิด</button>

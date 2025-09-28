@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/condb.php");
 
 // ดึงข้อมูล
 $history = getSupabaseData('history');
@@ -47,8 +47,8 @@ foreach ($user_acc as $ua) {
     <header>
         <div class="header-container">
             <div class="logo-container">
-                <a href="/pub_teacher/front-app/user-role-index/staff/index-role-staff.php">
-                    <img src="\pub_teacher\front-app\Pic\logo1.png" alt="logo">
+                <a href="/front-app/user-role-index/staff/index-role-staff.php">
+                    <img src="Pic\logo1.png" alt="logo">
                 </a>
             </div>
             <h1>ประวัติการจัดการผลงานตีพิมพ์</h1>
@@ -56,7 +56,7 @@ foreach ($user_acc as $ua) {
     </header>
 
     <main>
-        <a href="/pub_teacher/front-app/user-role-index/staff/index-role-staff.php">
+        <a href="/front-app/user-role-index/staff/index-role-staff.php">
             <button class="btn">ย้อนกลับ</button>
         </a>
 

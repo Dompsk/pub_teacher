@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/condb.php");
 session_start();
 
 $current_username = $_SESSION['username'] ?? null;
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
 
     // ✅ อัปโหลดไฟล์รูปใหม่
     if (!empty($_FILES['pic']['name'])) {
-        $upload_dir = $_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/src/pic_user/";
+        $upload_dir = $_SERVER['DOCUMENT_ROOT'] . "/src/pic_user/";
         if (!is_dir($upload_dir)) {
             mkdir($upload_dir, 0777, true);
         }
@@ -93,8 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
      <header>
         <div class="header-container">
             <div class="logo-container">
-                <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php">
-                    <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
+                <a href="/front-app/user-role-index/teacher/index-role-teacher.php">
+                    <img src="Pic/logo1.png" alt="logo">
                 </a>
             </div>
             <h1>ระบบจัดการผู้ใช้ของแอดมิน</h1>
@@ -155,8 +155,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
             </div>
 
             <div class="line"></div>
-            <li><a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-            <li><a href="/pub_teacher/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
+            <li><a href="/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+            <li><a href="/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
 
             <li>
                 <a href="#" onclick="openModal()">
@@ -164,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
                 </a>
             </li>
             <br>
-            <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
+            <li><a href="/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
 
         </ul>
     </nav>
@@ -196,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
 
             <!-- ✅ อัปโหลดรูป -->
             <label>รูปโปรไฟล์ปัจจุบัน</label><br>
-            <img src="/pub_teacher/src/pic_user/<?php echo htmlspecialchars($row_user['pic'] ?? 'df.png'); ?>" class="preview-img" id="currentPic">
+            <img src="/src/pic_user/<?php echo htmlspecialchars($row_user['pic'] ?? 'df.png'); ?>" class="preview-img" id="currentPic">
 
             <label>เปลี่ยนรูปโปรไฟล์</label>
             <input type="file" name="pic" accept="image/*" onchange="previewImage(event)">

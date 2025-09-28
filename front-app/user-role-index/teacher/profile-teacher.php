@@ -1,5 +1,5 @@
 <?php
-     include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
+     include($_SERVER['DOCUMENT_ROOT'] . "/condb.php");
 ?>
 
 <html lang="en">
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
     <link rel="stylesheet" href="profile-teacher.css">
-    <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
+    <link rel="icon" href="Pic/logo3.png" type="image/png">
 
 </head>
 <body>
@@ -20,7 +20,7 @@
             
                 <div class="logo-container">
                     <a href="index.html">
-                        <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
+                        <img src="Pic/logo1.png" alt="logo">
                     </a>
                 </div>
             <h1 >ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
@@ -39,7 +39,7 @@
                 $current_password = $_SESSION['password'] ?? null;
 
                 $row_user = null;
-                $pic_path = "/pub_teacher/src/pic_user/df.png"; // default image
+                $pic_path = "/src/pic_user/df.png"; // default image
 
                 if ($current_username && $current_password) {
                     // ดึงข้อมูลจาก Supabase
@@ -69,7 +69,7 @@
 
                         // ตรวจสอบรูปผู้ใช้
                         if (!empty($row_user['pic'])) {
-                            $pic_path = "/pub_teacher/src/pic_user/" . htmlspecialchars($row_user['pic']);
+                            $pic_path = "/src/pic_user/" . htmlspecialchars($row_user['pic']);
                         }
                     }
                 }
@@ -90,8 +90,8 @@
             </div>
 
             <div class="line"></div>
-              <li><a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-              <li><a href="/pub_teacher/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
+              <li><a href="/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+              <li><a href="/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
 
             <li>
                 <a href="#" onclick="openModal()">
@@ -99,7 +99,7 @@
                 </a>
             </li>
                 <p></p>
-            <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
+            <li><a href="/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
             
         </ul>
    </nav>
@@ -131,7 +131,7 @@
         <div class="text"><label> คณะ : <?php echo htmlspecialchars($row_user["faculty"]); ?></div></label>
 
         <div class="box_img">
-            <img class="img1" src="\pub_teacher\front-app\Pic\logo1.png" alt="Logo">
+            <img class="img1" src="\front-app\Pic\logo1.png" alt="Logo">
         </div>
     </div>
 
@@ -140,7 +140,7 @@
         <h3>สาขาวิชา : <?php echo htmlspecialchars($row_user["major"]); ?></h3>
     </div>
 
-    <a href="\pub_teacher\front-app\user-role-index\teacher\edit-profile.php" class="edit" ><div class="fas fa-edit me-2"></div> แก้ไขข้อมูลส่วนตัว</a>
+    <a href="\front-app\user-role-index\teacher\edit-profile.php" class="edit" ><div class="fas fa-edit me-2"></div> แก้ไขข้อมูลส่วนตัว</a>
 
     </main>
 
@@ -160,7 +160,7 @@
     </div>
     <div class="modal-body">
       <!-- แทนที่ form ด้วย iframe สำหรับ PDF -->
-      <iframe src="/pub_teacher/front-app/UserGuide/guide.pdf" width="100%" height="800px" style="border:none;"></iframe>
+      <iframe src="/front-app/UserGuide/guide.pdf" width="100%" height="800px" style="border:none;"></iframe>
     </div>
     <div class="modal-footer">
       <button class="btn cancel" onclick="closeModal()">ปิด</button>

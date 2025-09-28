@@ -55,7 +55,7 @@ if ($search_query !== '') {
         <div class="header-container">
             <div class="logo-container">
                 <a href="/front-app/ex-user.php">
-                    <img src="/front-app/pic/logo1.png" alt="logo">
+                    <img src="Pic/logo1.png" alt="logo">
                 </a>
             </div>
             <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 

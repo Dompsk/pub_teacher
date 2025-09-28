@@ -30,7 +30,7 @@ foreach ($publications as $pub) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>รายละเอียดบทความ</title>
     <link rel="stylesheet" href="detail.css">
-    <link rel="icon" href="/front-app/Pic/logo3.png" type="image/png">
+    <link rel="icon" href="/Pic/logo3.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         .pdf-viewer {
@@ -56,7 +56,7 @@ foreach ($publications as $pub) {
         <div class="header-container">
             <div class="logo-container">
                 <a href="/front-app/ex-user.php">
-                    <img src="/front-app/pic/logo1.png" alt="logo">
+                    <img src="Pic/logo1.png" alt="logo">
                 </a>
             </div>
             <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 

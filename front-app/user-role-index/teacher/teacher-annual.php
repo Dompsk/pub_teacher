@@ -1,6 +1,6 @@
 
         <?php
-        include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
+        include($_SERVER['DOCUMENT_ROOT'] . "/condb.php");
 
         session_start();
 
@@ -87,7 +87,7 @@
             <div class="header-container">
                 <div class="logo-container">
                     <a href="index.html">
-                        <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
+                        <img src="Pic/logo1.png" alt="logo">
                     </a>
                 </div>
                 <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1>
@@ -102,7 +102,7 @@
                 $current_password = $_SESSION['password'] ?? null;
 
                 $row_user = null;
-                $pic_path = "/pub_teacher/src/pic_user/df.png"; // default image
+                $pic_path = "/src/pic_user/df.png"; // default image
 
                 if ($current_username && $current_password) {
                     // ดึงข้อมูลจาก Supabase
@@ -132,7 +132,7 @@
 
                         // ตรวจสอบรูปผู้ใช้
                         if (!empty($row_user['pic'])) {
-                            $pic_path = "/pub_teacher/src/pic_user/" . htmlspecialchars($row_user['pic']);
+                            $pic_path = "/src/pic_user/" . htmlspecialchars($row_user['pic']);
                         }
                     }
                 }
@@ -153,8 +153,8 @@
                 </div>
 
                 <div class="line"></div>
-                <li><a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-                <li><a href="/pub_teacher/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
+                <li><a href="/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+                <li><a href="/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
 
                 <li>
                     <a href="#" onclick="openModal()">
@@ -162,7 +162,7 @@
                     </a>
                 </li>
                 <p></p>
-                <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
+                <li><a href="/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
 
             </ul>
         </nav>

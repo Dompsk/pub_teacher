@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/condb.php");
 ?>
 
 <html lang="en">
@@ -10,7 +10,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
     <link rel="stylesheet" href="index-role-teacher.css">
-    <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
+    <link rel="icon" href="/front-app/Pic/logo3.png" type="image/png">
 
 </head>
 
@@ -20,8 +20,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
         <div class="header-container">
 
             <div class="logo-container">
-                <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php">
-                    <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
+                <a href="/front-app/user-role-index/teacher/index-role-teacher.php">
+                    <img src="Pic/logo1.png" alt="logo">
                 </a>
             </div>
             <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1>
@@ -83,8 +83,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
             </div>
 
             <div class="line"></div>
-            <li><a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-            <li><a href="/pub_teacher/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
+            <li><a href="/front-app/user-role-index/teacher/index-role-teacher.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+            <li><a href="/front-app/user-role-index/teacher/profile-teacher.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
 
             <li>
                 <a href="#" onclick="openModal()">
@@ -92,7 +92,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
                 </a>
             </li>
             <p></p>
-            <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
+            <li><a href="/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
 
         </ul>
     </nav>
@@ -108,7 +108,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
 
             <div class="bar">
                 <ul>
-                    <li><a href="\pub_teacher\front-app\user-role-index\teacher\public.php"><i class="bi bi-journal-text icon-large"></i> จัดการบทความ</a></li>
+                    <li><a href="\front-app\user-role-index\teacher\public.php"><i class="bi bi-journal-text icon-large"></i> จัดการบทความ</a></li>
                     <li><a href="teacher-annual.php"><i class="bi-file-earmark-text icon-large"></i> จัดทำรายงานสรุป </a></li>
                 </ul>
             </div>
@@ -161,8 +161,8 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
                             $category = $category_map[$c_id] ?? null;
 
                             $img = (!empty($row['pic']) && $row['pic'] !== null)
-                                ? "/pub_teacher/src/pic_public/" . $row['pic']
-                                : "/pub_teacher/front-app/Pic/bk1.jpg";
+                                ? "/src/pic_public/" . $row['pic']
+                                : "/front-app/Pic/bk1.jpg";
                     ?>
                             <div class="articles-list">
                                 <div class="article-pic">
@@ -172,7 +172,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
                                     <h3><?php echo htmlspecialchars($row['pub_name']); ?></h3>
                                     <p>ผู้แต่ง: <?php echo htmlspecialchars(($author['fname'] ?? '') . " " . ($author['lname'] ?? '')); ?></p>
                                     <p>หมวดหมู่: <?php echo htmlspecialchars($category['cname'] ?? ''); ?></p>
-                                    <a href="/pub_teacher/front-app/detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
+                                    <a href="/front-app/detail.php?pub_id=<?php echo $row['pub_id']; ?>">อ่านเพิ่มเติม...</a>
                                 </div>
                             </div>
                     <?php
@@ -206,7 +206,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
         </div>
         <div class="modal-body">
             <!-- แทนที่ form ด้วย iframe สำหรับ PDF -->
-            <iframe src="/pub_teacher/front-app/UserGuide/guide.pdf" width="100%" height="800px" style="border:none;"></iframe>
+            <iframe src="/front-app/UserGuide/guide.pdf" width="100%" height="800px" style="border:none;"></iframe>
         </div>
         <div class="modal-footer">
             <button class="btn cancel" onclick="closeModal()">ปิด</button>

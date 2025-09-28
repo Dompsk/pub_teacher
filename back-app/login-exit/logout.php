@@ -1,6 +1,6 @@
 <?php
 // Include the Supabase connection file
-include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/condb.php");
 
 session_start();
 
@@ -23,6 +23,6 @@ session_unset();
 session_destroy();
 
 // Redirect the user back to the login page
-header("Location: /pub_teacher/front-app/ex-user.php");
+header("Location: /front-app/ex-user.php");
 exit();
 ?>

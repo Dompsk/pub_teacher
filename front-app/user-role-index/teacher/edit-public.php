@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
     // จัดการไฟล์ - อัปเดตเฉพาะเมื่อมีไฟล์ใหม่
     $filename = $_FILES['file']['name'] ?? null;
     if (!empty($filename) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
-        $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/src/file_public/";
+        $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/src/file_public/";
         if (!is_dir($targetDir)) mkdir($targetDir, 0755, true);
 
         if (move_uploaded_file($_FILES['file']['tmp_name'], $targetDir . $filename)) {
@@ -126,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
     // จัดการรูป - อัปเดตเฉพาะเมื่อมีรูปใหม่
     $picname = $_FILES['pic']['name'] ?? null;
     if (!empty($picname) && $_FILES['pic']['error'] === UPLOAD_ERR_OK) {
-        $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/src/pic_public/";
+        $targetDir = $_SERVER['DOCUMENT_ROOT'] . "/src/pic_public/";
         if (!is_dir($targetDir)) mkdir($targetDir, 0755, true);
 
         if (move_uploaded_file($_FILES['pic']['tmp_name'], $targetDir . $picname)) {
@@ -168,7 +168,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
     <link rel="stylesheet" href="edit-public.css">
-    <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
+    <link rel="icon" href="/front-app/Pic/logo3.png" type="image/png">
 
 </head>
 
@@ -178,8 +178,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
         <div class="header-container">
 
             <div class="logo-container">
-                <a href="/pub_teacher/front-app/user-role-index/teacher/index-role-teacher.php">
-                    <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
+                <a href="/front-app/user-role-index/teacher/index-role-teacher.php">
+                    <img src="Pic/logo1.png" alt="logo">
                 </a>
             </div>
             <h1>ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1>
@@ -214,14 +214,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save'])) {
 
                     <label style="font-weight: bold;">ไฟล์เดิม:</label>
                     <?php if (!empty($pub_data['file'])): ?>
-                        <a href="/pub_teacher/src/file_public/<?= htmlspecialchars($pub_data['file']) ?>" target="_blank"><?= htmlspecialchars($pub_data['file']) ?></a>
+                        <a href="/src/file_public/<?= htmlspecialchars($pub_data['file']) ?>" target="_blank"><?= htmlspecialchars($pub_data['file']) ?></a>
                     <?php else: ?>
                         <span>ไม่มีไฟล์</span>
                     <?php endif; ?>
 
                     <label style="font-weight: bold;">รูปเดิม:</label>
                     <?php if (!empty($pub_data['pic'])): ?>
-                        <a href="/pub_teacher/src/pic_public/<?= htmlspecialchars($pub_data['pic']) ?>" target="_blank"><?= htmlspecialchars($pub_data['pic']) ?></a>
+                        <a href="/src/pic_public/<?= htmlspecialchars($pub_data['pic']) ?>" target="_blank"><?= htmlspecialchars($pub_data['pic']) ?></a>
                     <?php else: ?>
                         <span>ไม่มีรูป</span>
                     <?php endif; ?>

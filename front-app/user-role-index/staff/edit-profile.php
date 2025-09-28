@@ -1,5 +1,5 @@
 <?php
-include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/condb.php");
 session_start();
 
 $current_username = $_SESSION['username'] ?? null;
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
     <link rel="stylesheet" href="edit-profile.css">
-    <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
+    <link rel="icon" href="Pic/logo3.png" type="image/png">
 
 </head>
 <body>
@@ -78,8 +78,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
         <div class="header-container">
             
                 <div class="logo-container">
-                    <a href="index.html">
-                        <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
+                    <a href="/front-app/user-role-index/staff/index-role-staff.php">
+                        <img src="Pic/logo1.png" alt="logo">
                     </a>
                 </div>
             <h1 >ระบบจัดเก็บผลงานตีพิมพ์อาจารย์</h1> 
@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
                 $current_password = $_SESSION['password'] ?? null;
 
                 $row_user = null;
-                $pic_path = "/pub_teacher/src/pic_user/df.png"; // default image
+                $pic_path = "/src/pic_user/df.png"; // default image
 
                 if ($current_username && $current_password) {
                     // ดึงข้อมูลจาก Supabase
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
 
                         // ตรวจสอบรูปผู้ใช้
                         if (!empty($row_user['pic'])) {
-                            $pic_path = "/pub_teacher/src/pic_user/" . htmlspecialchars($row_user['pic']);
+                            $pic_path = "/src/pic_user/" . htmlspecialchars($row_user['pic']);
                         }
                     }
                 }
@@ -147,8 +147,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
             </div>
 
             <div class="line"></div>
-              <li><a href="/pub_teacher/front-app/user-role-index/staff/index-role-staff.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
-              <li><a href="/pub_teacher/front-app/user-role-index/staff/profile-staff.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
+              <li><a href="/front-app/user-role-index/staff/index-role-staff.php"><i class="bi bi-house icon-large"></i> หน้าแรก</a></li>
+              <li><a href="/front-app/user-role-index/staff/profile-staff.php"><i class="bi bi-person icon-large"></i> ข้อมูลส่วนตัว</a></li>
 
             <li>
                 <a href="#" onclick="openModal()">
@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $row_user) {
                 </a>
             </li>
                 <p></p>
-            <li><a href="/pub_teacher/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
+            <li><a href="/back-app/login-exit/logout.php"><i class="bi bi-box-arrow-right icon-large"></i> ออกจากระบบ</a></li>
             
         </ul>
    </nav>

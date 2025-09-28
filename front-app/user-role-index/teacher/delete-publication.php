@@ -36,16 +36,16 @@ if ($pub_id) {
     try {
         $deleted = deleteSupabaseData('publication', 'pub_id', $pub_id);
         // redirect ด้วย header
-        header("Location: /pub_teacher/front-app/user-role-index/teacher/public.php");
+        header("Location: /front-app/user-role-index/teacher/public.php");
         exit;
     } catch (Exception $e) {
         echo "<script>
                 alert('เกิดข้อผิดพลาด: ".$e->getMessage()."');
-                window.location='/pub_teacher/front-app/user-role-index/teacher/public.php';
+                window.location='/front-app/user-role-index/teacher/public.php';
               </script>";
     }
 } else {
-    header("Location: /pub_teacher/front-app/user-role-index/teacher/public.php");
+    header("Location: /front-app/user-role-index/teacher/public.php");
     exit;
 }
 ?>

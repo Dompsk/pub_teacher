@@ -1,7 +1,7 @@
 <?php
 
 // condb.php
-include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
+include($_SERVER['DOCUMENT_ROOT'] . "/condb.php");
 
 // กรอง acc_id ของ session
 session_start();
@@ -56,8 +56,8 @@ $no = 0;
     <header>
         <div class="header-container">
             <div class="logo-container">
-                <a href="/pub_teacher/front-app/user-role-index/staff/index-role-staff.php">
-                    <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
+                <a href="/front-app/user-role-index/staff/index-role-staff.php">
+                    <img src="Pic/logo1.png" alt="logo">
                 </a>
             </div>
             <h1>ตรวจสอบผลงานตีพิมพ์</h1>
@@ -65,7 +65,7 @@ $no = 0;
     </header>
 
     <main>
-        <a href="/pub_teacher/front-app/user-role-index/staff/index-role-staff.php">
+        <a href="/front-app/user-role-index/staff/index-role-staff.php">
             <button class="btn">ย้อนกลับ</button>
         </a>
 
