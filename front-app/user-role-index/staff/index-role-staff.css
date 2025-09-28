@@ -356,18 +356,9 @@ footer {
     overflow-x: hidden;    /* ป้องกัน Scroll แนวนอน */
     text-align: center;    /* จัดข้อความตรงกลาง */
     color: white;
-}
-
-
-/* footer */
-footer {
-    background-color: #004085;
-    color: white;
-    text-align: center;
-    padding: 10px;
     position: fixed;
-    width: 100%;
     bottom: 0;
+    position: relative;
 }
 
 
