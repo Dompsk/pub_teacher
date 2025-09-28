@@ -1,18 +1,25 @@
 <?php
 include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
-    // ดึงข้อมูลผู้ใช้ทั้งหมด
-    $users = getSupabaseData('user');
+// ดึงข้อมูลผู้ใช้ทั้งหมด
+$users = getSupabaseData('user');
 
-    // ตรวจสอบว่ามีข้อมูลหรือไม่
-    $users = is_array($users) ? $users : [];
+// ตรวจสอบว่ามีข้อมูลหรือไม่
+$users = is_array($users) ? $users : [];
 
-    // เรียง user_id จากน้อยไปมาก
-    usort($users, function($a, $b) {
-        return $a['user_id'] <=> $b['user_id'];
-    });
+// เรียง user_id จากน้อยไปมาก
+usort($users, function ($a, $b) {
+    return $a['user_id'] <=> $b['user_id'];
+});
+
+if (isset($_POST['edit_user_id'])) {
+    $edit_user_id = $_POST['edit_user_id'];
+    header("Location: /pub_teacher/front-app/user-role-index/admin/edit-user.php?user_id=" . urlencode($edit_user_id));
+    exit();
+}
 ?>
 
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,6 +28,7 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
     <link rel="stylesheet" href="manage-user.css">
     <link rel="icon" href="/pub_teacher/front-app/Pic/logo3.png" type="image/png">
 </head>
+
 <body>
     <header>
         <div class="header-container">
@@ -59,23 +67,23 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
                             <td><?php echo htmlspecialchars($user['tel']); ?></td>
                             <td><?php echo htmlspecialchars($user['age']); ?></td>
                             <td><?php echo htmlspecialchars($user['major']); ?></td>
-                       <td>
-                            <form method="post" action="edit-user.php" style="display:inline;">
-                                <input type="hidden" name="edit_user_id" value="<?php echo $user['user_id']; ?>">
-                                <button type="submit">แก้ไข</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form method="post" action="delete-user.php" style="display:inline;" onsubmit="return confirm('ยืนยันการลบ?');">
-                                <input type="hidden" name="delete_user_id" value="<?php echo $user['user_id']; ?>">
-                                <button type="submit">ลบ</button>
-                            </form>
-                        </td>
+                            <td>
+                                <form method="post" action="" style="display:inline;">
+                                    <input type="hidden" name="edit_user_id" value="<?php echo $user['user_id']; ?>">
+                                    <button type="submit">แก้ไข</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post" action="delete-user.php" style="display:inline;" onsubmit="return confirm('ยืนยันการลบ?');">
+                                    <input type="hidden" name="delete_user_id" value="<?php echo $user['user_id']; ?>">
+                                    <button type="submit">ลบ</button>
+                                </form>
+                            </td>
 
                         </tr>
                     <?php endforeach; ?>
 
-                    <?php if(empty($users)): ?>
+                    <?php if (empty($users)): ?>
                         <tr>
                             <td colspan="7" style="text-align:center;">ไม่มีข้อมูลผู้ใช้</td>
                         </tr>
@@ -89,4 +97,5 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
         <p>@มหาวิทยาลัย สงขลานครินทร์ วิทยาเขตหาดใหญ่. สมาชิก 143 251 253 254 325 378 </p>
     </footer>
 </body>
+
 </html>
