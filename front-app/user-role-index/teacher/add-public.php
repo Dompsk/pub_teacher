@@ -4,7 +4,8 @@ $SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsIn
 
 session_start();
 // ฟังก์ชัน Insert ข้อมูลเข้า Supabase
-function insertSupabaseData($table, $data) {
+function insertSupabaseData($table, $data)
+{
     global $SUPABASE_URL, $SUPABASE_KEY;
 
     $url = $SUPABASE_URL . "/rest/v1/" . $table;
@@ -30,7 +31,8 @@ function insertSupabaseData($table, $data) {
 }
 
 // ฟังก์ชันดึงข้อมูลจาก Supabase
-function fetchSupabaseData($table, $query = "") {
+function fetchSupabaseData($table, $query = "")
+{
     global $SUPABASE_URL, $SUPABASE_KEY;
 
     $url = $SUPABASE_URL . "/rest/v1/" . $table . "?select=*" . $query;
@@ -62,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save_pub'])) {
     $status = "not approve";
     $acc_id = $_SESSION['id']; // สมมติล็อกอินเป็น user acc_id = 3
 
-    // ดึง pub_id ล่าสุด
+    // ดึง pub_id ล่าสุดจากตาราง publication
     $lastPub = fetchSupabaseData("publication", "&order=pub_id.desc&limit=1");
     $new_pub_id = ($lastPub && isset($lastPub[0]['pub_id'])) ? $lastPub[0]['pub_id'] + 1 : 1;
 
@@ -82,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save_pub'])) {
         move_uploaded_file($_FILES['pic']['tmp_name'], $targetDir . $picName);
     }
 
-    // เตรียมข้อมูลสำหรับ Supabase
+    // เตรียมข้อมูลสำหรับ Supabase (ตาราง publication)
     $data = [
         "pub_id" => $new_pub_id,
         "pub_name" => $pub_name,
@@ -94,9 +96,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save_pub'])) {
         "acc_id" => $acc_id
     ];
 
+    // บันทึกข้อมูลบทความก่อน
     $result = insertSupabaseData("publication", $data);
 
     if ($result) {
+        // ถ้าบันทึกบทความสำเร็จ ให้บันทึกข้อมูลผู้เข้าร่วม
+        $participants = isset($_POST['participant']) ? $_POST['participant'] : [];
+        $participantNames = array_filter($participants); // กรองค่าว่างออก
+        
+        // บันทึกแต่ละคนลงตาราง participants โดยใช้ pub_id เดียวกัน
+        foreach ($participantNames as $name) {
+            $participantData = [
+                "pub_id" => $new_pub_id,
+                "name" => trim($name)
+            ];
+            insertSupabaseData("participants", $participantData);
+        }
+
         echo "<script>alert('บันทึกบทความเรียบร้อย'); window.location.href='index-role-teacher.php';</script>";
     } else {
         echo "<script>alert('ผิดพลาด! ไม่สามารถบันทึกได้');</script>";
@@ -107,24 +123,63 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save_pub'])) {
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-  <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
-  <link rel="stylesheet" href="add-public.css">
-  <?php
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $pub_name = $_POST['pub_name'];
-    $btn = $_POST['btn'];
-    if ($btn == "เพิ่มบทความ") {
-      
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <title>ระบบจัดเก็บผลงานตีพิมพ์</title>
+    <link rel="stylesheet" href="add-public.css">
+    <style>
+        .participant-group {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .participant-group input {
+            flex: 1;
+        }
+        .btn-remove {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .btn-remove:hover {
+            background-color: #c82333;
+        }
+        .btn-add-participant {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .btn-add-participant:hover {
+            background-color: #218838;
+        }
+        #participantContainer {
+            margin-bottom: 15px;
+        }
+    </style>
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $pub_name = $_POST['pub_name'];
+        $btn = $_POST['btn'];
+        if ($btn == "เพิ่มบทความ") {
+        } else {
+            echo "<script> window.location='/pub_teacher/front-app/user-role-index/teacher/public.php'; </script>";
+        }
     }
-    else {
-      echo "<script> window.location='/pub_teacher/front-app/user-role-index/teacher/public.php'; </script>";
-    }
-
-  }
-  ?>
+    ?>
 </head>
 
 <body>
@@ -135,49 +190,58 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save_pub'])) {
                     <img src="/pub_teacher/front-app/Pic/logo1.png" alt="logo">
                 </a>
             </div>
-            <h1>เพิ่มบทความ</h1> 
+            <h1>เพิ่มบทความ</h1>
         </div>
     </header>
 
     <main>
-    <!-- ฟอร์มเพิ่มบทความ -->
-    <form method="POST" enctype="multipart/form-data">
+        <!-- ฟอร์มเพิ่มบทความ -->
+        <form method="POST" enctype="multipart/form-data">
 
-        <div class="box">
-            <div>ชื่อบทความ :</div>
-            <input type="text" name="pub_name" placeholder="กรอกชื่อบทความ" required>
-            <br>
+            <div class="box">
+                <div>ชื่อบทความ :</div>
+                <input type="text" name="pub_name" placeholder="กรอกชื่อบทความ" required>
+                <br>
 
-            <div>ประเภทบทความ :</div>
-            <select name="c_id" required>
-                <option value="" hidden>-- เลือกประเภทบทความ --</option>
-                <?php 
+                <div>ประเภทบทความ :</div>
+                <select name="c_id" required>
+                    <option value="" hidden>-- เลือกประเภทบทความ --</option>
+                    <?php
                     // เรียง array ตาม c_id จากน้อยไปมาก
-                    usort($categories, function($a, $b) {
+                    usort($categories, function ($a, $b) {
                         return $a['c_id'] <=> $b['c_id'];
                     });
 
-                    foreach($categories as $cat): 
-                ?>
-                    <option value="<?= $cat['c_id'] ?>">
-                        <?= htmlspecialchars($cat['cname']) ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-            <br>
+                    foreach ($categories as $cat):
+                    ?>
+                        <option value="<?= $cat['c_id'] ?>">
+                            <?= htmlspecialchars($cat['cname']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+                <br>
 
-            <div>ไฟล์ :</div>
-            <input class="file-input" type="file" name="file" accept=".pdf,.doc,.docx">
-            <br>
+                <div>ไฟล์ :</div>
+                <input class="file-input" type="file" name="file" accept=".pdf,.doc,.docx">
+                <br>
 
-            <div>รูปหน้าปก (มีหรือไม่มีก็ได้) :</div>
-            <input class="file-input" type="file" name="pic">
-        </div>
+                <div>รูปหน้าปก (มีหรือไม่มีก็ได้) :</div>
+                <input class="file-input" type="file" name="pic">
+                <br>
 
-        <button type="button" class="btn btn-cancel" onclick="window.location.href='index-role-teacher.php'">ยกเลิก</button>
-        <button type="submit" name="save_pub" class="btn btn-save">เพิ่มบทความ</button>
-        
-    </form>
+                <div>ชื่อผู้เข้าร่วม (ไม่บังคับ) :</div>
+                <div id="participantContainer">
+                    <!-- เริ่มต้นไม่มีช่องกรอก -->
+                </div>
+                <button type="button" class="btn-add-participant" onclick="addParticipant()">
+                    <i class="bi bi-plus-circle"></i> เพิ่มผู้เข้าร่วม
+                </button>
+                <br><br>
+
+                <button type="button" class="btn btn-cancel" onclick="window.location.href='index-role-teacher.php'">ยกเลิก</button>
+                <button type="submit" name="save_pub" class="btn btn-save">เพิ่มบทความ</button>
+            </div>
+        </form>
     </main>
 
     <footer>
@@ -187,17 +251,38 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['save_pub'])) {
 
 </html>
 
-
 <script>
-  function openModal() {
-    const modal = document.getElementById("settingsModal");
-    modal.style.display = "flex";
-    setTimeout(() => modal.classList.add("show"), 10);
-  }
+    let participantCount = 0;
 
-  function closeModal() {
-    const modal = document.getElementById("settingsModal");
-    modal.classList.remove("show");
-    setTimeout(() => modal.style.display = "none", 400);
-  }
+    function addParticipant() {
+        participantCount++;
+        const container = document.getElementById('participantContainer');
+        const newGroup = document.createElement('div');
+        newGroup.className = 'participant-group';
+        newGroup.innerHTML = `
+            <input type="text" name="participant[]" placeholder="กรอกชื่อผู้เข้าร่วม">
+            <button type="button" class="btn-remove" onclick="removeParticipant(this)">
+                <i class="bi bi-trash"></i> ลบ
+            </button>
+        `;
+        container.appendChild(newGroup);
+    }
+
+    function removeParticipant(button) {
+        const group = button.parentElement;
+        group.remove();
+        participantCount--;
+    }
+
+    function openModal() {
+        const modal = document.getElementById("settingsModal");
+        modal.style.display = "flex";
+        setTimeout(() => modal.classList.add("show"), 10);
+    }
+
+    function closeModal() {
+        const modal = document.getElementById("settingsModal");
+        modal.classList.remove("show");
+        setTimeout(() => modal.style.display = "none", 400);
+    }
 </script>
