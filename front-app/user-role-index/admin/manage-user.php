@@ -46,6 +46,10 @@ if (isset($_POST['edit_user_id'])) {
             <button class="btn">ย้อนกลับ</button>
         </a>
 
+        <a href="\pub_teacher\front-app\user-role-index\admin\add-user.php">
+            <button class="add">เพิ่มผู้ใช้</button>
+        </a>
+
         <div style="overflow-x:auto; max-width:100%;">
             <table>
                 <thead>
