@@ -132,10 +132,11 @@ footer {
     background-color: #004085;
     color: white;
     text-align: center;
-    padding: 10px;
+    padding: 5px;
     position: fixed;
     width: 100%;
     bottom: 0;
+
 }
 
 .box {
@@ -190,14 +191,18 @@ select {
 /* ตาราง */
 table {
   border-collapse: collapse;
-  width: 1600px;   
+  width: 1500px;   
+  height: auto;
   margin: 30px auto;
-  margin-top: 260px;
+  margin-top: 100px;
   margin-right: 270px;
+  right: 200px;
+  top: 10px;
   background: #fff;
   overflow: hidden;           /* ตัดขอบให้โค้งทำงาน */
   border-radius: 12px;  
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* เงาสวย ๆ */
+  position: relative;
 }
 
 thead {
