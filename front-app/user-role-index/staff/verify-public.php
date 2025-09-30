@@ -6,14 +6,24 @@ include($_SERVER['DOCUMENT_ROOT'] . "/pub_teacher/condb.php");
 // กรอง acc_id ของ session
 session_start();
 $publication = getSupabaseData('publication');
+$user_accs = getSupabaseData('user_acc'); 
+$users = getSupabaseData('user');
+
+$user_map = array_column($users, null, 'user_id');
+$user_acc_map = array_column($user_accs, null, 'acc_id');
 
 // รวมข้อมูล
 $combinedData = [];
 if (!empty($publication) && is_array($publication)) {
     foreach ($publication as $p) {
+        $acc_id = $p['acc_id'] ?? null;
+        $user   = $acc_id && isset($user_map[$acc_id]) ? $user_map[$acc_id] : null;
+
         $combinedData[] = [
             'pub_id'      => $p['pub_id'],
             'pub_name'    => $p['pub_name'],
+            'fname'       => $user['fname'] ?? '-',   
+            'email'       => $user['email'] ?? '-',   
             'file'        => $p['file'],
             'upload_date' => $p['upload_date'],
             'status'      => $p['status'],
@@ -75,6 +85,8 @@ $no = 0;
                     <tr style="height: 70px;">
                         <th style="width: 30px;">NO</th>
                         <th style="width: 200px;">Publication Name</th>
+                        <th style="width: 200px;">author</th>
+                        <th style="width: 200px;">email</th>
                         <th style="width: 120px;">File</th>
                         <th style="width: 120px;">Upload</th>
                         <th style="width: 80px;">Status</th>
@@ -82,36 +94,39 @@ $no = 0;
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (!empty($combinedData)): ?>
-                        <?php foreach ($combinedData as $row): ?>
-                            <tr style="height: 70px;">
-                                <td><?php echo ++$no; ?></td>
-                                <td><?php echo htmlspecialchars($row['pub_name']); ?></td>
-                                <td><a href="/pub_teacher/src/file_public/<?php echo htmlspecialchars($row['file']); ?>"><?php echo htmlspecialchars($row['file']); ?></a></td>
-                                <td>
-                                    <?php
-                                    echo date("d/m/Y H:i:s", strtotime($row['upload_date']));
-                                    ?>
-                                </td>
-                                <td class="<?php echo ($row['status'] === 'approve') ? 'status-approve' : 'status-not-approve'; ?>">
-                                    <?php echo htmlspecialchars($row['status']); ?>
-                                </td>
-                                <td>
-                                    <form method="post" style="display:inline;">
-                                        <input type="hidden" name="approve_pub_id" value="<?php echo $row['pub_id']; ?>">
-                                        <button type="submit">Approve</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="6" style="text-align:center; padding:20px; color:#888;">
-                                ไม่มีข้อมูลที่ไม่ได้รับการอนุมัติ
-                            </td>
-                        </tr>
-                    <?php endif; ?>
-                </tbody>
+    <?php if (!empty($combinedData)): ?>
+        <?php foreach ($combinedData as $row): ?>
+            <tr style="height: 70px;">
+                <td><?php echo ++$no; ?></td>
+                <td><?php echo htmlspecialchars($row['pub_name']); ?></td>
+                <td><?php echo htmlspecialchars($row['fname']); ?></td>
+                <td><?php echo htmlspecialchars($row['email']); ?></td>
+                <td>
+                    <a href="/pub_teacher/src/file_public/<?php echo htmlspecialchars($row['file']); ?>">
+                        <?php echo htmlspecialchars($row['file']); ?>
+                    </a>
+                </td>
+                <td><?php echo date("d/m/Y H:i:s", strtotime($row['upload_date'])); ?></td>
+                <td class="<?php echo ($row['status'] === 'approve') ? 'status-approve' : 'status-not-approve'; ?>">
+                    <?php echo htmlspecialchars($row['status']); ?>
+                </td>
+                <td>
+                    <form method="post" style="display:inline;">
+                        <input type="hidden" name="approve_pub_id" value="<?php echo $row['pub_id']; ?>">
+                        <button type="submit">Approve</button>
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <tr>
+            <td colspan="8" style="text-align:center; padding:20px; color:#888;">
+                ไม่มีข้อมูลที่ไม่ได้รับการอนุมัติ
+            </td>
+        </tr>
+    <?php endif; ?>
+</tbody>
+
             </table>
         </div>
     </main>
