@@ -87,8 +87,12 @@ $no = 0;
                             <tr style="height: 70px;">
                                 <td><?php echo ++$no; ?></td>
                                 <td><?php echo htmlspecialchars($row['pub_name']); ?></td>
-                                <td><?php echo htmlspecialchars($row['file']); ?></td>
-                                <td><?php echo htmlspecialchars($row['upload_date']); ?></td>
+                                <td><a href="/pub_teacher/src/file_public/<?php echo htmlspecialchars($row['file']); ?>"><?php echo htmlspecialchars($row['file']); ?></a></td>
+                                <td>
+                                    <?php
+                                    echo date("d/m/Y H:i:s", strtotime($row['upload_date']));
+                                    ?>
+                                </td>
                                 <td class="<?php echo ($row['status'] === 'approve') ? 'status-approve' : 'status-not-approve'; ?>">
                                     <?php echo htmlspecialchars($row['status']); ?>
                                 </td>
@@ -116,6 +120,7 @@ $no = 0;
         <p>@มหาวิทยาลัย สงขลานครินทร์ วิทยาเขตหาดใหญ่. สมาชิก 143 251 253 254 325 378 </p>
     </footer>
 </body>
+
 </html>
 
 <script>
