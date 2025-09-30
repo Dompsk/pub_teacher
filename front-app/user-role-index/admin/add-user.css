@@ -1,6 +1,6 @@
 @font-face {
-  font-family:Fontstyle;
-  src: url(/pub_teacher/front-app/NotoSansThai-VariableFont_wdth\,wght.ttf);
+    font-family:Fontstyle;
+    src: url(/pub_teacher/front-app/NotoSansThai-VariableFont_wdth\,wght.ttf);
 }
 
 body {
@@ -75,7 +75,7 @@ header h1{
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     width: 100%;                  
 }
 
@@ -115,122 +115,127 @@ header h1{
   font-size: 20px;
 }
 
-
-/* footer */
-.content-container {
+/* Form Container */
+.box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 800px;
+    margin: 50px auto 100px auto;
+    padding: 30px;
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    padding: 20px;
-    box-sizing: border-box;
+    font-size: 24px;
+    line-height: 1.5;
 }
 
+.box div {
+    font-weight: bold;
+}
 
-/* footer */
+.box input,
+.box select,
+.file-input {
+    width: 100%;
+    height: 50px;
+    font-size: 18px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-family: Fontstyle;
+}
+
+/* Placeholder */
+input::placeholder {
+    font-size: 18px;
+    color: #888;
+    font-weight: 500;
+}
+
+/* File input style */
+.file-input {
+    cursor: pointer;
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.btn {
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 2px solid transparent;
+    text-decoration: none;
+    transition: 0.3s;
+    width: 180px;
+    height: 60px;
+}
+
+.btn-cancel {
+    color: white;
+    background: rgb(124, 124, 124);
+    border: none;
+    padding: 12px 24px;   /* ขยายพื้นที่ในปุ่ม */
+    font-size: 18px;      /* ขยายตัวอักษร */
+    border-radius: 6px;   /* ทำให้มุมโค้ง (ถ้าต้องการ) */
+}
+
+.btn-cancel:hover {
+    background: #c4b6b6;
+}
+
+.btn-save {
+    background: #52da5d;
+    color: white;
+    border: none;
+    padding: 12px 24px;   /* ขยายพื้นที่ในปุ่ม */
+    font-size: 24px;      /* ขยายตัวอักษร */
+    border-radius: 6px;   /* ทำให้มุมโค้ง (ถ้าต้องการ) */
+}
+
+.btn-save:hover {
+    background: #60ff2f;
+}
+
+/* Footer */
 footer {
     background-color: #004085;
     color: white;
     text-align: center;
-    padding: 5px;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-
+    padding: 15px;
+    margin-top: auto;
 }
 
-.box {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px 20px;
-      max-width: 600px;
-      margin: 30px auto;
-      align-items: center;
-      position: absolute;
-      top: 150px;   
-      left: 700px;
-      font-size: 24px;
-      line-height: 1;
-    }
-    .box div {
-      font-weight: bold;
-    }
-    .box input {
-      width: 900px;
-      height: 70px;
-      padding: 10px ;
-      border: 1px solid #ccc;
-      border-radius: 6px;
+/* Responsive */
+@media (max-width: 768px) {
+    .box {
+        margin: 20px;
+        padding: 20px;
     }
 
-.text {
-    position: absolute;
-      top: 180px;   
-      left: 700px;
-}
+    .btn {
+        width: 100%;
+    }
 
-select {
-  padding: 8px 12px;
-  font-size: 18px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  width: 900px;
-  height: 70px;
-}
+    .button-group {
+        flex-direction: column;
+        align-items: stretch;
+    }
 
-.file-input {
-  width: 900px;
-  height: 70px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 18px;
-  cursor: pointer;
-}
+    header h1 {
+        font-size: 24px;
+    }
 
-/* ตาราง */
-table {
-  border-collapse: collapse;
-  width: 1500px;   
-  height: auto;
-  margin: 30px auto;
-  margin-top: 100px;
-  margin-right: 270px;
-  right: 200px;
-  top: 10px;
-  background: #fff;
-  overflow: hidden;           /* ตัดขอบให้โค้งทำงาน */
-  border-radius: 12px;  
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* เงาสวย ๆ */
-  position: relative;
-}
-
-thead {
-  background: linear-gradient(90deg, #2d6eb3, #4a90e2); /* ไล่สีหัวตาราง */
-  color: white;
-}
-
-th, td {
-  padding: 14px 20px;
-  text-align: center;
-  font-size: 18px;
-  border-bottom: 1px solid #e0e0e0; /* เส้นแบ่งบาง ๆ */
-}
-
-tbody tr:nth-child(even) {
-  background-color: #f9f9f9; /* สลับสีแถว */
-}
-
-tbody tr:hover {
-  background-color: #eaf4ff; /* ไฮไลท์เมื่อ hover */
-  transition: 0.3s;
-}
-
-th {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-td {
-  color: #333;
+    .logo-container {
+        display: none; /* ซ่อนโลโก้หากจอเล็ก */
+    }
 }
