@@ -84,17 +84,18 @@ foreach ($user_acc as $ua) {
 
                         // 4. ดึง user
                         $u = $userId && isset($userMap[$userId]) ? $userMap[$userId] : null;
-                        ?>
+                    ?>
                         <tr>
                             <td><?php echo htmlspecialchars($p['pub_name'] ?? '-'); ?></td>
-                            <td><?php echo htmlspecialchars($u['fname'] ?? '-') . ' ' . htmlspecialchars($u['lname'] ?? '-'); ?>                            </td>
+                            <td><?php echo htmlspecialchars($u['fname'] ?? '-') . ' ' . htmlspecialchars($u['lname'] ?? '-'); ?> </td>
                             <td>
                                 <?php
                                 if (!empty($h['edit_time'])) {
                                     try {
                                         $dt = new DateTime($h['edit_time'], new DateTimeZone("UTC"));
                                         $dt->setTimezone(new DateTimeZone("Asia/Bangkok"));
-                                        echo htmlspecialchars($dt->format("Y-m-d H:i:s"));
+                                        $dt = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
+                                        echo htmlspecialchars($dt->format("d/m/Y H:i:s"));
                                     } catch (Exception $e) {
                                         echo '-';
                                     }
@@ -108,7 +109,7 @@ foreach ($user_acc as $ua) {
                 </tbody>
 
             </table>
-        </divstyle=>
+            </divstyle=>
     </main>
 
     <footer>

@@ -99,7 +99,7 @@ usort($login_log, function ($a, $b) {
                         // ดึง role
                         $typeId = $accId && isset($accTypeMap[$accId]) ? $accTypeMap[$accId] : null;
                         $acc = $typeId && isset($accMap[$typeId]) ? $accMap[$typeId] : null;
-                        ?>
+                    ?>
                         <tr>
                             <td><?php echo $no++; ?></td>
                             <td><?php echo htmlspecialchars(($u['fname'] ?? '-') . ' ' . ($u['lname'] ?? '-')); ?></td>
@@ -112,7 +112,8 @@ usort($login_log, function ($a, $b) {
                                     try {
                                         $dt = new DateTime($log['login_time'], new DateTimeZone("UTC"));
                                         $dt->setTimezone(new DateTimeZone("Asia/Bangkok"));
-                                        echo htmlspecialchars($dt->format("Y-m-d H:i:s"));
+                                        $dt = new DateTime("now", new DateTimeZone('Asia/Bangkok'));
+                                        echo htmlspecialchars($dt->format("d/m/Y H:i:s"));
                                     } catch (Exception $e) {
                                         echo '-';
                                     }
